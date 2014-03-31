@@ -5,7 +5,7 @@ if (!empty($_POST['comments_id'])) {
 
     session_start();
  	$id =  $_POST['comments_id'];
-    $access = $_SESSION['user_type'];
+    $access = $_SESSION['users_type'];
     if ($access !== '1') die(json_encode(array('message' => 'Permissions Denied', 'code' => 502)));
 
 	$query = $con->prepare("DELETE FROM comments WHERE `comments_id` = $id");

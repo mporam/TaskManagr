@@ -5,10 +5,10 @@ if (!empty($_POST['users_id'])) {
 
     session_start();
  	$id =  $_POST['users_id'];
-    $access = $_SESSION['user_type'];
+    $access = $_SESSION['users_type'];
     if ($access !== '1') die(json_encode(array(message => 'Permissions Denied', code => 502)));
 
-	$query = $con->prepare("DELETE FROM users WHERE `comments_id` = $id");
+	$query = $con->prepare("DELETE FROM users WHERE `users_id` = $id");
 
 	try {	
 		$query->execute();
