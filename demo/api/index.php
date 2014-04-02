@@ -65,6 +65,7 @@ var data = {};
     if (url == '/api/users/') {
         data.users_id = $('[data-id="' + url + '"] #users_id').val();
         data.users_type = $('[data-id="' + url + '"] #users_type').val();
+        data.users_name = $('[data-id="' + url + '"] #users_name').val();
     }
 
     if (url == '/api/comments/') {
@@ -212,6 +213,10 @@ margin-top: 10px;
     <div>
         <label>Users ID (accepts only 1 ID)</label>
         <input type="text" name="users_id" id="users_id">
+    </div>
+    <div>
+        <label>Users Name</label>
+        <input type="text" name="users_name" id="users_name">
     </div>
     <div>
         <label>Users Type</label>

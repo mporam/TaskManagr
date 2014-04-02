@@ -14,6 +14,11 @@
         $users_type= $_POST['users_type'];
         $SQL .= " `users_type` = $users_type AND";
     }
+    
+    if (!empty($_POST['users_name'])) {
+        $users_name= $_POST['users_name'];
+        $SQL .= " `users_name` = '$users_name' AND";
+    }
 
     $SQL = rtrim($SQL, ' AND');
     $SQL = rtrim($SQL, ' OR');

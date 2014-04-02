@@ -1,12 +1,12 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
 <script>
-    <?php if (!empty($_GET['code'])) echo "data.projects_code = '" . $_GET['code'] . "'"; ?>
+    <?php if (!empty($_GET['name'])) echo "data.users_name = '" . $_GET['name'] . "'"; ?>
 </script>
-<script src="/js/projects.js"></script>
-<title>Projects</title>
+<script src="/js/users.js"></script>
+<title>Users</title>
 </head>
 <body>
-    <div id="projects">
+    <div id="users">
         <span class="load">Loading...</span>
     </div>
     
