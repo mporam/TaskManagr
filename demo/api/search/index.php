@@ -1,25 +1,17 @@
 <?php
-if (empty($_POST['search_type'])) {
-		$result = array(
-			code => 500,
-			message => 'Please specify search type'
-		);
-		die(json_encode($result));
+if (empty($_POST['search_type']) || empty($_POST['search_term'])) {
+    $result = array(
+        'code' => 500,
+        'message' => 'Please specify search type'
+    );
+    die(json_encode($result));
 }
 
-if (empty($_POST['search_term'])) {
-		$result = array(
-			code => 500,
-			message => 'Please specify search term'
-		);
-		die(json_encode($result));
-}
-
-    require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
-    require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
-    session_start();
-    $access = $_SESSION['users_type'];
-    $term = $_POST['search_term'];
+require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
+session_start();
+$access = $_SESSION['users_type'];
+$term = $_POST['search_term'];
 
 if ($_POST['search_type'] == 'tasks') {
 	
@@ -42,7 +34,7 @@ SELECT * FROM tasks
 		$SQL .= " tasks_deleted <> 1 AND";
 	}
 
-$SQL = rtrim($SQL, ' AND');
+    $SQL = rtrim($SQL, ' AND');
 
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
@@ -50,9 +42,9 @@ $SQL = rtrim($SQL, ' AND');
 // echo $SQL;
 // exit;
 
-$query = $con->prepare($SQL);
-$query -> execute();
-$result = $query->fetchAll(PDO::FETCH_ASSOC);
+    $query = $con->prepare($SQL);
+    $query -> execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($result as $k=>$task) {
     $tasks_assignee = $task['tasks_assignee'];
@@ -110,9 +102,9 @@ foreach($result as $k=>$task) {
 // echo $SQL;
 // exit;
 
-$query = $con->prepare($SQL);
-$query -> execute();
-$result = $query->fetchAll(PDO::FETCH_ASSOC);
+    $query = $con->prepare($SQL);
+    $query -> execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($result as $k =>$project) {
     $project_lead = $project['projects_lead'];
@@ -136,8 +128,8 @@ foreach($result as $k =>$project) {
 
 } else {
     $result = array(
-	code => 500,
-	message => 'Please specify search type'
+        'code' => 500,
+        'message' => 'Please specify search type'
     );
 die(json_encode($result));
 }

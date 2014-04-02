@@ -1,32 +1,34 @@
 <?php
 if (!empty($_POST)) {
 	require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
-        require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
+    require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 
 	$project   =  $_POST['tasks_project'];
-        $type   =  $_POST['tasks_type'];
-        $title =  trim($_POST['tasks_title']);
+    $type   =  $_POST['tasks_type'];
+    $title =  trim($_POST['tasks_title']);
 	$desc =  trim($_POST['tasks_desc']);
+    $status = $_POST['tasks_status'];
 	$priority = $_POST['tasks_priority'];
 	$deadline =  $_POST['tasks_deadline'];
 	$reporter =  (empty($_POST['tasks_reporter']) ? $_SESSION['user_id'] : $_POST['tasks_reporter']);
 	$assignee = (empty($_POST['tasks_assignee']) ? NULL : $_POST['tasks_assignee']);
 	$deleted = (empty($_POST['tasks_deleted']) ? '0' : $_POST['tasks_deleted']);
+    $related = (empty($_POST['tasks_related']) ? NULL : $_POST['tasks_related']);
 
 	if (!empty($_POST['tasks_id'])) {
 		$id = $_POST['tasks_id'];
-		$query = $con->prepare("UPDATE tasks SET `tasks_project`=$project, `tasks_type`=$type, `tasks_title`='$title', `tasks_desc`='$desc', `tasks_status`=$status, `tasks_priority`=$priority, `tasks_deadline`='$deadline', `tasks_updated`='CURDATE()', `tasks_assignee`=$assignee, `tasks_reporter`=$reporter, `tasks_deleted` = $deleted WHERE `tasks_id` = $id");
+		$query = $con->prepare("UPDATE tasks SET `tasks_projects`=$project, `tasks_type`=$type, `tasks_title`='$title', `tasks_desc`='$desc', `tasks_status`=$status, `tasks_priority`=$priority, `tasks_deadline`='$deadline', `tasks_updated`=NOW(), `tasks_assignee`=$assignee, `tasks_reporter`=$reporter, `tasks_deleted` = $deleted, `tasks_related`=$related WHERE `tasks_id` = $id");
 	} else {
-		$query = $con->prepare("INSERT INTO tasks (`tasks_projects` ,`tasks_type` ,`tasks_title` ,`tasks_desc` ,`tasks_status` ,`tasks_priority` ,`tasks_deadline` ,`tasks_created` ,`tasks_updated` ,`tasks_assignee` ,`tasks_reporter`) VALUES ($project, $type, '$title', '$desc', $status, $priority,  '$deadline', 'CURDATE()', 'CURDATE()', $assignee, $reporter)");
+		$query = $con->prepare("INSERT INTO tasks (`tasks_projects` ,`tasks_type` ,`tasks_title` ,`tasks_desc` ,`tasks_status` ,`tasks_priority` ,`tasks_deadline` ,`tasks_created` ,`tasks_updated` ,`tasks_assignee` ,`tasks_reporter`, `tasks_related`) VALUES ($project, $type, '$title', '$desc', $status, $priority,  '$deadline', NOW(), NOW(), $assignee, $reporter, $related)");
 	}
 
 	try {	
 		$query->execute();
 	} catch (PDOException $e) {
 		$result = array(
-			code => 500,
-			message => 'Save Failed. Please try again.'
+			'code' => 500,
+			'message' => 'Save Failed. Please try again.'
 		);
 		die(json_encode($result));
 	}
@@ -37,13 +39,13 @@ if (!empty($_POST)) {
 		$lastid = $_POST['tasks_id'];
 	}
 	$result = array(
-		code => 200,
-		message => 'Task Saved',
-		id => $lastid
+		'code' => 200,
+		'message' => 'Task Saved',
+		'id' => $lastid
 	);
 	
 	echo json_encode($result);
 
 } else {
-	die(json_encode(array(message => 'Internal Server Error', code => 500)));
+	die(json_encode(array('message' => 'Internal Server Error', 'code' => 500)));
 }
