@@ -42,6 +42,7 @@ var data = {};
     var url = $('#api').val();
 
     if (url == '/api/tasks/') {
+        data.count = $('[data-id="' + url + '"] #tasks_count').is(':checked');
         data.tasks_id = $('[data-id="' + url + '"] #tasks_id').val();
         data.projects_id = $('[data-id="' + url + '"] #projects_id').val();
         data.tasks_type = $('[data-id="' + url + '"] #tasks_type').val();
@@ -147,6 +148,10 @@ margin-top: 10px;
 
 <div class="api-type" data-id="/api/tasks/">
     <div>
+        <label>Task Count</label>
+        <input type="checkbox" value="1" name="tasks_count" id="tasks_count">
+    </div>
+    <div>
         <label>Task ID (seperate with , but no spaces)</label>
         <input type="text" name="tasks_id" id="tasks_id">
     </div>
@@ -196,7 +201,7 @@ margin-top: 10px;
         <input type="text" name="tasks_reporter" id="tasks_reporter">
     </div>
     <div>
-        <label>Task Reporter (user ID)</label>
+        <label>Task Related</label>
         <input type="text" name="tasks_related" id="tasks_related">
     </div>
     <div>

@@ -34,14 +34,21 @@ $(function() {
                     projects = data;
                     $('body').trigger('complete');
                     projects.forEach(function(project) {
-                        var row = '<tr>';
-                        row += '<td><a href="/projects/?code=' + project.projects_code + '">' + project.projects_code + '</a></td>';
-                        row += '<td><a href="/projects/?code=' + project.projects_code + '">' + project.projects_name + '</a></td>';
-                        row += '<td><a href="/users/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '</a></td>';
-                        row += '<td><a href="/users/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '</a></td>';
-                        row += '<td><a href="/users/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '</a></td>';
-                        row += '</tr>';
-                        $('#projects table tbody').append(row);
+                        $.ajax({
+                            type: "POST",
+                            url: '/api/tasks/',
+                            data: {count: "true", project_id: project.projects_id},
+                            success: function(taskCount) {
+                                var row = '<tr>';
+                                row += '<td><a href="/projects/?code=' + project.projects_code + '">' + project.projects_code + '</a></td>';
+                                row += '<td><a href="/projects/?code=' + project.projects_code + '">' + project.projects_name + '</a> (' + taskCount + ')</td>';
+                                row += '<td><a href="/users/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '</a></td>';
+                                row += '<td><a href="/users/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '</a></td>';
+                                row += '<td><a href="/users/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '</a></td>';
+                                row += '</tr>';
+                                $('#projects table tbody').append(row);
+                            }
+                        });
                     });
                 }
             });

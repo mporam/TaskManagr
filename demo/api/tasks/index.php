@@ -1,11 +1,13 @@
 <?php
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
-	
+    
 	session_start();
 	$access = $_SESSION['users_type'];
-
-
+    
+    if (!empty($_POST['count']) && $_POST['count'] == "true") {
+        $SQL = "SELECT COUNT(*) FROM tasks WHERE";
+    } else {
     $SQL = "
 SELECT * FROM tasks
     LEFT JOIN tasks_type 
@@ -17,6 +19,7 @@ SELECT * FROM tasks
     LEFT JOIN projects
         ON tasks.tasks_projects = projects.projects_id 
     WHERE";
+}
 
     // Get specific task
     if (!empty($_POST['tasks_id']) && strpos($_POST['tasks_id'],',') === false) {
@@ -34,7 +37,7 @@ SELECT * FROM tasks
 
     if (!empty($_POST['project_id'])) {
         $project_id = $_POST['project_id'];
-        $SQL .= " tasks_projects_id = $project_id AND";
+        $SQL .= " tasks_projects = $project_id AND";
     }
 
     if (!empty($_POST['tasks_type'])) {
@@ -92,7 +95,15 @@ $SQL = rtrim($SQL, ' WHERE');
 
 $query = $con->prepare($SQL);
 $query -> execute();
-$tasks = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (!empty($_POST['count']) && $_POST['count'] == "true") {
+    $tasks = $query->fetchColumn();
+    header('Content-Type: application/json');
+    echo json_encode($tasks);
+    exit;
+} else {
+    $tasks = $query->fetchAll(PDO::FETCH_ASSOC);
+}
 
 foreach($tasks as $k=>$task) {
     $tasks_assignee = $task['tasks_assignee'];
@@ -107,10 +118,12 @@ foreach($tasks as $k=>$task) {
     $reporter = $query->fetch(PDO::FETCH_ASSOC);
     $tasks[$k]['tasks_reporter'] = (empty($reporter) ? 'Unassigned' : $reporter);
 
-    $tasks_related = $task['tasks_related'];
-    $query = $con->prepare("SELECT `tasks_id`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
-    $query -> execute();
-    $tasks[$k]['tasks_related'] = $query->fetch(PDO::FETCH_ASSOC);
+    if (!empty($task['tasks_related'])) {
+        $tasks_related = $task['tasks_related'];
+        $query = $con->prepare("SELECT `tasks_id`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
+        $query -> execute();
+        $tasks[$k]['tasks_related'] = $query->fetch(PDO::FETCH_ASSOC);
+    }
 
     $projects_lead = $task['projects_lead'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $projects_lead");
