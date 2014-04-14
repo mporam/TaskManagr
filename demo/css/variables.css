@@ -1,0 +1,27 @@
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.padding {
+  padding: 0;
+}
+
+.margin {
+  margin: 0;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
