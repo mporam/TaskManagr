@@ -78,3 +78,6 @@
 .clear {
   clear: both;
 }
+body {
+  background: #ffffff;
+}

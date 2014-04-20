@@ -2,6 +2,7 @@
 
 <link href="/css/normalize.css" rel="stylesheet" media="screen">
 <link href="/css/core.less" rel="stylesheet/less" media="screen">
+<link href="/css/stylesheet.css" rel="stylesheet/less" media="screen">
 
 <script src="/js/libraries/jquery-1.10.1.min.js"></script>
 <script src="/js/core.js"></script>
@@ -21,5 +22,7 @@
     relativeUrls: false
   };
 </script>
+
+<!-- ^^^^^^^^^^ Why is JS in the head instead of an external file? ^^^^^^^^ -->
 
 <script src="/js/libraries/less.js" type="text/javascript"></script>
