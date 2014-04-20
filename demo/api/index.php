@@ -42,7 +42,6 @@ var data = {};
     var url = $('#api').val();
 
     if (url == '/api/tasks/') {
-        data.count = $('[data-id="' + url + '"] #tasks_count').is(':checked');
         data.tasks_id = $('[data-id="' + url + '"] #tasks_id').val();
         data.projects_id = $('[data-id="' + url + '"] #projects_id').val();
         data.tasks_type = $('[data-id="' + url + '"] #tasks_type').val();
@@ -57,7 +56,6 @@ var data = {};
 
     if (url == '/api/projects/') {
         data.projects_id = $('[data-id="' + url + '"] #projects_id').val();
-        data.projects_code = $('[data-id="' + url + '"] #projects_code').val();
         data.projects_lead = $('[data-id="' + url + '"] #projects_lead').val();
         data.projects_client = $('[data-id="' + url + '"] #projects_client').val();
 		data.projects_manager = $('[data-id="' + url + '"] #projects_manager').val();
@@ -66,7 +64,6 @@ var data = {};
     if (url == '/api/users/') {
         data.users_id = $('[data-id="' + url + '"] #users_id').val();
         data.users_type = $('[data-id="' + url + '"] #users_type').val();
-        data.users_name = $('[data-id="' + url + '"] #users_name').val();
     }
 
     if (url == '/api/comments/') {
@@ -92,7 +89,10 @@ var data = {};
     data: data,
     success: function(data, textStatus, jqXHR) {
     $('#result code').html(JSON.stringify(data, null, ' '));
-}
+},
+    error: function(data, textStatus, jqXHR) {
+        $('#result code').html(JSON.stringify(data.responseText, null, ' '));
+    }
     });
     });
 });
@@ -129,10 +129,6 @@ margin-top: 10px;
         <input type="text" name="projects_id" id="projects_id">
     </div>
     <div>
-        <label>Project code (accepts only 1 code)</label>
-        <input type="text" name="projects_code" id="projects_code">
-    </div>
-    <div>
         <label>Project Lead (user ID)</label>
         <input type="text" name="projects_lead" id="projects_lead">
     </div>
@@ -147,10 +143,6 @@ margin-top: 10px;
 </div>
 
 <div class="api-type" data-id="/api/tasks/">
-    <div>
-        <label>Task Count</label>
-        <input type="checkbox" value="1" name="tasks_count" id="tasks_count">
-    </div>
     <div>
         <label>Task ID (seperate with , but no spaces)</label>
         <input type="text" name="tasks_id" id="tasks_id">
@@ -201,7 +193,7 @@ margin-top: 10px;
         <input type="text" name="tasks_reporter" id="tasks_reporter">
     </div>
     <div>
-        <label>Task Related</label>
+        <label>Task Reporter (user ID)</label>
         <input type="text" name="tasks_related" id="tasks_related">
     </div>
     <div>
@@ -218,10 +210,6 @@ margin-top: 10px;
     <div>
         <label>Users ID (accepts only 1 ID)</label>
         <input type="text" name="users_id" id="users_id">
-    </div>
-    <div>
-        <label>Users Name</label>
-        <input type="text" name="users_name" id="users_name">
     </div>
     <div>
         <label>Users Type</label>
