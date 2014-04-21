@@ -7,7 +7,7 @@
     
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/left.php'); ?> 
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?> 
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/main.php'); ?> 
 
