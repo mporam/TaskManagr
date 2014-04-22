@@ -5,23 +5,25 @@
 
 .grid { 
 	width: 100%;
-	padding: 5px 10px;
+	padding: 0 10px;
 	&:after { 
 		content: "";
   		display: table;
-  		clear: both; } 
+  		clear: both;
+    } 
 }
 
 /* -----------------  Columns */
 
 /* Global */
 
-[class*='col-'] { @left; }
+[class*='col-'] { .left }
 
 [class*='col-'] > * { 
 	padding: 0 @pad;
 	margin: 0 10px;
-	background: #ccc; }
+	background: @colbg;
+}
 
 /* Twelfth */
 

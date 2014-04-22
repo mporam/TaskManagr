@@ -1,4 +1,4 @@
-<div class="col-1-12">
+<div class="col-1">
 
 <nav>
 	<ul>
@@ -28,3 +28,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/footer.php'); ?> 
 
 </div>
+
+<div class="main col-11">
