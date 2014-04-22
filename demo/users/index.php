@@ -2,7 +2,7 @@
 <script>
     <?php if (!empty($_GET['name'])) echo "data.users_name = '" . $_GET['name'] . "'"; ?>
 </script>
-<script src="/js/users.js"></script>
+<script src="/js/users/core.js"></script>
 <title>Users</title>
 </head>
 <body>
