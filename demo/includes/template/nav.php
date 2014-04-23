@@ -3,24 +3,34 @@
 <nav>
 	<ul>
 		<li class="home">
-			<img src="#">
-			Home
+            <a href="/">
+                <img src="#">
+                Home
+            </a>
 		</li>
 		<li class="projects">
-			<img src="#">
-			Projects
+            <a href="/projects/">
+                <img src="#">
+                Projects
+            </a>
 		</li>
 		<li class="tasks">
-			<img src="#">
-			Tasks
+            <a href="/tasks/">
+                <img src="#">
+                Tasks
+            </a>
 		</li>
 		<li class="users">
-			<img src="#">
-			Users
+            <a href="/users/">
+                <img src="#">
+                Users
+            </a>
 		</li>
-		<li class="settings">
-			<img src="#">
-			Settings
+		<li class="workflow">
+            <a href="/workflow/">
+                <img src="#">
+                Workflow
+            </a>
 		</li>
 	</ul>
 </nav>
