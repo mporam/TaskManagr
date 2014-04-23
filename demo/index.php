@@ -6,17 +6,18 @@ require($_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php');
 <!DOCTYPE html>
 <html>
 <head>
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
-<script src="/js/dashboard/core.js" type="text/javascript"></script>
-<title>Admin</title>
+    <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
+    <script src="/js/dashboard/core.js" type="text/javascript"></script>
+    <title>Admin</title>
 </head>
-<body>
-<?php var_dump($_SESSION); ?>
+<body>    
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
-<div id="inprogress">
-<table>
-</table>
-</div>
+    <?php var_dump($_SESSION); ?>
 
-</body>
-</html>
+    <div id="inprogress">
+        <table>
+        </table>
+    </div>
+
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 

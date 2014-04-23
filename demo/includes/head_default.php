@@ -1,7 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="/css/normalize.css" rel="stylesheet" media="screen">
-<link href="/css/core.less" rel="stylesheet/less" media="screen">
+<link href="/css/stylesheet.less" rel="stylesheet/less" media="screen">
 
 <script>
     var session = <?php echo json_encode($_SESSION); ?>;
