@@ -2,7 +2,9 @@
 
 <title>Admin</title>
 </head>
-<body>
-<?php var_dump($_SESSION); ?>
-    
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>
+<body>    
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
+
+    <?php var_dump($_SESSION); ?>
+
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
