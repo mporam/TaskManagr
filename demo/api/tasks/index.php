@@ -18,7 +18,7 @@ SELECT * FROM tasks
         ON tasks.tasks_projects = projects.projects_id 
     WHERE";
 
-    // Get specific task
+    // Get specific task by id
     if (!empty($_POST['tasks_id']) && strpos($_POST['tasks_id'],',') === false) {
         $tasks_id = $_POST['tasks_id'];
         $SQL .= " `tasks_id` = $tasks_id AND";
@@ -30,6 +30,25 @@ SELECT * FROM tasks
             }
             $SQL = rtrim($SQL, ' OR');
             $SQL .= " AND";
+    }
+
+    // Get specific task by count num
+    if (!empty($_POST['tasks_count']) && strpos($_POST['tasks_count'],',') === false) {
+        $tasks_count = $_POST['tasks_count'];
+        $SQL .= " `tasks_count` = $tasks_count AND";
+    } else if 
+        (!empty($_POST['tasks_count']) && strpos($_POST['tasks_count'],',') !== false) {
+            $task_counts = explode(',', $_POST['tasks_count']);
+            foreach($task_counts as $task_count) {
+                $SQL .= " `tasks_count` = $task_count OR";
+            }
+            $SQL = rtrim($SQL, ' OR');
+            $SQL .= " AND";
+    }
+
+    if (!empty($_POST['projects_code'])) {
+        $project_code = $_POST['projects_code'];
+        $SQL .= " projects.projects_code = '$project_code' AND";
     }
 
     if (!empty($_POST['projects_id'])) {
@@ -69,7 +88,7 @@ SELECT * FROM tasks
 	
 	// hide tasks if not admin
 	if ($access !== '0') {
-		$SQL .= " tasks_deleted <> 1 AND";
+		$SQL .= " (tasks_deleted <> 1 OR tasks_deleted IS NULL) AND";
 	}
 
     // this must be the last if!!

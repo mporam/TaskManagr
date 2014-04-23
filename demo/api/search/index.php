@@ -41,7 +41,7 @@ SELECT * FROM tasks
  	
 	// hide tasks if not admin
 	if ($access !== '0') {
-		$SQL .= " tasks_deleted <> 1 AND";
+		$SQL .= " (tasks_deleted <> 1 OR tasks_deleted IS NULL) AND";
 	}
 
 $SQL = rtrim($SQL, ' AND');
@@ -101,7 +101,7 @@ foreach($result as $k=>$task) {
  	
 	// hide tasks if not admin
 	if ($access !== '0') {
-		$SQL .= " projects_deleted <> 1 AND";
+		$SQL .= " (projects_deleted <> 1 OR projects_deleted IS NULL) AND";
 	}
 
     $SQL = rtrim($SQL, ' AND');

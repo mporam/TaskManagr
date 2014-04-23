@@ -1,11 +1,11 @@
 <?php
 if (!empty($_POST)) {
 	require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
-    require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
+        require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 	$name =  trim($_POST['projects_name']);
-    $code =  $_POST['projects_code'];
-    $desc =  trim($_POST['projects_desc']);
+        $code =  $_POST['projects_code'];
+        $desc =  trim($_POST['projects_desc']);
  	$lead =  $_POST['projects_lead'];
 	$client = $_POST['projects_client'];
 	$manager = $_POST['projects_manager'];
@@ -22,8 +22,8 @@ if (!empty($_POST)) {
 		$query->execute();
 	} catch (PDOException $e) {
 		$result = array(
-			'code' => 500,
-			'message' => 'Save Failed. Please try again.'
+			code => 500,
+			message => 'Save Failed. Please try again.'
 		);
 		die(json_encode($result));
 	}
@@ -34,13 +34,13 @@ if (!empty($_POST)) {
 		$lastid = $_POST['projects_id'];
 	}
 	$result = array(
-		'code' => 200,
-		'message' => 'Project Saved',
-		'id' => $lastid
+		code => 200,
+		message => 'Project Saved',
+		id => $lastid
 	);
 	
 	echo json_encode($result);
 
 } else {
-	die(json_encode(array('message' => 'Internal Server Error', 'code' => 500)));
+	die(json_encode(array(message => 'Internal Server Error', code => 500)));
 }

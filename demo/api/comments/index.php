@@ -19,7 +19,7 @@
 	
 	// hide tasks if not admin
 	if ($access !== '0') {
-		$SQL .= " comments_deleted <> 1 AND";
+		$SQL .= " (comments_deleted <> 1 OR comments_deleted IS NULL) AND";
 	}
 
     $SQL = rtrim($SQL, ' AND');
@@ -37,7 +37,7 @@ $query -> execute();
 $comments = $query->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($comments as $k =>$comment) {
-    $comment_user = $comment['comment_user'];
+    $comment_user = $comment['comments_user'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $comment_user");
     $query -> execute();
     $user = $query->fetch(PDO::FETCH_ASSOC);

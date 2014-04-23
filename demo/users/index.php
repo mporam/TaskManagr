@@ -5,6 +5,7 @@
 <script src="/js/users/core.js"></script>
 <title>Users</title>
 </head>
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 <body>
     <div id="users">
         <span class="load">Loading...</span>

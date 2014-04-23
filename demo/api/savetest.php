@@ -15,8 +15,8 @@
             $('#user').on('click', function(e) {
                 e.preventDefault();
                 
-                data.users_name = 'Test Client';
-                data.users_email = 'test@email.com';
+                data.users_name = 'Test Client 2';
+                data.users_email = 'mikeoram@mikeoram.co.uk';
                 data.users_type = 4;
 
                 $.ajax({
@@ -81,7 +81,6 @@
             $('#task').on('click', function(e) {
                 e.preventDefault();
                 
-                data.tasks_id = 5;
                 data.tasks_project = 1;
                 data.tasks_type = 1;
                 data.tasks_title = "Insert task via API";
