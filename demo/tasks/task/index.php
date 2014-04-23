@@ -21,12 +21,12 @@
 
 <div id="task">
 Loading...
+</div>
 <div id="comments">
     <form>
         <textarea name="comment" id="comment" required></textarea>
         <input type="submit" value="Add">
     </form>
-</div>
 </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 

@@ -3,7 +3,7 @@
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 	session_start();
-	$access = $_SESSION['users_tasks'];
+	$access = $_SESSION['users_type'];
 
     $SQL = "SELECT * FROM comments WHERE";
 

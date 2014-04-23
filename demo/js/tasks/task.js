@@ -15,7 +15,7 @@ var task, comments;
         $('#task').html('');
         $('#task').append('<h2>' + task.tasks_title + '</h2>');
         $('#task').append('<ul><li>Status: ' + task.tasks_status + '</li><li>Priority: ' + task.tasks_priority + '</li><li>Deadline: ' + task.tasks_deadline + '</li><li>Type: ' + task.tasks_type + '</li><li>Assigned to: ' + task.tasks_assignee.users_name + '</li><li>Reported by: ' + task.tasks_reporter.users_name + '</li></ul>');
-         $('#task').append('<div><h5>Description</h5><p>' + task.tasks_desc + '</p></div>');
+        $('#task').append('<div><h5>Description</h5><p>' + task.tasks_desc + '</p></div>');
 
         $.ajax({
             type: "POST",

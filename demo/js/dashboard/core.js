@@ -2,13 +2,10 @@ $(function() {
     $.ajax({
         type: "POST",
         url: "/api/tasks/",
-        data: {"tasks_assignee": session.users_id},
+        data: {"tasks_assignee": session.users_id, "tasks_status": "2"},
         success: function(data) {
-            console.log(data);
             data.forEach(function(task) {
-                if (task.tasks_status == "2") {
-                    $('#inprogress table').append('<tr><td>' + task.tasks_title + '</td></tr>');
-                }
+                $('#inprogress table').append('<tr><td>' + task.tasks_title + '</td></tr>');
             });
         }
     });
