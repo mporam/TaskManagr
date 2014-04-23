@@ -5,7 +5,6 @@
 	session_start();
 	$access = $_SESSION['users_type'];
 
-
     $SQL = "
 SELECT * FROM tasks
     LEFT JOIN tasks_type 
@@ -18,6 +17,10 @@ SELECT * FROM tasks
         ON tasks.tasks_projects = projects.projects_id 
     WHERE";
 
+    if (!empty($_POST['count']) && $_POST['count'] == "true") {
+        $SQL = "SELECT COUNT(*) FROM tasks WHERE";
+    }
+    
     // Get specific task by id
     if (!empty($_POST['tasks_id']) && strpos($_POST['tasks_id'],',') === false) {
         $tasks_id = $_POST['tasks_id'];
@@ -99,9 +102,9 @@ SELECT * FROM tasks
         $SQL .= " tasks_deadline BETWEEN 'CURDATE()' AND '$task_deadline' AND";
     }
 
-$SQL = rtrim($SQL, ' OR');
-$SQL = rtrim($SQL, ' AND');
-$SQL = rtrim($SQL, ' WHERE');
+    $SQL = rtrim($SQL, ' OR');
+    $SQL = rtrim($SQL, ' AND');
+    $SQL = rtrim($SQL, ' WHERE');
 
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
@@ -111,6 +114,14 @@ $SQL = rtrim($SQL, ' WHERE');
 
 $query = $con->prepare($SQL);
 $query -> execute();
+
+if (!empty($_POST['count']) && $_POST['count'] == "true") {
+    $tasks = $query->fetchColumn();
+    header('Content-Type: application/json');
+    echo json_encode($tasks);
+    exit;
+}
+
 $tasks = $query->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($tasks as $k=>$task) {
