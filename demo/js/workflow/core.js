@@ -7,8 +7,8 @@ $(function() {
         data: {"table_name": "tasks_status", "order": "tasks_status_id"},
         success: function(data) {
             data.forEach(function(status) {
-                $('#workflow table thead tr').append('<th data-status-id="' + status.tasks_status_id + '">' + status.tasks_status + '</th>');
-                 $('#workflow table tbody tr').append('<td class="column" data-status-id="' + status.tasks_status_id + '"></td>');
+                $('#workflow-titles').append('<div class="col-2 column" data-status-id="' + status.tasks_status_id + '"><div><strong>' + status.tasks_status + '</strong></div></div>');
+                 $('#workflow-tasks').append('<div class="col-2 column ' + status.tasks_status.replace(/\s/g, "-") + '" data-status-id="' + status.tasks_status_id + '"></div>');
             });
             $('#workflow').trigger('thead-load');
         }
@@ -33,15 +33,15 @@ $(function() {
                 success: function(data) {
                     tasks = data;
                     tasks.forEach(function(task) {
-                        $('#workflow table tbody tr').find('td[data-status-id="' + task.tasks_status_id + '"]').append('<div class="task-box" data-task-id="' + task.tasks_id + '">' + task.projects_code + '-' + task.tasks_count + ': ' + task.tasks_title + '</div>');
+                        $('#workflow-tasks').find('.column[data-status-id="' + task.tasks_status_id + '"]').append('<div class="task-box" data-task-id="' + task.tasks_id + '">' + task.projects_code + '-' + task.tasks_count + ': ' + task.tasks_title + '</div>');
                     });
 
-                    $("#workflow .column").sortable({
+                    $("#workflow-tasks .column").sortable({
                         connectWith: ".column",
                         placeholder: "task-placeholder"
                     });
 
-                    $("#workflow .column").on("sortreceive", function(event, ui) {
+                    $("#workflow-tasks .column").on("sortreceive", function(event, ui) {
                         var item = ui.item;
                         var col = $(this);
 
