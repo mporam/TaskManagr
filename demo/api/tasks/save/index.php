@@ -17,7 +17,20 @@ if (!empty($_POST)) {
 
 	if (!empty($_POST['tasks_id'])) {
 		$id = $_POST['tasks_id'];
-		$query = $con->prepare("UPDATE tasks SET `tasks_projects`=$project, `tasks_type`=$type, `tasks_title`='$title', `tasks_desc`='$desc', `tasks_status`=$status, `tasks_priority`=$priority, `tasks_deadline`='$deadline', `tasks_updated`=CURDATE(), `tasks_assignee`=$assignee, `tasks_reporter`=$reporter, `tasks_deleted` = $deleted WHERE `tasks_id` = $id");
+                $SQL = "UPDATE tasks SET ";
+
+                if (!empty($type)) $SQL .= "`tasks_type`=$type, ";
+                if (!empty($title)) $SQL .= "`tasks_title`='$title',  ";
+                if (!empty($desc)) $SQL .= "`tasks_desc`='$desc', ";
+                if (!empty($status)) $SQL .= "`tasks_status`=$status, ";
+                if (!empty($priority)) $SQL .= "`tasks_priority`=$priority, ";
+                if (!empty($deadline)) $SQL .= "`tasks_deadline`='$deadline', ";
+                if (!empty($assignee)) $SQL .= "`tasks_assignee`=$assignee, ";
+                if (!empty($reporter)) $SQL .= "`tasks_reporter`=$reporter, ";
+                if (!empty($deleted)) $SQL .= "`tasks_deleted` = $deleted ,";
+                $SQL .= "`tasks_updated`=CURDATE() WHERE `tasks_id` = $id";
+
+		$query = $con->prepare($SQL);
 	} else {
                 $query = $con->prepare("SELECT COUNT('tasks_id') FROM tasks WHERE `tasks_projects` = $project");
                 $query->execute();
@@ -33,6 +46,7 @@ if (!empty($_POST)) {
 			code => 500,
 			message => 'Save Failed. Please try again.'
 		);
+                header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
 	
@@ -50,5 +64,6 @@ if (!empty($_POST)) {
 	echo json_encode($result);
 
 } else {
-	die(json_encode(array(message => 'Internal Server Error', code => 500)));
+        header("HTTP/1.0 400 Bad Request", 400);
+	die(json_encode(array(message => 'Incomplete Data', code => 400)));
 }

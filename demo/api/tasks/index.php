@@ -5,6 +5,7 @@
 	session_start();
 	$access = $_SESSION['users_type'];
 
+
     $SQL = "
 SELECT * FROM tasks
     LEFT JOIN tasks_type 
@@ -17,10 +18,6 @@ SELECT * FROM tasks
         ON tasks.tasks_projects = projects.projects_id 
     WHERE";
 
-    if (!empty($_POST['count']) && $_POST['count'] == "true") {
-        $SQL = "SELECT COUNT(*) FROM tasks WHERE";
-    }
-    
     // Get specific task by id
     if (!empty($_POST['tasks_id']) && strpos($_POST['tasks_id'],',') === false) {
         $tasks_id = $_POST['tasks_id'];
@@ -57,6 +54,11 @@ SELECT * FROM tasks
     if (!empty($_POST['projects_id'])) {
         $project_id = $_POST['projects_id'];
         $SQL .= " tasks_projects = $project_id AND";
+    }
+
+    if (!empty($_POST['projects_client'])) {
+        $project_client = $_POST['projects_client'];
+        $SQL .= " projects.projects_client = $project_client AND";
     }
 
     if (!empty($_POST['tasks_type'])) {
@@ -102,9 +104,9 @@ SELECT * FROM tasks
         $SQL .= " tasks_deadline BETWEEN 'CURDATE()' AND '$task_deadline' AND";
     }
 
-    $SQL = rtrim($SQL, ' OR');
-    $SQL = rtrim($SQL, ' AND');
-    $SQL = rtrim($SQL, ' WHERE');
+$SQL = rtrim($SQL, ' OR');
+$SQL = rtrim($SQL, ' AND');
+$SQL = rtrim($SQL, ' WHERE');
 
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
@@ -115,14 +117,17 @@ SELECT * FROM tasks
 $query = $con->prepare($SQL);
 $query -> execute();
 
-if (!empty($_POST['count']) && $_POST['count'] == "true") {
-    $tasks = $query->fetchColumn();
-    header('Content-Type: application/json');
-    echo json_encode($tasks);
-    exit;
+if ($query->errorCode() !== "00000") {
+    header("HTTP/1.0 400 Bad Request", 400);
+    die(json_encode(array(message => 'Bad Request', code => 400)));
 }
 
 $tasks = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($tasks)) {
+    header("HTTP/1.0 404 Not Found", 404);
+    die(json_encode(array(message => 'No Tasks Found', code => 404)));
+}
 
 foreach($tasks as $k=>$task) {
     $tasks_assignee = $task['tasks_assignee'];
@@ -154,7 +159,7 @@ foreach($tasks as $k=>$task) {
     $client = $query->fetch(PDO::FETCH_ASSOC);
     $tasks[$k]['projects_client'] = (empty($client) ? 'Unassigned' : $client);
 	
-	$projects_manager = $task['projects_manager'];
+    $projects_manager = $task['projects_manager'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $projects_manager");
     $query -> execute();
     $manager = $query->fetch(PDO::FETCH_ASSOC);

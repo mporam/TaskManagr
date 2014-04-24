@@ -1,19 +1,19 @@
 <?php
 if (empty($_POST['search_type'])) {
 		$result = array(
-			code => 500,
+			code => 400,
 			message => 'Please specify search type'
 		);
-                header(' ', false, 500);
+                header("HTTP/1.0 400 Bad Request", 400);
 		die(json_encode($result));
 }
 
 if (empty($_POST['search_term'])) {
 		$result = array(
-			code => 500,
+			code => 400,
 			message => 'Please specify search term'
 		);
-                header(' ', false, 500);
+                header("HTTP/1.0 400 Bad Request", 400);;
 		die(json_encode($result));
 }
 
@@ -54,7 +54,18 @@ $SQL = rtrim($SQL, ' AND');
 
 $query = $con->prepare($SQL);
 $query -> execute();
+
+if ($query->errorCode() !== "00000") {
+    header("HTTP/1.0 400 Bad Request", 400);
+    die(json_encode(array(message => 'Bad Request', code => 400)));
+}
+
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($result)) {
+    header("HTTP/1.0 404 Not Found", 404);
+    die(json_encode(array(message => 'Not Found', code => 404)));
+}
 
 foreach($result as $k=>$task) {
     $tasks_assignee = $task['tasks_assignee'];
@@ -114,7 +125,18 @@ foreach($result as $k=>$task) {
 
 $query = $con->prepare($SQL);
 $query -> execute();
+
+if ($query->errorCode() !== "00000") {
+    header("HTTP/1.0 400 Bad Request", 400);
+    die(json_encode(array(message => 'Bad Request', code => 400)));
+}
+
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($result)) {
+    header("HTTP/1.0 404 Not Found", 404);
+    die(json_encode(array(message => 'Not Found', code => 404)));
+}
 
 foreach($result as $k =>$project) {
     $project_lead = $project['projects_lead'];
@@ -138,10 +160,10 @@ foreach($result as $k =>$project) {
 
 } else {
     $result = array(
-	code => 500,
+	code => 400,
 	message => 'Please specify search type'
     );
-header(' ', false, 500);
+header("HTTP/1.0 400 Bad Request", 400);
 die(json_encode($result));
 }
 

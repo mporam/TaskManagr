@@ -19,4 +19,4 @@
 
 </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

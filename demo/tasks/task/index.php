@@ -7,8 +7,6 @@
         exit;
     } else { ?>
         <script>
-        var get = {};
-        get.task = "<?php echo $_GET['task']; ?>";
         get.projects_code = get.task.split("-")[0];
         get.tasks_count = get.task.split("-")[1];
         </script>
@@ -29,4 +27,4 @@ Loading...
     </form>
 </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

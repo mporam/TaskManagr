@@ -23,6 +23,7 @@ if (!empty($_POST)) {
 			code => 500,
 			message => 'Save Failed. Please try again.'
 		);
+                header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
 	
@@ -40,5 +41,6 @@ if (!empty($_POST)) {
 	echo json_encode($result);
 
 } else {
-	die(json_encode(array(message => 'Internal Server Error', code => 500)));
+        header("HTTP/1.0 400 Bad Request", 400);
+	die(json_encode(array(message => 'Incomplete data', code => 400)));
 }
