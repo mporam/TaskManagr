@@ -5,11 +5,7 @@
 
 .grid { 
 	width: 100%;
-	&:after { 
-		content: "";
-  		display: table;
-  		clear: both;
-    } 
+	overflow: auto;
 }
 
 /* -----------------  Columns */
@@ -18,12 +14,13 @@
 
 [class*='col-'] { 
 	.left;
-	padding: @pad;
-	background: @colbg; }
+	padding: 0 @pad;
+	background: @col-bg; }
 
-[class*='col-'].grid > * { padding: 0 @pad 0 0; }
 
-[class*='col-'].grid > *:last-child { padding: 0; }
+/* [class*='col-'] > * { padding: 5px 10px; }
+
+   [class*='col-'].grid > *:last-child { padding: 0; } */
 
 /* Twelfth */
 
