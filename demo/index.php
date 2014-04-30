@@ -3,13 +3,17 @@
     <title>Admin</title>
 </head>
 <body>    
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
-
-    <?php var_dump($_SESSION); ?>
+<div class="grid">     
+	
+	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?> 
+    
+	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
     <div id="inprogress">
         <table>
         </table>
     </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+
+</div>

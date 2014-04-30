@@ -5,7 +5,6 @@
 
 .grid { 
 	width: 100%;
-	padding: 0 10px;
 	&:after { 
 		content: "";
   		display: table;
@@ -17,13 +16,14 @@
 
 /* Global */
 
-[class*='col-'] { .left }
+[class*='col-'] { 
+	.left;
+	padding: @pad;
+	background: @colbg; }
 
-[class*='col-'] > * { 
-	padding: 0 @pad;
-	margin: 0 10px;
-	background: @colbg;
-}
+[class*='col-'].grid > * { padding: 0 @pad 0 0; }
+
+[class*='col-'].grid > *:last-child { padding: 0; }
 
 /* Twelfth */
 
