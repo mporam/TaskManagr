@@ -119,14 +119,14 @@ $query -> execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
-    die(json_encode(array(message => 'Bad Request', code => 400)));
+    die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
 }
 
 $tasks = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($tasks)) {
     header("HTTP/1.0 404 Not Found", 404);
-    die(json_encode(array(message => 'No Tasks Found', code => 404)));
+    die(json_encode(array('message' => 'No Tasks Found', 'code' => 404)));
 }
 
 foreach($tasks as $k=>$task) {
