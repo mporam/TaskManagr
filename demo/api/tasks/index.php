@@ -4,10 +4,14 @@
 	
 	session_start();
 	$access = $_SESSION['users_type'];
-
-
-    $SQL = "
-SELECT * FROM tasks
+    
+    $SQL = "SELECT * FROM tasks";
+    
+    if (!empty($_POST['count']) && $_POST['count']) {
+        $SQL = "SELECT COUNT(*) FROM tasks";
+    }
+    
+    $SQL .= "
     LEFT JOIN tasks_type 
         ON tasks.tasks_type = tasks_type.tasks_type_id
     LEFT JOIN tasks_status
@@ -104,9 +108,9 @@ SELECT * FROM tasks
         $SQL .= " tasks_deadline BETWEEN 'CURDATE()' AND '$task_deadline' AND";
     }
 
-$SQL = rtrim($SQL, ' OR');
-$SQL = rtrim($SQL, ' AND');
-$SQL = rtrim($SQL, ' WHERE');
+    $SQL = rtrim($SQL, ' OR');
+    $SQL = rtrim($SQL, ' AND');
+    $SQL = rtrim($SQL, ' WHERE');
 
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
@@ -120,6 +124,13 @@ $query -> execute();
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
     die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
+}
+
+if (!empty($_POST['count']) && $_POST['count']) {
+    $tasks = $query->fetchColumn(); 
+    header('Content-Type: application/json');
+    echo json_encode($tasks);
+    exit;
 }
 
 $tasks = $query->fetchAll(PDO::FETCH_ASSOC);

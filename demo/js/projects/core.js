@@ -14,7 +14,7 @@ $(function() {
                     $.ajax({
                         type: "POST",
                         url: '/api/tasks/',
-                        data: {count: "true", project_id: project.projects_id},
+                        data: {count: "true", projects_id: project.projects_id},
                         success: function(taskCount) {
                             var row = '<tr>';
                             row += '<td><a href="/projects/project/?project=' + project.projects_code + '">' + project.projects_code + '</a></td>';
