@@ -164,6 +164,8 @@ foreach($tasks as $k=>$task) {
     $query -> execute();
     $manager = $query->fetch(PDO::FETCH_ASSOC);
     $tasks[$k]['projects_manager'] = (empty($manager) ? 'Unassigned' : $manager);
+    
+    $tasks[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];
 }
 
 header('Content-Type: application/json');

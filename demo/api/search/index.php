@@ -1,17 +1,17 @@
 <?php
 if (empty($_POST['search_type'])) {
 		$result = array(
-			code => 400,
-			message => 'Please specify search type'
+			'code' => 400,
+			'message' => 'Please specify search type'
 		);
-                header("HTTP/1.0 400 Bad Request", 400);
+        header("HTTP/1.0 400 Bad Request", 400);
 		die(json_encode($result));
 }
 
 if (empty($_POST['search_term'])) {
 		$result = array(
-			code => 400,
-			message => 'Please specify search term'
+			'code' => 400,
+			'message' => 'Please specify search term'
 		);
                 header("HTTP/1.0 400 Bad Request", 400);;
 		die(json_encode($result));
@@ -25,6 +25,9 @@ if (empty($_POST['search_term'])) {
 
 if ($_POST['search_type'] == 'tasks') {
 	
+    // pass in search field - default to task title
+    $field = (!empty($_POST['field']) ? $_POST['field']:'tasks_title');
+    
     $SQL = "
 SELECT * FROM tasks
     LEFT JOIN tasks_type 
@@ -37,14 +40,22 @@ SELECT * FROM tasks
         ON tasks.tasks_projects = projects.projects_id 
     WHERE";
 
-    $SQL .= " `tasks_title` LIKE '%$term%' AND";
+    $SQL .= " `" . $field . "` LIKE '%$term%' AND";
+    
+    if (!empty($_POST['field2']) && !empty($_POST['search_term2'])) {
+        $term2 = $_POST['search_term2'];
+        $field2 = $_POST['field2'];
+        $SQL = rtrim($SQL, ' AND');
+        $SQL .= " OR `" . $field2 . "` LIKE '%$term2%' AND";
+    }
  	
-	// hide tasks if not admin
+	// hide deleted if not admin
 	if ($access !== '0') {
 		$SQL .= " (tasks_deleted <> 1 OR tasks_deleted IS NULL) AND";
 	}
 
-$SQL = rtrim($SQL, ' AND');
+    $SQL = rtrim($SQL, ' AND');
+    $SQL = rtrim($SQL, ' OR');
 
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
@@ -57,14 +68,14 @@ $query -> execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
-    die(json_encode(array(message => 'Bad Request', code => 400)));
+    die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
 }
 
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($result)) {
     header("HTTP/1.0 404 Not Found", 404);
-    die(json_encode(array(message => 'Not Found', code => 404)));
+    die(json_encode(array('message' => 'Not Found', 'code' => 404)));
 }
 
 foreach($result as $k=>$task) {
@@ -102,12 +113,13 @@ foreach($result as $k=>$task) {
     $query -> execute();
     $manager = $query->fetch(PDO::FETCH_ASSOC);
     $result[$k]['projects_manager'] = (empty($manager) ? 'Unassigned' : $manager);
+    
+    $result[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];
 }
 
 } else if ($_POST['search_type'] == 'projects') {
 
     $SQL = "SELECT * FROM projects WHERE";
-
     $SQL .= " `projects_name` LIKE '%$term%' OR `projects_code` LIKE '%$term%' AND";
  	
 	// hide tasks if not admin
@@ -116,7 +128,6 @@ foreach($result as $k=>$task) {
 	}
 
     $SQL = rtrim($SQL, ' AND');
-
     require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
 
 // for debugging
@@ -128,14 +139,14 @@ $query -> execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
-    die(json_encode(array(message => 'Bad Request', code => 400)));
+    die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
 }
 
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($result)) {
     header("HTTP/1.0 404 Not Found", 404);
-    die(json_encode(array(message => 'Not Found', code => 404)));
+    die(json_encode(array('message' => 'Not Found', 'code' => 404)));
 }
 
 foreach($result as $k =>$project) {
@@ -160,8 +171,8 @@ foreach($result as $k =>$project) {
 
 } else {
     $result = array(
-	code => 400,
-	message => 'Please specify search type'
+	'code' => 400,
+	'message' => 'Please specify search type'
     );
 header("HTTP/1.0 400 Bad Request", 400);
 die(json_encode($result));
