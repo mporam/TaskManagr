@@ -1,5 +1,40 @@
 $(function() {
     
+    // load stats data
+    $.ajax({
+        type: "POST",
+        url: "/api/tasks/",
+        data: {"count": "true", "projects_id": "1", "tasks_status" : "1,2,3,4,5,6"}, // using project 1, need to decide how to specify this
+        success: function(data) {
+            var temp = {};
+            temp.total = data;
+            temp.title = 'stat title'; // should get this based on the project
+            $.ajax({
+                type: "POST",
+                url: "/api/tasks/",
+                data: {"count": "true", "projects_id": "1", "tasks_status" : "5,6"},
+                success: function(data) {
+                    temp.part = data;
+                    $('#stats').trigger('load-graph', temp);
+                }
+            });
+        }
+    });
+    
+    // build graph based on data
+    $('#stats').on('load-graph', function(event, data) {
+        // should probably make this a global function? hmm
+        var graph = $('<div data-dimension="60" data-width="3"></div>');
+        var percent = Math.round((data.part/data.total)*100);
+        graph.attr('data-percent', percent);
+        graph.attr('data-text', percent + '%');
+        graph.attr('data-info', data.title);
+        graph.attr('data-fgcolor', '#61a9dc'); // should randomise this some how
+        graph.attr('data-bgcolor', '#eeeeee'); // relate this to the randomised fgcolor
+        $('#stats').append(graph);
+        graph.circliful();
+    });
+    
     // Get users "in progress" tasks
     $.ajax({
         type: "POST",

@@ -70,9 +70,16 @@
         $SQL .= " tasks_type_id = $task_type AND";
     }
 
-    if (!empty($_POST['tasks_status'])) {
+    if (!empty($_POST['tasks_status']) && strpos($_POST['tasks_status'],',') === false) {
         $task_status = $_POST['tasks_status'];
         $SQL .= " tasks_status_id = $task_status AND";
+    } else if (!empty($_POST['tasks_status']) && strpos($_POST['tasks_status'],',') !== false) {
+        $task_status = explode(',', $_POST['tasks_status']);
+        foreach($task_status as $status) {
+            $SQL .= " `tasks_status_id` = $status OR";
+        }
+        $SQL = rtrim($SQL, ' OR');
+        $SQL .= " AND";
     }
 
     if (!empty($_POST['tasks_priority'])) {

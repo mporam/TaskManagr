@@ -1,4 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
+    <script src="/js/libraries/jquery.circliful.min.js" type="text/javascript"></script>
     <script src="/js/dashboard/core.js" type="text/javascript"></script>
     <title>Admin</title>
 </head>
