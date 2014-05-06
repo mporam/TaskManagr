@@ -7,3 +7,9 @@ require($_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php');
 <html>
 <head>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
+    <script> var get = {};
+        <?php if(!empty($_GET)) {
+        foreach($_GET as $k => $v) {
+            if (!empty($v)) echo "get." . $k . " = '" . $v . "';";
+        } } ?>
+    </script>

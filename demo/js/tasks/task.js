@@ -8,7 +8,11 @@ var task, comments;
         success: function(data) {
             task = data[0]; // uses [0] as we only want one task
             $('#task').trigger('task-load');
-        }        
+        },
+        error: function(data, textStatus, error) {
+            data =$.parseJSON(data.responseText);
+            $('#task').html('<h2>' + data.code + ' - ' + data.message + '</h2>');
+        }
     });
 
     $('#task').on('task-load', function() {
@@ -24,14 +28,15 @@ var task, comments;
             success: function(data) {
                 comments = data;
                 $('#comments').prepend('<h3>Comments</h3>');
-                if (comments.length == 0) {
-                    $('#comments h3').after('<p>No one has left a comment yet</p>');
-                } else {
-                    comments.forEach(function(comment) {
-                        $('#comments h3').after('<div class="comment"><h4>' + comment.comment_user.users_name + '</h4><p>' + comment.comments_comment + '</p></div>');
-                    });
-                }
-            }        
+                comments.forEach(function(comment) {
+                    $('#comments h3').after('<div class="comment"><h4>' + comment.comment_user.users_name + '</h4><p>' + comment.comments_comment + '</p></div>');
+                });
+            },
+            error: function(data, textStatus, error) {
+                data =$.parseJSON(data.responseText);
+                $('#comments').prepend('<h3>Comments</h3>');
+                $('#comments h3').after('<p>' + data.message + '</p>');
+            }
     });
 
     });

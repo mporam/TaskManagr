@@ -53,6 +53,10 @@ var tasks, projects, users;
 
     $('#tasks_related').keyup(function() {
         var val = $(this).val();
+        if (val.length === 0) {
+            $('#related').html('');
+            return false;
+        }
         $.ajax({
             type: "POST",
             url: '/api/search/',
@@ -63,10 +67,15 @@ var tasks, projects, users;
                 tasks.forEach(function(task) {
                     $('#related').append('<li>' + task.tasks_title + '</li>');
                 });
-                if (tasks.length == 0) $('#related').html('<li>No tasks match your search term</li>')
+                if (tasks.length === 0) $('#related').html('<li>No tasks match your search term</li>');
             },
-            error: function(data, textStatus, jqXHR) {
-                $('#related').html('');
+            error: function(data) {
+                var result = $.parseJSON(data.responseText);
+                if (result.code == 404) {
+                    $('#related').html('<li>No tasks match your search term</li>');
+                } else {
+                    $('#related').html('<li>' + result.message + '</li>');
+                }
             }
         });
     });

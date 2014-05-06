@@ -5,12 +5,7 @@
     if (empty($_GET['project'])) {
         header('Location: /projects/');
         exit;
-    } else { ?>
-        <script>
-        var get = {};
-        get.project = "<?php echo $_GET['project']; ?>";
-        </script>
-<?php } ?>
+    } ?>
     <title>Admin</title>
 </head>
 <body>    
@@ -25,4 +20,4 @@
     
 </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

@@ -8,15 +8,8 @@
 <h2>Workflow</h2>
 
 <div id="workflow">
-<table>
-    <thead>
-        <tr></tr>
-    </thead>
-    <tbody>
-        <tr></tr>
-    </tbody>
-</table>
-
+    <div class="grid" id="workflow-titles"></div>
+    <div class="grid" id="workflow-tasks"></div>
 </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>
