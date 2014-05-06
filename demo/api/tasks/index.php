@@ -152,12 +152,18 @@ foreach($tasks as $k=>$task) {
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $tasks_assignee");
     $query -> execute();
     $assignee = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($assignee['users_image'])) {
+        $assignee['users_image'] = get_gravatar($assignee['users_email']);
+    }
     $tasks[$k]['tasks_assignee'] = (empty($assignee) ? 'Unassigned' : $assignee);
 
     $tasks_reporter= $task['tasks_reporter'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $tasks_reporter");
     $query -> execute();
     $reporter = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($reporter['users_image'])) {
+        $reporter['users_image'] = get_gravatar($reporter['users_email']);
+    }
     $tasks[$k]['tasks_reporter'] = (empty($reporter) ? 'Unassigned' : $reporter);
 
     $tasks_related = $task['tasks_related'];
@@ -169,18 +175,27 @@ foreach($tasks as $k=>$task) {
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $projects_lead");
     $query -> execute();
     $lead = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($lead['users_image'])) {
+        $lead['users_image'] = get_gravatar($lead['users_email']);
+    }
     $tasks[$k]['projects_lead'] = (empty($lead) ? 'Unassigned' : $lead);
 
     $projects_client = $task['projects_client'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $projects_client");
     $query -> execute();
     $client = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($client['users_image'])) {
+        $client['users_image'] = get_gravatar($client['users_email']);
+    }
     $tasks[$k]['projects_client'] = (empty($client) ? 'Unassigned' : $client);
 	
     $projects_manager = $task['projects_manager'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $projects_manager");
     $query -> execute();
     $manager = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($manager['users_image'])) {
+        $manager['users_image'] = get_gravatar($manager['users_email']);
+    }
     $tasks[$k]['projects_manager'] = (empty($manager) ? 'Unassigned' : $manager);
     
     $tasks[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];

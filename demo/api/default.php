@@ -10,10 +10,9 @@ if (!empty($_POST['limit'])) {
     $SQL .= " LIMIT $limit";
 }
 
-function get_gravatar($email, $size = 80, $default = '') {
+function get_gravatar($email, $default = '') {
     $url = 'http://www.gravatar.com/avatar/';
     $url .= md5(strtolower(trim($email)));
-    if (!is_numeric($size)) $size = 80;
-    $url .= "?s=$size&d=$default";
+    $url .= "?d=$default";
     return $url;
 }

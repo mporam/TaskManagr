@@ -63,18 +63,27 @@ foreach($projects as $k =>$project) {
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_lead");
     $query -> execute();
     $lead = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($lead['users_image'])) {
+        $lead['users_image'] = get_gravatar($lead['users_email']);
+    }
     $projects[$k]['projects_lead'] = (empty($lead) ? "Unassigned" : $lead);
 
     $project_client = $project['projects_client'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
     $query -> execute();
     $client = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($client['users_image'])) {
+        $client['users_image'] = get_gravatar($client['users_email']);
+    }
     $projects[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
 	
 	$project_manager = $project['projects_manager'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_manager");
     $query -> execute();
     $manager = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($manager['users_image'])) {
+        $manager['users_image'] = get_gravatar($manager['users_email']);
+    }
     $projects[$k]['projects_manager'] = (empty($manager) ? "Unassigned" : $lead);
 }
 
