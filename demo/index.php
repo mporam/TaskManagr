@@ -3,7 +3,8 @@
     <title>Admin</title>
 </head>
 <body>    
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
+   
+	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
     <div id="stats">
         <h3>My stats</h3>
@@ -64,4 +65,6 @@
         </form>
     </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+
+</div>
