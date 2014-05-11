@@ -4,7 +4,7 @@
     </div>
     <div class="col-11">
         <div class="status-bar">
-            New task
+            <a href="/tasks/new/">New task</a>
         </div>
         <div class="profile">
             <a href="#">
