@@ -5,6 +5,7 @@ if (window.location.hash == "") {
 $(function() {
     sidebar = $('#sidebar');
     
+    // define click event to open seach box
     $('.search-box').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -13,6 +14,14 @@ $(function() {
         }
     });
     
+    // trigger search on enter key press
+    $('.search-input').keydown(function(e){    
+        if(e.which===13){
+           $('.search-btn').trigger('search');
+        }
+    });
+    
+    // close search box when click outside of searchbox
     $(document).click(function() {
         closeSearch();
     });
@@ -21,25 +30,31 @@ $(function() {
 });
 
 var openSearch = function() {
+    $('.search-box').stop();
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
         width: '250px'
     }, 800);
 
-    $('.search-btn').on('click', function() {
+    // assign click event to trigger search
+    $('.search-btn').on('click search', function() {
         var searchTerm = $('.search-input').val();
+        console.log(searchTerm);
         //window.location.href = ;
-    })
+    });
 
     $('.search-box').addClass('open');
 };
 
 var closeSearch = function() {
+    $('.search-box').stop();
     $('.search-box').removeClass('open');
     $('.search-box').animate({
         width: '28px'
     }, 800);
-    $('.search-btn').off('click');
+    
+    // remove click event to prevent search on closed form
+    $('.search-btn').off('click search');
     $('.search-box').addClass('closed');
 };
 
