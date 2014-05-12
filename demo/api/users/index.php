@@ -2,14 +2,23 @@
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
-    $SQL = "SELECT * FROM users WHERE";
+    $SQL = "SELECT * FROM users 
+        LEFT JOIN users_type ON users.users_type = users_type.users_type_id 
+        WHERE";
 
-    // Get specific project
+    // Get user based on id
     if (!empty($_POST['users_id'])) {
         $users_id = $_POST['users_id'];
         $SQL .= " `users_id` = $users_id AND";
     }
+    
+    // Get user by name
+    if (!empty($_POST['users_name'])) {
+        $users_name = $_POST['users_name'];
+        $SQL .= " `users_name` = '$users_name' AND";
+    }
 
+    // get user by type
     if (!empty($_POST['users_type'])) {
         $users_type= $_POST['users_type'];
         $SQL .= " `users_type` = $users_type AND";
