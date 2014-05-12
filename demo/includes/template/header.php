@@ -4,7 +4,7 @@
     </div>
     <div class="col-11">
         <div class="status-bar">
-            New task
+            <a href="/tasks/new/">New task</a>
         </div>
         <div class="profile">
             <a href="#">
@@ -14,7 +14,10 @@
                 <option>Hi Max!</option>
             </select>
             <nav>
-                <a href="#" class="search">Search</a>
+                <div class="search-box closed">
+                    <input type="search" placeholder="search&hellip;" name="search" class="search-input">
+                    <input type="submit" value="submit" class="search-btn">
+                </div>
                 <a href="#" class="info">Info</a>
             </nav>
         </div>

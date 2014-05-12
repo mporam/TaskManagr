@@ -2,10 +2,61 @@ body {
     background: #ffffff;
 }
 
+/* ------------------- Header */
 header {
     overflow: auto;
 }
 
+.search-box {
+    position: relative;
+    background-color: #000;
+    height: 28px;
+    width: 28px;
+    overflow: hidden;
+    
+    .search-btn {
+        .right;
+        background-color: #22b36a;
+        background-image:;
+        background-repeat: no-repeat;
+        border: 0;
+      //  text-indent: -900px;
+        color: #fff;
+        overflow: hidden;
+        width: 28px;
+        height: 28px;
+    }
+    .search-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 0;
+        color: #ffffff;
+        background: none;
+        padding: 5px 8px;
+    }
+    
+    &.closed {
+        
+        .search-input {
+            display: none;
+        }
+        .search-btn {
+            background-color: transparent;
+        }
+    }
+    
+    &.open {
+        .search-input {
+            display: block;
+        }
+        .search-btn {
+            background-color:;
+        }
+    }
+}
+
+/* ------------------- Sidebar */
 #sidebar {
     overflow: hidden;
     width: 0;
