@@ -4,8 +4,8 @@
 </head>
 <body>    
    
-	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
-
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
+<div class="main col-11 grid">
     <div id="stats">
         <h3>My stats</h3>
     </div>
@@ -63,8 +63,14 @@
                 <input type="submit" value="submit">
             </div>
         </form>
-    </div>
+    </div>    
 
-	<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
-
+<div id="inprogress">
+    <table>
+    </table>
 </div>
+
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
+
+
+

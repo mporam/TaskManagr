@@ -1,21 +1,34 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?>
+<div class="grid"> 
 
-<header class="col-11 grid">
-	<div class="col-7">
-		New task
+<header class="col-12">
+    <div class="logo col-1">
+		Logo
 	</div>
-	<div class="col-5">
-		<a href="#">
-			<img src="#">
+	<div class="col-7">
+		<a href="#" class="new-task">
+			New task
 		</a>
-		<select>
-			<option>Hi Max!</option>
-		</select>
+	</div>
+	<div class="col-4 settings">
+		<a href="#">
+			<img src="/images/temp-gravatar.png">
+		</a>
+		<ul>
+			<li>Hi Max!</li>
+			<!--
+				<li>Hi Mike</li>
+				<li>Hi Hannah</li>
+			-->
+		</ul>
 		<nav>
-			<a href="#" class="search">Search</a>
+			<form class="search">
+				<input class="search-input" placeholder="Search..." type="search" name="search" id="search">
+				<input class="search-submit" type="submit" value="">
+				<span class="icon-search"></span>
+			</form>			
 			<a href="#" class="info">Info</a>
 		</nav>
 	</div>
 </header>
 
-
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?>
