@@ -39,8 +39,7 @@ var openSearch = function() {
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {
         var searchTerm = $('.search-input').val();
-        console.log(searchTerm);
-        //window.location.href = ;
+        window.location.href = '/search/?term=' + searchTerm;
     });
 
     $('.search-box').addClass('open');
