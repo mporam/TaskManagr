@@ -9,7 +9,7 @@
 
     if (!empty($_POST['comments_access'])) {
         $comments_access = $_POST['comments_access'];
-        $SQL .= " `comments_access` <= $comments_access AND";
+        $SQL .= " `comments_access` >= $comments_access AND";
     }
 
     if (!empty($_POST['comments_task_id'])) {
@@ -37,14 +37,14 @@ $query -> execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
-    die(json_encode(array(message => 'Bad Request', code => 400)));
+    die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
 }
 
 $comments = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($comments)) {
     header("HTTP/1.0 404 Not Found", 404);
-    die(json_encode(array(message => 'No Comments Found', code => 404)));
+    die(json_encode(array('message' => 'No Comments Found', 'code' => 404)));
 }
 
 foreach($comments as $k =>$comment) {
@@ -53,6 +53,8 @@ foreach($comments as $k =>$comment) {
     $query -> execute();
     $user = $query->fetch(PDO::FETCH_ASSOC);
     $comments[$k]['comment_user'] = (empty($user) ? 'Unassigned' : $user);
+    
+    $comments[$k]['comments_added'] = showDate($comment['comments_added'], 'd/m/Y', true);
 }
 
 header('Content-Type: application/json');

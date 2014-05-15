@@ -1,9 +1,5 @@
-var hash, sidebar;
-if (window.location.hash == "") {
-    window.location.hash = '/';
-}
 $(function() {
-    sidebar = $('#sidebar');
+    var sidebar = $('#sidebar');
     
     // define click event to open seach box
     $('.search-box').on('click', function(e) {

@@ -20,7 +20,7 @@ if(!empty($_POST['user_email']) && !empty($_POST['user_password']) && !empty($_G
     }
     $password = sha1($password . $salt);
 
-    $query = $con->prepare("SELECT * FROM users WHERE `users_email` = '$email' AND `users_password` = '$password'");
+    $query = $con->prepare("SELECT * FROM users LEFT JOIN users_type ON users.users_type = users_type.users_type_id WHERE `users_email` = '$email' AND `users_password` = '$password'");
     $query -> execute();
     $_SESSION = $query->fetch(PDO::FETCH_ASSOC);
 

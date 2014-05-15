@@ -5,12 +5,7 @@
     if (empty($_GET['task'])) {
         header('Location: /tasks/');
         exit;
-    } else { ?>
-        <script>
-        get.projects_code = get.task.split("-")[0];
-        get.tasks_count = get.task.split("-")[1];
-        </script>
-<?php } ?>
+    } ?>
     <title>Admin</title>
 </head>
 <body>    
@@ -21,10 +16,22 @@
 Loading...
 </div>
 <div id="comments">
-    <form>
-        <textarea name="comment" id="comment" required></textarea>
-        <input type="submit" value="Add">
-    </form>
 </div>
+
+<h4>Say something&hellip;</h4>
+<form id="comment-form">
+    <div>
+        <textarea name="comment" id="comment" required></textarea>
+    </div>
+    <?php if ($_SESSION['users_type_id'] < 4) { ?>
+    <div>
+        <label>User Access:</label>
+        <select name="access">
+            <option value="3" selected>Private</option>
+            <option value="4">Public</option>
+        </select>
+    </div> <?php } ?>
+    <input type="submit" value="Add">
+</form>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>
