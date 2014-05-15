@@ -89,7 +89,10 @@ var data = {};
     data: data,
     success: function(data, textStatus, jqXHR) {
     $('#result code').html(JSON.stringify(data, null, ' '));
-}
+},
+    error: function(data, textStatus, jqXHR) {
+        $('#result code').html(JSON.stringify(data.responseText, null, ' '));
+    }
     });
     });
 });

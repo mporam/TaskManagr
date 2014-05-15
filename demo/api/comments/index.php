@@ -3,7 +3,7 @@
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 	session_start();
-	$access = $_SESSION['users_tasks'];
+	$access = $_SESSION['users_type_id'];
 
     $SQL = "SELECT * FROM comments WHERE";
 
@@ -19,7 +19,7 @@
 	
 	// hide tasks if not admin
 	if ($access !== '0') {
-		$SQL .= " comments_deleted <> 1 AND";
+		$SQL .= " (comments_deleted <> 1 OR comments_deleted IS NULL) AND";
 	}
 
     $SQL = rtrim($SQL, ' AND');
@@ -34,10 +34,21 @@
 
 $query = $con->prepare($SQL);
 $query -> execute();
+
+if ($query->errorCode() !== "00000") {
+    header("HTTP/1.0 400 Bad Request", 400);
+    die(json_encode(array(message => 'Bad Request', code => 400)));
+}
+
 $comments = $query->fetchAll(PDO::FETCH_ASSOC);
 
+if (empty($comments)) {
+    header("HTTP/1.0 404 Not Found", 404);
+    die(json_encode(array(message => 'No Comments Found', code => 404)));
+}
+
 foreach($comments as $k =>$comment) {
-    $comment_user = $comment['comment_user'];
+    $comment_user = $comment['comments_user'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $comment_user");
     $query -> execute();
     $user = $query->fetch(PDO::FETCH_ASSOC);

@@ -1,14 +1,24 @@
 <?php
-if (!empty($_POST['tasks_id'])) {
+if (!empty($_POST['tasks_id']) || !empty($_POST['tasks_count'])) {
 	require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
         require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
         session_start();
- 	$id =  $_POST['tasks_id'];
         $access = $_SESSION['user_type'];
-        if ($access !== '1') die(json_encode(array(message => 'Permissions Denied', code => 502)));
+        if ($access !== '1') {
+            header("HTTP/1.0 401 Unauthorized", 401);
+            die(json_encode(array(message => 'Permissions Denied', code => 401)));
+        }
 
-	$query = $con->prepare("DELETE FROM tasks WHERE `tasks_id` = $id");
+ 	$id =  $_POST['tasks_id'];
+        if (empty($id)) {
+            $count = $_POST['tasks_count'];
+            $query = $con->prepare("DELETE FROM tasks WHERE `tasks_count` = $count");
+            $return = $count;
+        } else {
+            $query = $con->prepare("DELETE FROM tasks WHERE `tasks_id` = $id");
+            $return = $id;
+        }
 
 	try {	
 		$query->execute();
@@ -17,17 +27,19 @@ if (!empty($_POST['tasks_id'])) {
 			code => 500,
 			message => 'Delete Failed. Please try again.'
 		);
+                header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
 	
 	$result = array(
 		code => 200,
 		message => 'Task Permanently Deleted',
-		id => $id
+		id => $return
 	);
 	
 	echo json_encode($result);
 
 } else {
-	die(json_encode(array(message => 'Internal Server Error', code => 500)));
+        header("HTTP/1.0400 Bad Request", 400);
+	die(json_encode(array(message => 'Incomplete Data', code => 400)));
 }
