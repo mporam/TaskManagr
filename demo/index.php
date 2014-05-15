@@ -1,11 +1,11 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
+    <script src="/js/libraries/jquery.circliful.min.js" type="text/javascript"></script>
     <script src="/js/dashboard/core.js" type="text/javascript"></script>
     <title>Admin</title>
 </head>
 <body>    
    
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
-<div class="main col-11 grid">
     <div id="stats">
         <h3>My stats</h3>
     </div>
@@ -63,12 +63,7 @@
                 <input type="submit" value="submit">
             </div>
         </form>
-    </div>    
-
-<div id="inprogress">
-    <table>
-    </table>
-</div>
+    </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
 

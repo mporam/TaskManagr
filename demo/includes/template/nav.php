@@ -11,23 +11,28 @@
                     Projects
                 </a>
     		</li>
-    		<li class="tasks">
+    		<li class="workflow">
                 <a href="/tasks/">
                     Workflow
                 </a>
     		</li>
-    		<li class="users">
+    		<li class="settings">
                 <a href="/users/">
                     Settings
                 </a>
     		</li>
-    		<li class="workflow">
-                <a href="/workflow/">
+    		<li class="user">
+                <a href="/user/">
                     Users
                 </a>
     		</li>
     	</ul>
+
+        <div id="sidebar" class="closed">
+            <div class="sidebar-inner"></div>
+        </div>
+
     </nav>
 </div>
-<div class="main col-11 grid">
 
+<div class="main col-11">

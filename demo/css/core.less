@@ -2,6 +2,101 @@ body {
     background: #ffffff;
 }
 
+/* ------------------- Header */
 header {
     overflow: auto;
+}
+
+.search-box {
+    position: relative;
+    background-color: #000;
+    height: 28px;
+    width: 28px;
+    overflow: hidden;
+    
+    .search-btn {
+        .right;
+        background-color: #22b36a;
+        background-image:;
+        background-repeat: no-repeat;
+        border: 0;
+      //  text-indent: -900px;
+        color: #fff;
+        overflow: hidden;
+        width: 28px;
+        height: 28px;
+    }
+    .search-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 0;
+        color: #ffffff;
+        background: none;
+        padding: 5px 8px;
+    }
+    
+    &.closed {
+        
+        .search-input {
+            display: none;
+        }
+        .search-btn {
+            background-color: transparent;
+        }
+    }
+    
+    &.open {
+        .search-input {
+            display: block;
+        }
+        .search-btn {
+            background-color:;
+        }
+    }
+}
+
+/* ------------------- Sidebar */
+#sidebar {
+    overflow: hidden;
+    width: 0;
+    background: #000;
+}
+
+#sidebar.open {
+    overflow: auto;
+}
+
+#sidebar.closed {
+    overflow: hidden;
+    width: 0;
+    padding: 0;
+}
+
+#sidebar .sidebar-inner {
+    padding: 20px;
+}
+
+/* -----------------  Circlifil */
+.circliful {
+    position: relative;
+    margin-top: 30px;
+    
+    .fa {
+        margin: -10px 3px 0 3px;
+        position: relative;
+        bottom: 4px;
+    }
+}
+.circle-text, .circle-info, .circle-text-half, .circle-info-half {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+}
+.circle-info, .circle-info-half {
+	color: #213b4c;
+    text-decoration: italic;
+    font-size: 12px;
+    top: -50px;
 }
