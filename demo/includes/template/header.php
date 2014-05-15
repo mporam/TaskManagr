@@ -1,29 +1,30 @@
-<header>
-    <div class="col-1">
-        Logo
-    </div>
-    <div class="col-11">
-        <div class="status-bar">
-            <a href="/tasks/new/">New task</a>
+<div class="grid"> 
+    <header class="col-12">
+        <div class="logo col-1">
+            Logo
         </div>
-        <div class="profile">
+        <div class="col-7">
+            <a href="/tasks/new/" class="new-task">New task</a>
+        </div>
+        <div class="col-4 settings">
             <a href="#">
-                <img src="#">
+                <img src="/images/temp-gravatar.png">
             </a>
-            <select>
-                <option>Hi Max!</option>
-            </select>
+            <ul>
+                <li>Hi Max!</li>
+                <!--
+                    <li>Hi Mike</li>
+                    <li>Hi Hannah</li>
+                -->
+            </ul>
             <nav>
                 <div class="search-box closed">
                     <input type="search" placeholder="search&hellip;" name="search" class="search-input">
                     <input type="submit" value="submit" class="search-btn">
-                </div>
+                </div>			
                 <a href="#" class="info">Info</a>
             </nav>
         </div>
-    </div>
-</header>
+    </header>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?> 
-
-
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/nav.php'); ?>

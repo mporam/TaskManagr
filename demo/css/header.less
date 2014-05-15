@@ -1,0 +1,44 @@
+
+/* Remove this when we have a logo */
+
+.logo { text-align: center;  }
+
+
+header { 
+	padding: @pad 0;
+	background: @col-bg; }
+
+	header .new-task { 
+		padding: 8px 0 0 65px;
+		background: url('/images/site/icons/sprite.png') no-repeat -446px -25px;
+		height: 40px;
+		display: inline-block;
+	}
+
+	header .settings nav,
+	header .settings ul,
+	header .settings a,
+	header .search,
+	header .info { 
+		.left;
+	}
+
+		header .search,
+		header .info { 
+			width: 24px;
+			height: 24px;
+			text-indent: -9999px;
+		}
+		
+		header .search {
+			background: url('/images/site/icons/sprite.png') no-repeat -1px -41px; 
+			/* Use this background on the span when you figure out stuff */
+			margin-right: 10px;			
+		}
+
+		header .info {
+			background: url('/images/site/icons/sprite.png') no-repeat -36px -41px;
+		}
+		
+		header .settings a img,
+		header .settings a { display: block; }
