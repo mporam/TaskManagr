@@ -1,7 +1,8 @@
 
-body { 
-	color: @color-white; 
+body, html { 
+	color: @default-color;
 	font: 1rem/1.667rem arial,sans-serif;
+	height: 100%;
  }
 
  body .main.grid { 
@@ -16,7 +17,9 @@ h2 {
 	font-size: 1rem;
 }
 
-a { color: @color-white; }
+a, th { 
+	color: @color-white;
+}
 
 .left { float: left; }
 
