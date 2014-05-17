@@ -65,13 +65,4 @@
         </form>
     </div>
 
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
-
-<div id="inprogress">
-    <table>
-    </table>
-</div>
-
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
-
-
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

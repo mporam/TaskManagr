@@ -4,18 +4,31 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
-	config.font_defaultLabel = 'Arial';
-	config.fontSize_defaultLabel = '12px';
-	config.allowedContent = true;
-	config.extraPlugins = 'youtube';
+	// Define changes to default configuration here.
+	// For complete reference see:
+	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-   config.filebrowserBrowseUrl = '/orbit-admin/media/kcfinder/browse.php?type=files';
-   config.filebrowserImageBrowseUrl = '/orbit-admin/media/kcfinder/browse.php?type=images';
-   config.filebrowserFlashBrowseUrl = '/orbit-admin/media/kcfinder/browse.php?type=flash';
-   config.filebrowserUploadUrl = '/orbit-admin/media/kcfinder/upload.php?type=files';
-   config.filebrowserImageUploadUrl = '/orbit-admin/media/kcfinder/upload.php?type=images';
-   config.filebrowserFlashUploadUrl = '/orbit-admin/media/kcfinder/upload.php?type=flash';
+	// The toolbar groups arrangement, optimized for a single toolbar row.
+	config.toolbarGroups = [
+		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'forms' },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+		{ name: 'links' },
+		{ name: 'insert' },
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'tools' },
+		{ name: 'others' },
+		{ name: 'about' }
+	];
+
+	// The default plugins included in the basic setup define some buttons that
+	// are not needed in a basic editor. They are removed here.
+	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
+
+	// Dialog windows are also simplified.
+	config.removeDialogTabs = 'link:advanced';
 };

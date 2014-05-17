@@ -1,4 +1,6 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script src="/js/ckeditor/adapters/jquery.js"></script>
     <script src="/js/tasks/new.js"></script>
     <title>Admin</title>
 </head>

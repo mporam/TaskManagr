@@ -1,4 +1,7 @@
 $(function() {
+
+$('textarea').ckeditor();
+
 var tasks, projects, users;
     $.ajax({
         type: "POST",
