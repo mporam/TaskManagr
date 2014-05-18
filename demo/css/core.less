@@ -37,6 +37,7 @@ header {
     }
     
     &.closed {
+        width: 28px;
         
         .search-input {
             display: none;
@@ -47,6 +48,8 @@ header {
     }
     
     &.open {
+        width: 250px;
+            
         .search-input {
             display: block;
         }
@@ -54,27 +57,6 @@ header {
             background-color:;
         }
     }
-}
-
-/* ------------------- Sidebar */
-#sidebar {
-    overflow: hidden;
-    width: 0;
-    background: #000;
-}
-
-#sidebar.open {
-    overflow: auto;
-}
-
-#sidebar.closed {
-    overflow: hidden;
-    width: 0;
-    padding: 0;
-}
-
-#sidebar .sidebar-inner {
-    padding: 20px;
 }
 
 /* -----------------  Circlifil */

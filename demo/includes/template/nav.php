@@ -6,7 +6,7 @@
                     Dashboard
                 </a>
     		</li>
-    		<li class="projects">
+    		<li class="projects" data-sidebar="projects">
                 <a href="/projects/">
                     Projects
                 </a>
@@ -27,12 +27,10 @@
                 </a>
     		</li>
     	</ul>
-
-        <div id="sidebar" class="closed">
-            <div class="sidebar-inner"></div>
-        </div>
-
     </nav>
+    <div id="sidebar" class="closed">
+        <div class="sidebar-inner"></div>
+    </div>
 </div>
 
 <div class="main col-11">

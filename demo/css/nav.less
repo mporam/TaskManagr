@@ -2,6 +2,7 @@
 	background: @col-bg;
 	height: 90.8%;
 	.text-center;
+    position: relative;
 
 	ul li a {
 		padding-top: 25px;
@@ -24,4 +25,31 @@
 	.user a  {
 		background: url('/images/site/icons/sprite.png') no-repeat -50px -73px;
 	}				
+}
+
+/* ------------------- Sidebar */
+#sidebar {
+    overflow: hidden;
+    width: 0;
+    background: @col-bg;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    
+    &.open {
+        overflow: auto;
+        width: 200%;
+    }
+    
+    &.closed {
+        overflow: hidden;
+        width: 0;
+        padding: 0;
+    }
+    
+    .sidebar-inner {
+        padding: 20px;
+    }
 }

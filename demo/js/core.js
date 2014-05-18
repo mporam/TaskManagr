@@ -1,5 +1,5 @@
 $(function() {
-    var sidebar = $('#sidebar');
+    window.sidebar = $('#sidebar');
     
     // define click event to open seach box
     $('.search-box').on('click', function(e) {
@@ -22,55 +22,54 @@ $(function() {
         closeSearch();
     });
     
+    $('nav li[data-sidebar]').mouseenter(function() {
+        openSidebar();
+    });
+    
+    $('.nav').mouseleave(function() {
+        closeSidebar();
+    });
+    
+    $('nav li:not([data-sidebar])').mouseenter(function() {
+        closeSidebar();
+    });
+    
     
 });
 
 var openSearch = function() {
     $('.search-box').stop();
-    $('.search-box').removeClass('closed');
-    $('.search-box').animate({
-        width: '250px'
-    }, 800);
+    $('.search-box').switchClass("closed", "open", 800);
 
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {
         var searchTerm = $('.search-input').val();
         window.location.href = '/search/?term=' + searchTerm;
     });
-
-    $('.search-box').addClass('open');
 };
 
 var closeSearch = function() {
     $('.search-box').stop();
-    $('.search-box').removeClass('open');
-    $('.search-box').animate({
-        width: '28px'
-    }, 800);
-    
-    // remove click event to prevent search on closed form
-    $('.search-btn').off('click search');
-    $('.search-box').addClass('closed');
+    $('.search-box').switchClass("open", "closed", 500);
+    $('.search-btn').off('click search'); // remove click event to prevent search on closed form
 };
 
 var openSidebar = function() {
-    sidebar.removeClass('closed');
-    sidebar.animate(
-        {width: "20%"},
-        2000,
-        function() {
-            sidebar.addClass('open');
-        }
-    );
+    sidebar.switchClass( "closed", "open", 500);
+    sidebar.attr('style', '');
 }
 
 var closeSidebar = function() {
-    sidebar.removeClass('open');
-    sidebar.animate(
-        {width: "0"},
-        2000,
-        function() {
-            sidebar.addClass('closed');
-        }
-    );
+    if (sidebar.hasClass('closed')) {
+        sidebar.attr('style', '');
+    }
+    sidebar.stop().switchClass( "open", "closed", 500);
+}
+
+var toggleSidebar = function() {
+    if (sidebar.width() > 0) {
+        sidebar.switchClass("open", "closed", 500);
+    } else {
+        sidebar.switchClass("closed", "open", 500);
+    }
 }
