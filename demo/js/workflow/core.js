@@ -44,13 +44,22 @@ $(function() {
                     $("#workflow-tasks .column").on("sortreceive", function(event, ui) {
                         var item = ui.item;
                         var col = $(this);
+                        var sender = ui.sender;
+                        
+                        item.addClass('saving');
 
                         $.ajax({
                             type: "POST",
                             url: "/api/tasks/save/",
                             data: {"tasks_id":item.data('task-id'), "tasks_status":col.data('status-id')},
                             success: function(data) {
-                                
+                                item.removeClass('saving').addClass('saved');
+                                setTimeout(function(){item.removeClass('saved')}, 3000);
+                            },
+                            error: function() {
+                                item.removeClass('saving').addClass('failed');
+                                item.appendTo(sender);
+                                setTimeout(function(){item.removeClass('failed')}, 3000);
                             }
                         });
                     });

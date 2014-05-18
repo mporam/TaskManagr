@@ -12,17 +12,17 @@
                 </a>
     		</li>
     		<li class="workflow">
-                <a href="/tasks/">
+                <a href="/workflow/">
                     Workflow
                 </a>
     		</li>
     		<li class="settings">
-                <a href="/users/">
+                <a href="/#/">
                     Settings
                 </a>
     		</li>
     		<li class="user">
-                <a href="/user/">
+                <a href="/users/">
                     Users
                 </a>
     		</li>
