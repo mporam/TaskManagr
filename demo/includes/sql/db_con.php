@@ -14,6 +14,13 @@ try {
 	$con = new PDO($dsn, $user, $password);
 	$con->setAttribute( \PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-	echo 'Connection failed: ' . $e->getMessage();
+    if ($_SERVER['SERVER_NAME'] == 'demo.taskmanagr.co.uk') {
+        // live error message
+        echo '<p>Error connecting to Task Managr database, please check the settings in your config file</p>';
+    } else {
+        // dev error message
+        echo '<p>Database connection failed, please enable remote access</p>';
+        echo '<p>If that doesnt work, give this geeky error to Mike: ' . $e->getMessage() . '</p>';
+    }
 }
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
