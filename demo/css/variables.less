@@ -9,6 +9,12 @@
     border-radius: @radius;
 }
 
+.shadow (@shadow) {
+  -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
 .box-sizing { 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -33,15 +39,14 @@
 
 /* Background and Colour */
 
-@body-bg: #ffffff;
-@col-bg: #0e1e28;
-@module-title-bg: #2d546c;
+@primary-color: #ffffff;
+@nav-bg: #0e1e28;
 @btn-bg: #1cb56a;
+@page-title-border: #979797;
 
-@red-light-bg: #e84c3d;
-@amber-light-bg: #f0c516;
-@green-light-bg: #1cb56a;
+@red-bg: #e84c3d;
+@amber-bg: #f0c516;
+@green-bg: #1cb56a;
 
-@color-white: #ffffff;
 @default-color: #2d546c;
-@text-color: #0e1e28;
+@header-color: #0e1e28;

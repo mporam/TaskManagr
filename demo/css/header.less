@@ -3,43 +3,94 @@
 
 .logo { text-align: center; }
 
-
 header { 
 	padding: @pad 0;
-	color: @color-white;
-	background: @col-bg; }
+	overflow: auto;
+	color: @primary-color;
+	background: @nav-bg; 
 
-	header .new-task { 
+	.new-task { 
 		padding: 8px 0 0 65px;
 		background: url('/images/site/icons/sprite.png') no-repeat -446px -25px;
 		height: 40px;
 		display: inline-block;
 	}
 
-	header .settings nav,
-	header .settings ul,
-	header .settings a,
-	header .search,
-	header .info { 
+	.settings .right { margin-right: @pad; }
+
+	.settings nav,
+	.settings ul,
+	.settings a,
+	.search,
+	.info { 
 		.left;
 	}
 
-		header .search,
-		header .info { 
-			width: 24px;
-			height: 24px;
-			text-indent: -9999px;
-		}
-		
-		header .search {
-			background: url('/images/site/icons/sprite.png') no-repeat -1px -41px; 
-			/* Use this background on the span when you figure out stuff */
-			margin-right: 10px;			
-		}
+	.search-box,
+	.info { 
+		width: 30px;
+		height: 30px;
+		text-indent: -9999px;
+	}
 
-		header .info {
-			background: url('/images/site/icons/sprite.png') no-repeat -36px -41px;
-		}
+	.info {
+		background: url('/images/site/icons/sprite.png') no-repeat -227px -32px;
+		margin: 5px 0 0 10px;
+	}
+
+	.settings a img { display: block; }
+}
 		
-		header .settings a img,
-		header .settings a { display: block; }
+/* ------------------- Search Box */
+.search-box {
+    position: relative;
+    overflow: hidden;
+    .left;
+    margin: 5px 0 0 10px;
+    
+    .search-btn {
+        .right;
+        background-color: #22b36a;
+        background: url('/images/site/icons/sprite.png') no-repeat -223px 3px;
+        background-repeat: no-repeat;
+        border: 0;
+        text-indent: -900px;
+        color: #ffffff;
+        overflow: hidden;
+        width: 30px;
+		height: 30px;
+    }
+    .search-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 0;
+        color: #ffffff;
+        background: none;
+        padding: 5px 8px;
+    }
+    
+    &.closed {
+        
+        .search-input {
+            display: none;
+        }
+        .search-btn {
+            background-color: transparent;
+        }
+    }
+    
+    &.open {
+
+        background-color: @default-color;
+        .border-radius (25px);
+
+        .search-input {
+            display: block;
+        }
+        .search-btn {
+            background-color: @green-bg;
+            .border-radius (50%);
+        }
+    }
+}

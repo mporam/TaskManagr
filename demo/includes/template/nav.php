@@ -35,4 +35,4 @@
     </nav>
 </div>
 
-<div class="main col-11">
+<main class="col-11">

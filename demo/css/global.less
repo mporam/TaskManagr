@@ -1,24 +1,47 @@
 
-body, html { 
+html { 
 	color: @default-color;
-	font: 1rem/1.667rem arial,sans-serif;
+	font: 1px/1.667rem arial,sans-serif;
 	height: 100%;
  }
 
- body .main.grid { 
-	color: #000; /* REMOVE THIS USELESS CSS LATER! */
+body {
+	font-size: 12px;
 }
 
+ main {
+ 	padding: @pad;
+ }
+
+/* ------------------- Paragraph and Headings */
+
 h1 { 
-	font-size: 1.5rem;
+    font-size: 18rem;
+	font-weight: normal;
+	margin: 0;
 }
 
 h2 { 
-	font-size: 1rem;
+	font-size: 18rem;
+	font-weight: normal;
+	color: @header-color;
+	border-bottom: solid 1px @page-title-border;
+	margin: 0;
+	padding-bottom: 15px;
+	margin-bottom: @pad;
+}
+
+h3 {
+	font-weight: normal;
+	text-transform: capitalize;
+	color: @primary-color;
+	background: @default-color;
+	margin: 0; 
+	padding: 8px;
 }
 
 a, th { 
-	color: @color-white;
+	color: @primary-color;
 }
 
 .left { float: left; }

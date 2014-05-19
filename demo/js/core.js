@@ -33,7 +33,7 @@ var openSearch = function() {
     $('.search-box').stop();
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
-        width: '250px'
+        width: '205px'
     }, 800);
 
     // assign click event to trigger search
