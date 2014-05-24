@@ -15,7 +15,7 @@ if(!empty($_POST['user_email']) && !empty($_POST['user_password']) && !empty($_G
 
     if (empty($salt)) {
         session_destroy();
-	header("Location: /login/?login=failed");
+        header("Location: /login/?login=failed");
         exit;
     }
     $password = sha1($password . $salt);
@@ -27,18 +27,18 @@ if(!empty($_POST['user_email']) && !empty($_POST['user_password']) && !empty($_G
     if (empty($_SESSION)) {
 		session_destroy();
 		header("Location: /login/?login=failed");
-                exit;
+        exit;
     }
 
     $_SESSION['KCFINDER'] = array();
     $_SESSION['KCFINDER']['disabled'] = false;
 
-    if ($_POST['remember']) {
+    if (!empty($_POST['remember']) && $_POST['remember']) {
         $value = array(
             'email' => $_SESSION['users_email'],
             'password' => $_SESSION['users_password']
         );
-	$expiry = time()+(365 * 24 * 60 * 60);
+        $expiry = time()+(365 * 24 * 60 * 60);
         setcookie("taskManagr", json_encode($value), $expiry, '/');
     }
 
