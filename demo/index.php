@@ -11,61 +11,70 @@
 
     <div id="stats">
         <h3>My stats</h3>
+        <div class="inner-module">
+            
+        </div>
     </div>
     
     <div id="inprogress">
         <h3>In Progress</h3>
-        <table>
-        </table>
+        <div class="inner-module">
+            <table>
+            </table>
+        </div>
     </div>
     
     <div id="mytasks">
-        <h3>My Tasks</h3>   
-        <table>
-            <thead>
-                <tr>
-                    <th>Task no:</th>
-                    <th>Priority:</th>
-                    <th>Title:</th>
-                    <th>Deadline:</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <h3>My Tasks</h3> 
+        <div class="inner-module"> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task no:</th>
+                        <th>Priority:</th>
+                        <th>Title:</th>
+                        <th>Deadline:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <div id="recenttasks">
-        <h3>Recent Tasks</h3>   
-        <table>
-            <tbody>
-            </tbody>
-        </table>
+        <h3>Recent Tasks</h3>
+        <div class="inner-module">   
+            <table>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <div id="taskupdate" class="col-4">
         <h3>Quick task update</h3>
-        <form>
-            <div>
-                <label>update task:</label>
-                <input type="text" name="tasks_code">
-                <input type="hidden" name="tasks_id">
-            </div>
-            <ul class="task-list">
-            </ul>
-            <div>
-                <label>update status:</label>
-                <select name="tasks_status">
-                    <option>Select a task</option>
-                </select>
-            </div>
-            <div>
-                <textarea name="comment_comment" placeholder="Write your comment&hellip;"></textarea>
-            </div>
-            <div>
-                <input type="submit" value="submit">
-            </div>
-        </form>
+        <div class="inner-module">
+            <form>
+                <div class="module-container">
+                    <img class="gravatar" src="/images/temp-gravatar.png">
+                    <div class="update">
+                        <label>update task:</label>
+                        <input type="text" name="tasks_code">
+                        <input type="hidden" name="tasks_id">
+
+                        <label>update status:</label>
+                        <select name="tasks_status">
+                            <option>Select a task</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <textarea name="comment_comment" placeholder="Write your comment&hellip;"></textarea>
+                    <input type="submit" value="submit">
+                </div>
+            </form>
+        </div>
     </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?> 
