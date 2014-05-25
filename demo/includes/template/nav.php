@@ -11,6 +11,11 @@
                     Projects
                 </a>
     		</li>
+            <li class="tasks" data-sidebar="tasks">
+                <a href="/tasks/">
+                    Tasks
+                </a>
+    		</li>
     		<li class="workflow">
                 <a href="/workflow/">
                     Workflow
