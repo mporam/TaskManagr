@@ -13,7 +13,7 @@ if ($env == 'production') {
 	$dsn = 'mysql:dbname=taskmana_db;host=10.168.1.50';
 } else if ($env == 'staging') {
     error_reporting(E_ALL);
-    $dsn = 'mysql:dbname=taskmana_db;host=10.168.1.50';
+    $dsn = 'mysql:dbname=taskmana_db;host=10.168.1.49';
 } else {
 	$dsn = 'mysql:dbname=taskmana_db;host=91.208.99.2:3350';
 }
