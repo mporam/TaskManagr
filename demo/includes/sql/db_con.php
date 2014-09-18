@@ -2,7 +2,12 @@
 $env = 'local';
 if ($_SERVER['SERVER_NAME'] == 'demo.taskmanagr.co.uk') {
     $env = 'production';
-} else if ($_SERVER['SERVER_NAME'] == 'staging.taskmanagr.co.uk') {
+} else if (
+	$_SERVER['SERVER_NAME'] == 'staging.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'mike.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'hannah.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'max.taskmanagr.co.uk'
+) {
     $env = 'staging';
 }
 
