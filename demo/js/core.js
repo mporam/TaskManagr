@@ -81,7 +81,10 @@ $(function() {
 
 var openSearch = function() {
     $('.search-box').stop();
-    $('.search-box').switchClass("closed", "open", 800);
+    $('.search-box').removeClass('closed');
+    $('.search-box').animate({
+        width: '205px'
+    }, 800);
 
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {

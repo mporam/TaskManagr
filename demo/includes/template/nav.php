@@ -11,18 +11,13 @@
                     Projects
                 </a>
     		</li>
-            <li class="tasks" data-sidebar="tasks">
-                <a href="/tasks/">
-                    Tasks
-                </a>
-    		</li>
     		<li class="workflow">
                 <a href="/workflow/">
                     Workflow
                 </a>
     		</li>
     		<li class="settings">
-                <a href="/#/">
+                <a href="/settings/">
                     Settings
                 </a>
     		</li>
@@ -38,4 +33,4 @@
     </div>
 </div>
 
-<div class="main col-11">
+<main class="col-11">

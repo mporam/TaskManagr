@@ -1,29 +1,38 @@
 .nav {
-	background: @col-bg;
-	height: 90.8%;
+	background: @nav-bg;
+	height: 100%;
 	.text-center;
     position: relative;
+	
+	li {
+		margin: 15px 0px 15px 5px;
+		.border-radius (5px 0 0 5px);
+	}
+	
+	li:hover {
+		background: @green-bg;
+	}
 
 	ul li a {
-		padding-top: 25px;
-		margin-top: 25px;
-		display: inline-block;
+		padding: 40px 0 12px 0;
+		display: block;
+		color: @primary-color;
 	}
 
 	.home a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 29px 0;
+		background: url('/images/site/icons/sprite.png') no-repeat 68px 15px;
 	}
 	.projects a  {
-		background: url('/images/site/icons/sprite.png') no-repeat -40px 0px;
+		background: url('/images/site/icons/sprite.png') no-repeat 67px -52px;
 	}
 	.workflow a  {
-		background: url('/images/site/icons/sprite.png') no-repeat -95px 0px;
+		background: url('/images/site/icons/sprite.png') no-repeat 65px -136px;
 	}
 	.settings a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 16px -73px;
+		background: url('/images/site/icons/sprite.png') no-repeat 65px -215px;
 	}
 	.user a  {
-		background: url('/images/site/icons/sprite.png') no-repeat -50px -73px;
+		background: url('/images/site/icons/sprite.png') no-repeat 65px -285px;
 	}				
 }
 
