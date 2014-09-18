@@ -6,6 +6,7 @@
 
 <script>
     var session = <?php echo json_encode($_SESSION); ?>;
+    var get = <?php echo json_encode($_GET); ?>;
 </script>
 
 <script src="/js/libraries/jquery-1.10.1.min.js"></script>
