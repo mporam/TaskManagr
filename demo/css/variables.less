@@ -9,6 +9,12 @@
     border-radius: @radius;
 }
 
+.shadow (@shadow) {
+  -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
 .box-sizing { 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -23,20 +29,29 @@
 
 .margin (@margin) { margin: @margin; }
 
+/* Alignment */
+
+.text-center { text-align: center; }
+
 /* Grid Variables */
 
 @pad: 20px;
 
-/* Backgroung and Colour */
+/* Background and Colour */
 
-@body-bg: #ffffff;
-@col-bg: #0e1e28;
-@module-title-bg: #2d546c;
-@btn-bg: #1cb56a;
+@white: #ffffff;
+@dark-blue: #0e1e28;
+@green: #1cb56a;
+@grey: #979797;
 
-@red-light-bg: #e84c3d;
-@amber-light-bg: #f0c516;
-@green-light-bg: #1cb56a;
+@primary-color: @white;
+@nav-bg: @dark-blue;
+@btn-bg: @green;
+@page-title-border: @grey;
 
-@color-white: #ffffff;
-@text-color: #0e1e28;
+@red-bg: #e84c3d;
+@amber-bg: #f0c516;
+@green-bg: @green;
+
+@default-color: @dark-blue;
+@header-color: @dark-blue;
