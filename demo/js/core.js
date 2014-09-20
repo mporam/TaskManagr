@@ -99,13 +99,12 @@ var openSearch = function() {
 
 var closeSearch = function() {
     $('.search-box').stop();
-    $('.search-box').removeClass('open');
     $('.search-box').animate({
         width: '28px'
     }, 800,
     'swing',
     function() {
-        $('.search-box').addClass('closed');
+        $('.search-box').toggleClass('open closed');
         $('.search-box').attr('style', '');
         $('.search-btn').off('click search'); // remove click event to prevent search on closed form
     });
