@@ -105,7 +105,7 @@ var closeSearch = function() {
     }, 800,
     'swing',
     function() {
-        $('.search-box').addClass('closed');
+        $('.search-box').toggleClass('open closed');
         $('.search-box').attr('style', '');
         $('.search-btn').off('click search'); // remove click event to prevent search on closed form
     });
