@@ -31,10 +31,10 @@ try {
 } catch (PDOException $e) {
     if ($_SERVER['SERVER_NAME'] == 'demo.taskmanagr.co.uk') {
         // live error message
-        echo '<p>Error connecting to Task Managr database, please check the settings in your config file</p>';
+        echo '<p>Error connecting to Task Managr database, please check the settings in your config file.</p>';
     } else {
         // dev error message
-        echo '<p>Database connection failed, please enable remote access</p>';
+        echo '<p>Database connection failed, please enable remote access.</p>';
         echo '<p>If that doesnt work, give this geeky error to Mike: ' . $e->getMessage() . '</p>';
     }
 }

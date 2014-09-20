@@ -1,9 +1,6 @@
-var hash, sidebar;
-if (window.location.hash == "") {
-    window.location.hash = '/';
-}
 $(function() {
-    sidebar = $('#sidebar');
+    window.sidebar = $('#sidebar');
+    window.sidebarInner = $('#sidebar .sidebar-inner');
     
     // define click event to open seach box
     $('.search-box').on('click', function(e) {
@@ -26,6 +23,59 @@ $(function() {
         closeSearch();
     });
     
+    // open sidebar and trigger event
+    $('nav li[data-sidebar]').mouseenter(function() {
+        openSidebar();
+        sidebar.trigger('sidebar-' + $(this).data('sidebar'));
+    });
+    
+    // close sidebar when mouse out from sidebar
+    $('.nav').mouseleave(function() {
+        closeSidebar();
+    });
+    
+    // close sidebar when mouse enter link without sidebar
+    $('nav li:not([data-sidebar])').mouseenter(function() {
+        closeSidebar();
+    });
+    
+    // event handler for projects sidebar
+    sidebar.on('sidebar-projects', function() {
+        if (sidebarInner.html().length > 0) return false;
+        sidebarInner.append('<h3>Projects</h3>');
+        $.ajax({
+            type: "POST",
+            url: '/api/projects/',
+            data: {},
+            success: function(data) {
+                data.forEach(function(item) {
+                    sidebarInner.append('<div>' + item.projects_name + '</div>');
+                });
+            },
+            error: function() {
+                sidebarInner.append('<p>Error getting data</p>');
+            }
+        });
+    });
+    
+    // event handler for projects sidebar
+    sidebar.on('sidebar-tasks', function() {
+        if (sidebarInner.html().length > 0) return false;
+        sidebarInner.append('<h3>Tasks</h3>');
+        $.ajax({
+            type: "POST",
+            url: '/api/tasks/',
+            data: {},
+            success: function(data) {
+                data.forEach(function(item) {
+                    sidebarInner.append('<div>' + item.tasks_title + '</div>');
+                });
+            },
+            error: function() {
+                sidebarInner.append('<p>Error getting data</p>');
+            }
+        });
+    });
     
 });
 
@@ -33,7 +83,7 @@ var openSearch = function() {
     $('.search-box').stop();
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
-        width: '250px'
+        width: '205px'
     }, 800);
 
     // assign click event to trigger search
@@ -41,40 +91,34 @@ var openSearch = function() {
         var searchTerm = $('.search-input').val();
         window.location.href = '/search/?term=' + searchTerm;
     });
-
-    $('.search-box').addClass('open');
 };
 
 var closeSearch = function() {
     $('.search-box').stop();
-    $('.search-box').removeClass('open');
-    $('.search-box').animate({
-        width: '28px'
-    }, 800);
-    
-    // remove click event to prevent search on closed form
-    $('.search-btn').off('click search');
-    $('.search-box').addClass('closed');
+    $('.search-box').switchClass("open", "closed", 500);
+    $('.search-btn').off('click search'); // remove click event to prevent search on closed form
 };
 
 var openSidebar = function() {
-    sidebar.removeClass('closed');
-    sidebar.animate(
-        {width: "20%"},
-        2000,
-        function() {
-            sidebar.addClass('open');
-        }
-    );
-}
+    sidebar.switchClass( "closed", "open", 500);
+    sidebar.attr('style', '');
+    sidebarInner.html('');
+    sidebar.trigger('opened');
+};
 
 var closeSidebar = function() {
-    sidebar.removeClass('open');
-    sidebar.animate(
-        {width: "0"},
-        2000,
-        function() {
-            sidebar.addClass('closed');
-        }
-    );
-}
+    if (sidebar.hasClass('closed')) {
+        sidebar.attr('style', '');
+    }
+    sidebar.stop().switchClass( "open", "closed", 500);
+    sidebarInner.html('');
+    sidebar.trigger('closed');
+};
+
+var toggleSidebar = function() {
+    if (sidebar.width() > 0) {
+        closeSidebar();
+    } else {
+        openSidebar();
+    }
+};

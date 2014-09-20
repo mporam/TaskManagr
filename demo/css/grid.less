@@ -3,6 +3,10 @@
 
 *, *:after, *:before { .box-sizing; } 
 
+body > .grid {
+	height: 100%;
+}
+
 .grid { 
 	width: 100%;
 	overflow: auto;
@@ -12,9 +16,7 @@
 
 /* Global */
 
-[class*='col-'] { 
-	.left; 
-}
+[class*='col-'] { .left; }
 
 /* Twelfth */
 

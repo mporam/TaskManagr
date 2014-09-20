@@ -4,10 +4,10 @@ if (!empty($_POST)) {
 	require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
     require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
         
-	$user = $_POST['comments_user'];
-    $access =  ($_POST['comments_access'] >= $_SESSION['users_type'] ? $_POST['comments_access'] : $_SESSION['users_type']);
+	$user    = $_POST['comments_user'];
+    $access  =  ($_POST['comments_access'] >= $_SESSION['users_type_id'] ? $_POST['comments_access'] : $_SESSION['users_type_id']);
     $comment =  trim($_POST['comments_comment']);
- 	$task =  $_POST['comments_task_id'];
+ 	$task    =  $_POST['comments_task_id'];
 	$deleted = (empty($_POST['comments_deleted']) ? '0' : $_POST['comments_deleted']);
 
 	if (!empty($_POST['comments_id'])) {
@@ -43,5 +43,5 @@ if (!empty($_POST)) {
 
 } else {
         header("HTTP/1.0 400 Bad Request", 400);
-	die(json_encode(array(message => 'Incomplete data', code => 400)));
+	die(json_encode(array('message' => 'Incomplete data', 'code' => 400)));
 }

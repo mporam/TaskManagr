@@ -199,6 +199,10 @@ foreach($tasks as $k=>$task) {
     $tasks[$k]['projects_manager'] = (empty($manager) ? 'Unassigned' : $manager);
     
     $tasks[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];
+    
+    $tasks[$k]['tasks_deadline'] = showDate($task['tasks_deadline']);
+    $tasks[$k]['tasks_created'] = showDate($task['tasks_created']);
+    $tasks[$k]['tasks_updated'] = showDate($task['tasks_updated']);
 }
 
 header('Content-Type: application/json');

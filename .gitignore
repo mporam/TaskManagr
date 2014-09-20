@@ -1,2 +1,6 @@
+.DS_Store
 /nbproject/private/
 /nbproject/
+error.log
+custom.log
+.idea
