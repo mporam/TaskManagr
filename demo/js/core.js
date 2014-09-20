@@ -81,13 +81,12 @@ $(function() {
 
 var openSearch = function() {
     $('.search-box').stop();
-    $('.search-box').removeClass('closed');
+    $('.search-box').toggleClass('open closed');
     $('.search-box').animate({
         width: '205px'
     }, 800,
     'swing',
     function() {
-        $('.search-box').addClass('open');
         $('.search-box').attr('style', '');
     });
 
@@ -100,6 +99,7 @@ var openSearch = function() {
 
 var closeSearch = function() {
     $('.search-box').stop();
+    $('.search-box').removeClass('open');
     $('.search-box').animate({
         width: '28px'
     }, 800,
