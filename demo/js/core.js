@@ -84,7 +84,12 @@ var openSearch = function() {
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
         width: '205px'
-    }, 800);
+    }, 800,
+    'swing',
+    function() {
+        $('.search-box').addClass('open');
+        $('.search-box').attr('style', '');
+    });
 
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {
@@ -95,8 +100,15 @@ var openSearch = function() {
 
 var closeSearch = function() {
     $('.search-box').stop();
-    $('.search-box').switchClass("open", "closed", 500);
-    $('.search-btn').off('click search'); // remove click event to prevent search on closed form
+    $('.search-box').animate({
+        width: '28px'
+    }, 800,
+    'swing',
+    function() {
+        $('.search-box').addClass('closed');
+        $('.search-box').attr('style', '');
+        $('.search-btn').off('click search'); // remove click event to prevent search on closed form
+    });
 };
 
 var openSidebar = function() {
