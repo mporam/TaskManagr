@@ -5,9 +5,8 @@
 <body>    
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
-<h2>Workflow</h2>
-
 <div id="workflow">
+    <h2>Workflow</h2>
     <div class="grid" id="workflow-titles"></div>
     <div class="grid" id="workflow-tasks"></div>
 </div>

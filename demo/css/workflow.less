@@ -1,18 +1,27 @@
-#workflow .column {
-    min-height: 50px;
-    
-    &:last-child {
-        display: none; // need to find a better way of doing this
+#workflow {
+    min-height: 100%;
+
+    #workflow-tasks {
+        .column {
+        }
     }
-    
-    .task-box,
-    .task-placeholder {
+
+    .column {
         min-height: 50px;
-        border: 1px solid #fff;
-        margin-bottom: 5px;
-    }
-    
-    .task-placeholder {
-        border-style: dashed;
+
+        &:last-child {
+            display: none; // need to find a better way of doing this
+        }
+
+        .task-box,
+        .task-placeholder {
+            min-height: 50px;
+            border: 1px solid #fff;
+            margin-bottom: 5px;
+        }
+
+        .task-placeholder {
+            border-style: dashed;
+        }
     }
 }
