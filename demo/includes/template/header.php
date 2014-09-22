@@ -8,7 +8,7 @@
     <div class="col-4 settings">
         <div class="right">
             <a href="#">
-                <img src="<?php echo get_gravatar($_SESSION['users_email'], '/images/temp-gravatar.png') ?>" class="user-image">
+                <img src="<?php echo get_gravatar($_SESSION['users_email'], $_SESSION['users_image']) ?>" class="user-image">
             </a>
             <!--
                 <ul>
