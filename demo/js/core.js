@@ -18,11 +18,6 @@ $(function() {
         }
     });
     
-    // close search box when click outside of searchbox
-    $(document).click(function() {
-        closeSearch();
-    });
-    
     // open sidebar and trigger event
     $('nav li[data-sidebar]').mouseenter(function() {
         openSidebar();
@@ -80,6 +75,7 @@ $(function() {
 });
 
 var openSearch = function() {
+	console.log('open');
     $('.search-box').stop();
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
@@ -91,6 +87,8 @@ var openSearch = function() {
         $('.search-box').attr('style', '');
     });
 
+    $(document).on('click', closeSearch);
+
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {
         var searchTerm = $('.search-input').val();
@@ -99,14 +97,17 @@ var openSearch = function() {
 };
 
 var closeSearch = function() {
+	console.log('close');
     $('.search-box').stop();
     $('.search-box').animate({
         width: '28px'
     }, 800,
     'swing',
     function() {
-        $('.search-box').toggleClass('open closed');
+		$('.search-box').removeClass('open');
+		$('.search-box').addClass('closed');
         $('.search-box').attr('style', '');
+		$(document).off('click', closeSearch);
         $('.search-btn').off('click search'); // remove click event to prevent search on closed form
     });
 };
