@@ -8,17 +8,19 @@
     <div class="col-4 settings">
         <div class="right">
             <a href="#">
-                <img src="/images/temp-gravatar.png">
+                <img src="<?php echo get_gravatar($_SESSION['users_email'], '/images/temp-gravatar.png') ?>" class="user-image">
             </a>
-            <!-- DO WE NEED THIS FUCTIONALITY?
+            <!--
                 <ul>
-                    <li>Hi Max!</li>
-                    
-                        <li>Hi Mike</li>
-                        <li>Hi Hannah</li>
+                    <li>Hi Max!
+                        <ul>
+                            <li>Hi Mike</li>
+                            <li>Hi Hannah</li>
+                        </ul>
+                    </li>
                 </ul>
             -->
-            <nav>
+            <div class="icons">
                 <div class="search-box closed">
                     <input type="search" placeholder="search&hellip;" name="search" class="search-input">
                     <input type="submit" value="submit" class="search-btn">
@@ -26,7 +28,7 @@
                     
                 <a href="#" class="info">Info</a>
 
-            </nav>
+            </div>
         </div>
     </div>
 </header>

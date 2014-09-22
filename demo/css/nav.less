@@ -7,33 +7,74 @@
 	li {
 		margin: 15px 0px 15px 5px;
 		.border-radius (5px 0 0 5px);
-	}
-	
-	li:hover {
-		background: @green-bg;
-	}
 
-	ul li a {
-		padding: 40px 0 12px 0;
-		display: block;
-		color: @primary-color;
-	}
+        &:hover {
+            background: @green-bg;
 
-	.home a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 68px 15px;
+            &.active {
+                background: @green-bg;
+
+                a {
+                    color: @primary-color;
+                }
+            }
+        }
+
+        a {
+            padding: 20px 0 12px 0;
+            display: block;
+            color: @primary-color;
+
+            span {
+                display: block;
+                margin: 0 auto 10px auto;
+                width: 22px;
+                height: 22px;
+                background: url('/images/site/icons/sprite.png') no-repeat 68px 15px;
+            }
+        }
+
+        &.home span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px 1px;
+        }
+        &.projects span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -67px;
+        }
+        &.workflow span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -147px;
+        }
+        &.settings span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -226px;
+        }
+        &.user span {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -299px;
+        }
+
+        &.active {
+            background-color: @white;
+
+            a {
+                color: @default-color;
+            }
+
+            &.home span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -18px;
+            }
+            &.projects span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -87px;
+            }
+            &.workflow span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -170px;
+            }
+            &.settings span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -249px;
+            }
+            &.user span {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -322px;
+            }
+
+        }
 	}
-	.projects a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 67px -52px;
-	}
-	.workflow a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 65px -136px;
-	}
-	.settings a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 65px -215px;
-	}
-	.user a  {
-		background: url('/images/site/icons/sprite.png') no-repeat 65px -285px;
-	}				
 }
 
 /* ------------------- Sidebar */
