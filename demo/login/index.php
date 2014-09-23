@@ -16,6 +16,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="/css/login.less" rel="stylesheet/less" media="screen">
+    <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
+
     <title>Login | Task Managr Demo</title>
 </head>
 <body>

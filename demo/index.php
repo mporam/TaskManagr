@@ -9,14 +9,14 @@
     
     <h2>Dashboard</h2>
 
-    <div id="stats">
+    <div id="stats" class="col-8">
         <h3>My stats</h3>
         <div class="inner-module">
             
         </div>
     </div>
     
-    <div id="inprogress">
+    <div id="inprogress" class="col-3">
         <h3>In Progress</h3>
         <div class="inner-module">
             <table>
@@ -24,7 +24,7 @@
         </div>
     </div>
     
-    <div id="mytasks">
+    <div id="mytasks" class="col-8">
         <h3>My Tasks</h3> 
         <div class="inner-module"> 
             <table>
@@ -42,7 +42,7 @@
         </div>
     </div>
     
-    <div id="recenttasks">
+    <div id="recenttasks" class="col-3">
         <h3>Recent Tasks</h3>
         <div class="inner-module">   
             <table>
@@ -52,7 +52,7 @@
         </div>
     </div>
     
-    <div id="taskupdate" class="col-4">
+    <div id="taskupdate" class="col-6">
         <h3>Quick task update</h3>
         <div class="inner-module">
             <form>
