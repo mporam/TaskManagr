@@ -56,4 +56,7 @@ foreach($users as $k => $user) {
 }
 
 header('Content-Type: application/json');
+if ($env) {
+    header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
+}
 echo json_encode($users);

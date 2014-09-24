@@ -20,7 +20,7 @@ if (!empty($_POST['users_id'])) {
 			'code' => 500,
 			'message' => 'Delete Failed. Please try again.'
 		);
-                header("HTTP/1.0 500 Internal Server Error", 500);
+        header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
 	
@@ -29,10 +29,14 @@ if (!empty($_POST['users_id'])) {
 		'message' => 'User Permanently Deleted',
 		'id' => $id
 	);
-	
+
+    header('Content-Type: application/json');
+    if ($env) {
+        header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
+    }
 	echo json_encode($result);
 
 } else {
-        header("HTTP/1.0 400 Bad Request", 400);
+    header("HTTP/1.0 400 Bad Request", 400);
 	die(json_encode(array('message' => 'Incomplete data', 'code' => 400)));
 }

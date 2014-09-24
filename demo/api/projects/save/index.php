@@ -22,10 +22,10 @@ if (!empty($_POST)) {
 		$query->execute();
 	} catch (PDOException $e) {
 		$result = array(
-			code => 500,
-			message => 'Save Failed. Please try again.'
+			'code' => 500,
+			'message' => 'Save Failed. Please try again.'
 		);
-                header("HTTP/1.0 500 Internal Server Error", 500);
+        header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
 	
@@ -35,14 +35,18 @@ if (!empty($_POST)) {
 		$lastid = $_POST['projects_id'];
 	}
 	$result = array(
-		code => 200,
-		message => 'Project Saved',
-		id => $lastid
+		'code' => 200,
+		'message' => 'Project Saved',
+		'id' => $lastid
 	);
-	
+
+    header('Content-Type: application/json');
+    if ($env) {
+        header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
+    }
 	echo json_encode($result);
 
 } else {
         header("HTTP/1.0 400 Bad Request", 400);
-	die(json_encode(array(message => 'Incomplete data', code => 400)));
+	die(json_encode(array('message' => 'Incomplete data', 'code' => 400)));
 }
