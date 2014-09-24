@@ -7,54 +7,61 @@
     
     <h2>Dashboard</h2>
 
-    <div id="stats" class="col-8">
-        <h3>My stats</h3>
-        <div class="inner-module">
-            
+    <div id="stats" class="module col-8">
+        <div class="module-container">
+            <h3>My stats</h3>
+            <div class="inner-module">
+            </div>
         </div>
     </div>
     
-    <div id="inprogress" class="col-3">
-        <h3>In Progress</h3>
-        <div class="inner-module">
-            <table>
-            </table>
+    <div id="inprogress" class="module col-4">
+        <div class="module-container">
+            <h3>In Progress</h3>
+            <div class="inner-module">
+                <table>
+                </table>
+            </div>
         </div>
     </div>
     
-    <div id="mytasks" class="col-8">
-        <h3>My Tasks</h3> 
-        <div class="inner-module"> 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task no:</th>
-                        <th>Priority:</th>
-                        <th>Title:</th>
-                        <th>Deadline:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    <div id="mytasks" class="module col-8">
+        <div class="module-container">
+            <h3>My Tasks</h3>
+            <div class="inner-module">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task no:</th>
+                            <th>Priority:</th>
+                            <th>Title:</th>
+                            <th>Deadline:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
-    <div id="recenttasks" class="col-3">
-        <h3>Recent Tasks</h3>
-        <div class="inner-module">   
-            <table>
-                <tbody>
-                </tbody>
-            </table>
+    <div id="recenttasks" class="module col-4">
+        <div class="module-container">
+            <h3>Recent Tasks</h3>
+            <div class="inner-module">
+                <table>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
-    <div id="taskupdate" class="col-6">
-        <h3>Quick task update</h3>
-        <div class="inner-module">
+    <div id="taskupdate" class="module col-6">
+        <div class="module-container">
+            <h3>Quick task update</h3>
             <form>
-                <div class="module-container">
+                <div class="inner-module">
                     <img class="gravatar" src="<?php echo (empty($_SESSION['users_image']) ? get_gravatar($_SESSION['users_email']) : $_SESSION['users_image']); ?>">
                     <div class="update">
                         <div class="form-group-inline">

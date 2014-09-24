@@ -1,32 +1,30 @@
-/* ------------------- Global CSS For Modules */
+/* ------------------- CSS For Modules */
+.module {
+    padding: 0 10px;
+    margin-bottom: 20px;
 
-.inner-module {
-	padding: 10px;
+    .module-container {
+        overflow: auto;
+        .border-radius (5px);
+        .shadow (0 0 6px rgb(179,179,179,.5));
+        border: solid 1px @default-color;
+    }
+
+    .inner-module {
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .module-footer {
+        overflow: auto;
+        display: block;
+        border-top: 1px solid @grey;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
 }
 
-.module-container {
-	overflow: hidden;
-}
-
-#taskupdate,
-#recenttasks,
-#mytasks,
-#inprogress,
-#stats {
-	.border-radius (5px);
-	.shadow (0 0 6px rgb(179,179,179,.5));
-	border: solid 1px @default-color;
-	margin: 0 10px 15px 0;
-}
-
-.module-footer {
-    display: block;
-    border-top: 1px solid @grey;
-    margin-top: 10px;
-    padding-top: 10px;
-}
-
-/* ------------------- Task Update */
+/* ------------------- Task Update Module */
 
 #taskupdate {
 
