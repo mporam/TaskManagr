@@ -38,6 +38,6 @@ function get_gravatar($email, $default = '') {
     return $url;
 }
 
-function get_page() {
-
+function error($string) {
+    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', date('d/m/Y H:i:s', time()) . " : " . $string . " " . debug_print_backtrace() . "\n", FILE_APPEND);
 }
