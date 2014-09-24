@@ -39,5 +39,6 @@ function get_gravatar($email, $default = '') {
 }
 
 function error($string) {
-    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', date('d/m/Y H:i:s', time()) . " : " . $string . " " . debug_print_backtrace() . "\n", FILE_APPEND);
+    $backtrace = debug_backtrace();
+    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', date('d/m/Y H:i:s', time()) . " : " . $string . " " . $backtrace[0]['file'] . ':' . $backtrace[0]['line'] . "\n", FILE_APPEND);
 }
