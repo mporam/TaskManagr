@@ -113,7 +113,7 @@ var closeSearch = function() {
 };
 
 var openSidebar = function() {
-    sidebar.switchClass( "closed", "open", 500);
+    sidebar.switchClass("closed", "open", 500);
     sidebar.attr('style', '');
     sidebarInner.html('');
     sidebar.trigger('opened');
@@ -123,7 +123,7 @@ var closeSidebar = function() {
     if (sidebar.hasClass('closed')) {
         sidebar.attr('style', '');
     }
-    sidebar.stop().switchClass( "open", "closed", 500);
+    sidebar.stop().switchClass("open", "closed", 400);
     sidebarInner.html('');
     sidebar.trigger('closed');
 };
@@ -135,3 +135,38 @@ var toggleSidebar = function() {
         openSidebar();
     }
 };
+
+/**
+ * Create a circliful graph
+ * @param parent object a jquery object of the parent to add the graph too
+ * @param options object
+ */
+
+var createGraph = function(parent, options) {
+    if (!('part' in options) || !('total' in options)) {
+        return false;
+    }
+
+    var defaults = {
+        dimension: 120,
+        width: 5,
+        info: '',
+        fontsize: '25',
+        fgcolor:  '#61a9dc', // should randomise this some how - should also set text color
+        bgcolor:  '#eeeeee' // relate this to the randomised fgcolor
+    };
+
+    data = $.extend({}, defaults, options);
+    data.percent = Math.round((data.part/data.total)*100);
+    data.text = data.percent + '%';
+    delete data.part;
+    delete data.total;
+    var graph = $('<div></div>');
+
+    $.each(data, function(key, value) {
+        graph.attr('data-' + key, value);
+    });
+
+    parent.append(graph);
+    graph.circliful();
+}

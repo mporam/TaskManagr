@@ -4,8 +4,6 @@
 </script>
 <script src="/js/projects/core.js"></script>
 <title>Projects</title>
-</head>
-<body>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     
     <div id="projects">

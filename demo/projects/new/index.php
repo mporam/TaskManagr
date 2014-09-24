@@ -1,9 +1,7 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
     <script src="/js/projects/new.js"></script>
     <title>Projects</title>
-</head>
-<body>
-    <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     <h3>Create New Project</h3>
     <form>
         <div>

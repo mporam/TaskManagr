@@ -1,8 +1,6 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
     <script src="/js/users/new.js"></script>
     <title>Users</title>
-</head>
-<body>
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 <h3>Create New User</h3>
 <form>
