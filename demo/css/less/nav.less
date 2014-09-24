@@ -3,10 +3,15 @@
 	height: 100%;
 	.text-center;
     position: relative;
+
+    nav {
+        position: relative;
+        z-index: 101;
+        background-color: @nav-bg;
+    }
 	
 	li {
-		margin: 15px 0px 15px 5px;
-		.border-radius (5px 0 0 5px);
+		margin: 15px 0;
 
         &:hover {
             background: @green-bg;
@@ -79,8 +84,8 @@
 
 /* ------------------- Sidebar */
 #sidebar {
-    overflow: hidden;
-    width: 0;
+    overflow: auto;
+    width: 200%;
     background: @nav-bg;
     position: absolute;
     left: 100%;
@@ -89,14 +94,11 @@
     z-index: 100;
     
     &.open {
-        overflow: auto;
-        width: 200%;
+        left: 100%;
     }
     
     &.closed {
-        overflow: hidden;
-        width: 0;
-        padding: 0;
+        left: -100%;
     }
     
     .sidebar-inner {

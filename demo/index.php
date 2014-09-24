@@ -2,8 +2,6 @@
     <script src="/js/libraries/jquery.circliful.min.js" type="text/javascript"></script>
     <script src="/js/dashboard/core.js" type="text/javascript"></script>
     <title>Admin</title>
-</head>
-<body>    
    
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     
@@ -57,20 +55,26 @@
         <div class="inner-module">
             <form>
                 <div class="module-container">
-                    <img class="gravatar" src="/images/temp-gravatar.png">
+                    <img class="gravatar" src="<?php echo (empty($_SESSION['users_image']) ? get_gravatar($_SESSION['users_email']) : $_SESSION['users_image']); ?>">
                     <div class="update">
-                        <label>update task:</label>
-                        <input type="text" name="tasks_code">
-                        <input type="hidden" name="tasks_id">
-                        <label>Update status:</label>
-                        <select name="tasks_status">
-                            <option>Select a task</option>
-                        </select>
+                        <div class="form-group-inline">
+                            <label>Update task:</label>
+                            <input type="text" name="tasks_code">
+                            <input type="hidden" name="tasks_id">
+                            <ul class="dyn-list" id="taskupdatelist"></ul>
+                        </div>
+
+                        <div class="form-group-inline">
+                            <label>Update status:</label>
+                            <select name="tasks_status">
+                                <option>Select a task</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div class="module-footer">
                     <textarea name="comment_comment" placeholder="Write your comment&hellip;"></textarea>
-                    <input type="submit" value="submit">
+                    <input type="submit" value="Update Task">
                 </div>
             </form>
         </div>

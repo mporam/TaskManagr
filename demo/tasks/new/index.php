@@ -3,8 +3,6 @@
     <script src="/js/ckeditor/adapters/jquery.js"></script>
     <script src="/js/tasks/new.js"></script>
     <title>Admin</title>
-</head>
-<body>    
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     <h3>Create New Task</h3>
     <form>

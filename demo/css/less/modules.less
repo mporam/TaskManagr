@@ -19,12 +19,36 @@
 	margin: 0 10px 15px 0;
 }
 
+.module-footer {
+    display: block;
+    border-top: 1px solid @grey;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
 /* ------------------- Task Update */
 
 #taskupdate {
+
+    .dyn-list {
+        max-height: 50px;
+    }
 
 	.gravatar,
 	.update {
 		.left;
 	}
+
+    .gravatar {
+        .border-radius(50%);
+        margin-right: 15px;
+    }
+
+    textarea {
+        border: none;
+        display: block;
+        width: 100%;
+        height: 50px;
+    }
+
 }

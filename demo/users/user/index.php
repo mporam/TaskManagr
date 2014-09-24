@@ -7,8 +7,6 @@
         exit;
     }?>
     <title>Admin</title>
-</head>
-<body>    
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 <h3>User</h3>
 

@@ -1,0 +1,65 @@
+*, *:after, *:before {
+    .box-sizing;
+}
+
+html {
+	height: 100%;
+}
+
+body.grid {
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    background: @white;
+}
+
+main {
+ 	padding: @pad;
+    height: 88%;
+    overflow: auto;
+ }
+
+.left { float: left; }
+
+.right { float: right; }
+
+/* -----------------  Dynamic lists - AJAX populated */
+.dyn-list {
+    margin-top: 5px;
+    overflow: auto;
+
+    li {
+        cursor: pointer;
+
+        &:hover {
+            color: @green;
+        }
+    }
+}
+
+/* -----------------  Circlifil */
+.circliful {
+    position: relative;
+    margin-top: 15px;
+    float: left;
+
+    .fa {
+        margin: -10px 3px 0 3px;
+        position: relative;
+        bottom: 4px;
+    }
+}
+.circle-text, .circle-info, .circle-text-half, .circle-info-half {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+}
+.circle-info, .circle-info-half {
+    color: @grey;
+    font-style: italic;
+    font-size: 12rem;
+    top: -10px;
+    line-height: normal!important;
+}
+
