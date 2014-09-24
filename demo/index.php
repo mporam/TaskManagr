@@ -2,7 +2,6 @@
     <script src="/js/libraries/jquery.circliful.min.js" type="text/javascript"></script>
     <script src="/js/dashboard/core.js" type="text/javascript"></script>
     <title>Admin</title>
-   <?php error('teststring'); ?>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     
     <h2>Dashboard</h2>
