@@ -44,7 +44,7 @@ $(function() {
             data: {},
             success: function(data) {
                 data.forEach(function(item) {
-                    sidebarInner.append('<div>' + item.projects_name + '</div>');
+                    sidebarInner.append('<div class="item"><a href="/projects/project/?project=' + item.projects_code + '">' + item.projects_name + '</a></div>');
                 });
             },
             error: function() {
@@ -63,7 +63,7 @@ $(function() {
             data: {},
             success: function(data) {
                 data.forEach(function(item) {
-                    sidebarInner.append('<div>' + item.users_name + '</div>');
+                    sidebarInner.append('<div class="item"><a href="/users/user/?name=' + item.users_name + '">' + item.users_name + '</a></div>');
                 });
             },
             error: function() {
