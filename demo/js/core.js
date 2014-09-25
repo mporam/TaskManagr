@@ -52,18 +52,18 @@ $(function() {
             }
         });
     });
-    
+
     // event handler for projects sidebar
-    sidebar.on('sidebar-tasks', function() {
+    sidebar.on('sidebar-users', function() {
         if (sidebarInner.html().length > 0) return false;
-        sidebarInner.append('<h3>Tasks</h3>');
+        sidebarInner.append('<h3>Users</h3>');
         $.ajax({
             type: "POST",
-            url: '/api/tasks/',
+            url: '/api/users/',
             data: {},
             success: function(data) {
                 data.forEach(function(item) {
-                    sidebarInner.append('<div>' + item.tasks_title + '</div>');
+                    sidebarInner.append('<div>' + item.users_name + '</div>');
                 });
             },
             error: function() {
@@ -75,7 +75,6 @@ $(function() {
 });
 
 var openSearch = function() {
-	console.log('open');
     $('.search-box').stop();
     $('.search-box').removeClass('closed');
     $('.search-box').animate({
@@ -97,7 +96,6 @@ var openSearch = function() {
 };
 
 var closeSearch = function() {
-	console.log('close');
     $('.search-box').stop();
     $('.search-box').animate({
         width: '28px'

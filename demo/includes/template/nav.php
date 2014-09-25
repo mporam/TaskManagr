@@ -25,12 +25,14 @@
                     Settings
                 </a>
     		</li>
-    		<li class="user<?php echo ($url_parts[0] == 'users')? ' active' : ''?>">
+            <?php if ($_SESSION['users_type'] == '1') { ?>
+    		<li class="user<?php echo ($url_parts[0] == 'users')? ' active' : ''?>" data-sidebar="users">
                 <a href="/users/">
                     <span></span>
                     Users
                 </a>
     		</li>
+            <?php } ?>
     	</ul>
     </nav>
     <div id="sidebar" class="closed">

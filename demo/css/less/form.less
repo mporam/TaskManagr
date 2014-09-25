@@ -4,6 +4,37 @@ form {
     .form-group {
         margin-bottom: 10px;
         overflow: auto;
+
+        label {
+            display: block;
+            float: left;
+            width: 25%;
+            padding-right: 10px;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="email"],
+        input[type="date"],
+        input[type="url"],
+        input[type="number"],
+        input[type="month"],
+        input[type="tel"],
+        input[type="week"],
+        select {
+            width: 75%;
+            padding: 5px 10px;
+            float: left;
+        }
+
+        &.textarea {
+            label {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 10px;
+                float: none;
+            }
+        }
     }
 
     .form-group-inline {
