@@ -38,7 +38,7 @@ $(function() {
         data: {"tasks_assignee": session.users_id, "tasks_status": "2", "order": "tasks_priority_id DESC"},
         success: function(data) {
             data.forEach(function(task) {
-                $('#inprogress table').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
+                $('#inprogress table').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + ' ' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
             });
         },
         error: function(XHR) {
@@ -55,7 +55,7 @@ $(function() {
         data: {"tasks_assignee": session.users_id},
         success: function(data) {
             data.forEach(function(task) {
-                $('#mytasks table tbody').append('<tr><td>' + task.tasks_code + '</td><td>' + task.tasks_priority + '</td><td>' + task.tasks_title + '</td><td>' + task.tasks_deadline + '</td></tr>');
+                $('#mytasks table tbody').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_title + '</a></td><td>' + task.tasks_deadline + '</td></tr>');
             });
         },
         error: function(XHR) {
@@ -72,7 +72,7 @@ $(function() {
         data: {"limit":"3", "order":"tasks_updated"},
         success: function(data) {
             data.forEach(function(task) {
-                $('#recenttasks table tbody').append('<tr><td>' + task.tasks_code + ' ' + task.tasks_title + '</td></tr>');
+                $('#recenttasks table tbody').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + ' ' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
             });
         },
         error: function(XHR) {
