@@ -51,22 +51,8 @@
 			p {
 				margin: 5px 0;
 			}
-			
-			&.Low {
-				border-right-color: @low;
-			}
-			
-			&.Average {
-				border-right-color: @average;
-			}
-			
-			&.High {
-				border-right-color: @high;
-			}
-			
-			&.Emergency {
-				border-right-color: @emergency;
-			}
+
+            .priorities('border-right-color');
 			
 			&.saving {
 				// styles here for when the task is saving
