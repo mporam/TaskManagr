@@ -1,5 +1,5 @@
 
-/* Prefixes */
+/* Mixins */
 
 .border-radius (@radius) {
     -webkit-border-radius: @radius;
@@ -21,6 +21,13 @@
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.priorities(@style) {
+    &.Low {@style: @low;}
+    &.Average {@style: @average;}
+    &.High {@style: @high;}
+    &.Emergency {@style: @emergency;}
 }
 
 /* Spacing */

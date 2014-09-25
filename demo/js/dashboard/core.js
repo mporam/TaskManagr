@@ -38,7 +38,7 @@ $(function() {
         data: {"tasks_assignee": session.users_id, "tasks_status": "2", "order": "tasks_priority_id DESC"},
         success: function(data) {
             data.forEach(function(task) {
-                $('#inprogress table').append('<tr><td>' + task.tasks_title + '</td></tr>');
+                $('#inprogress table').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
             });
         },
         error: function(XHR) {
