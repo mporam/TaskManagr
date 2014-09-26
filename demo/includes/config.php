@@ -7,6 +7,7 @@ $url_parts = explode('/', $_SERVER['SCRIPT_NAME']);
 array_shift($url_parts);
 array_pop($url_parts);
 if (empty($url_parts)) $url_parts[0] = 'dashboard';
+$url_parts = array_pad($url_parts, 3, '');
 
 // set the environment, 1 is dev, 0 is live
 $env = 1;

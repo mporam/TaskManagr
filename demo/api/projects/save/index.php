@@ -4,8 +4,8 @@ if (!empty($_POST)) {
         require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 	$name =  trim($_POST['projects_name']);
-        $code =  $_POST['projects_code'];
-        $desc =  trim($_POST['projects_desc']);
+    $code =  $_POST['projects_code'];
+    $desc =  trim($_POST['projects_desc']);
  	$lead =  $_POST['projects_lead'];
 	$client = $_POST['projects_client'];
 	$manager = $_POST['projects_manager'];

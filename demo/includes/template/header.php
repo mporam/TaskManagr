@@ -9,7 +9,7 @@
         </div>
         <div class="col-4 settings">
             <div class="right">
-                <a href="#">
+                <a href="/settings/">
                     <img src="<?php echo (empty($_SESSION['users_image']) ? get_gravatar($_SESSION['users_email']) : $_SESSION['users_image']); ?>" class="user-image">
                 </a>
                 <!--

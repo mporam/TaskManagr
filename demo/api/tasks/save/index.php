@@ -9,7 +9,6 @@ if (!empty($_POST)) {
         $SQL = "UPDATE tasks SET `tasks_status`=$status WHERE `tasks_id` = $id";
         $query = $con->prepare($SQL);
     } else {
-
         $project =  $_POST['tasks_project'];
         $type =     $_POST['tasks_type'];
         $title =    trim($_POST['tasks_title']);
@@ -46,7 +45,8 @@ if (!empty($_POST)) {
             $query->execute();
             $count = (int)$query->fetchColumn();
             $count++;
-            $query = $con->prepare("INSERT INTO tasks (`tasks_count`, `tasks_projects` ,`tasks_type` ,`tasks_title` ,`tasks_desc` ,`tasks_status` ,`tasks_priority` ,`tasks_deadline` ,`tasks_created` ,`tasks_updated` ,`tasks_assignee` ,`tasks_reporter`) VALUES ($count, $project, $type, '$title', '$desc', $status, $priority,  '$deadline', CURDATE(), CURDATE(), $assignee, $reporter)");
+            $SQL = "INSERT INTO tasks (`tasks_count`, `tasks_projects` ,`tasks_type` ,`tasks_title` ,`tasks_desc` ,`tasks_status` ,`tasks_priority` ,`tasks_deadline` ,`tasks_created` ,`tasks_updated` ,`tasks_assignee` ,`tasks_reporter`) VALUES ($count, $project, $type, '$title', '$desc', $status, $priority, '$deadline', CURDATE(), CURDATE(), $assignee, $reporter)";
+            $query = $con->prepare($SQL);
         }
 
     }
@@ -67,10 +67,16 @@ if (!empty($_POST)) {
 	} else {
 		$lastid = $_POST['tasks_id'];
 	}
+
+    $query = $con->prepare("SELECT projects_code FROM projects WHERE projects_id = $project");
+    $query->execute();
+    $projectcode = $query->fetchColumn();
+
 	$result = array(
 		'code' => 200,
 		'message' => 'Task Saved',
-		'id' => $lastid
+		'id' => $lastid,
+        'project' => $projectcode
 	);
 
     header('Content-Type: application/json');

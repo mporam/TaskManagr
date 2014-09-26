@@ -83,4 +83,33 @@ var tasks, projects, users;
         });
     });
 
+    $('form').submit(function(e) {
+        e.preventDefault();
+        var data = {
+            tasks_project: $('#tasks_projects').val(),
+            tasks_title: $('#tasks_name').val(),
+            tasks_type: $('#tasks_type').val(),
+            tasks_assignee: $('#tasks_assignee').val(),
+            tasks_reporter: $('#tasks_reporter').val(),
+            tasks_desc: $('#tasks_desc').val(),
+            tasks_priority: $('#tasks_priority').val(),
+            tasks_deadline: $('#tasks_deadline').val(),
+            tasks_related: $('#tasks_related').val(),
+            tasks_status: 1
+        };
+        $('.alert').remove();
+
+        $.ajax({
+            type: "POST",
+            url: '/api/tasks/save/',
+            data: data,
+            success: function(result, textStatus, jqXHR) {
+                window.location = '/tasks/task/?task=' + result.project + '-' + result.id;
+            },
+            error: function(data) {
+                $('form').before('<div class="alert fail">' + data.message + ': ' + data.code + '</div>');
+            }
+        });
+    });
+
 });

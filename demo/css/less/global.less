@@ -39,6 +39,30 @@ a {
     .priorities(background-color);
 }
 
+/* -----------------  Alerts */
+.alert {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    .border-radius(10px);
+    border: 1px solid #bce8f1;
+    background-color: #d9edf7;
+    color: #31708f;
+
+    &.success {
+        background-color: #dff0d8;
+        color: #3c763d;
+        border-color: #d6e9c6;
+    }
+
+    &.fail {
+        background-color: #f2dede;
+        color: #a94442;
+        border-color: #ebccd1;
+    }
+}
+
+
 /* -----------------  Dynamic lists - AJAX populated */
 .dyn-list {
     margin-top: 5px;
@@ -64,18 +88,21 @@ a {
         position: relative;
         bottom: 4px;
     }
-}
-.circle-text, .circle-info, .circle-text-half, .circle-info-half {
-    width: 100%;
-    position: absolute;
-    text-align: center;
-    display: inline-block;
-}
-.circle-info, .circle-info-half {
-    color: @grey;
-    font-style: italic;
-    font-size: 12rem;
-    top: -10px;
-    line-height: normal!important;
+
+    .priorities(color);
+
+    .circle-text, .circle-info, .circle-text-half, .circle-info-half {
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        display: inline-block;
+    }
+    .circle-info, .circle-info-half {
+        color: @grey;
+        font-style: italic;
+        font-size: 12rem;
+        top: -10px;
+        line-height: normal!important;
+    }
 }
 

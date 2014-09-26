@@ -147,16 +147,32 @@ var createGraph = function(parent, options) {
 
     var defaults = {
         dimension: 120,
-        width: 5,
+        width: 10,
         info: '',
         fontsize: '25',
-        fgcolor:  '#61a9dc', // should randomise this some how - should also set text color
-        bgcolor:  '#eeeeee' // relate this to the randomised fgcolor
+        fgcolor:  '#61a9dc',
+        bgcolor:  '#979797'
     };
+    var graphclass;
 
     data = $.extend({}, defaults, options);
     data.percent = Math.round((data.part/data.total)*100);
     data.text = data.percent + '%';
+
+    if (data.percent < 34) {
+        data.fgcolor = '#ff5454';
+        graphclass = 'High';
+
+    }
+    if (data.percent < 67 && data.percent > 33) {
+        data.fgcolor = '#f0c516';
+        graphclass = 'Average';
+    }
+    if (data.percent > 66) {
+        data.fgcolor = '#1cb56a';
+        graphclass = 'Low';
+    }
+
     delete data.part;
     delete data.total;
     var graph = $('<div></div>');
@@ -167,4 +183,5 @@ var createGraph = function(parent, options) {
 
     parent.append(graph);
     graph.circliful();
+    graph.addClass(graphclass);
 }
