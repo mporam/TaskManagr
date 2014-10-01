@@ -23,6 +23,7 @@
 </head>
 <body>
     <?php if (!empty($_GET['reset']) && $_GET['reset'] == 'success') echo "<p>You have successfully reset your password, please login below.</p>"; ?>
+    <h1>TM Title or logo</h1>
     <form role="form" action="login.php?loc=<?php echo $loc; ?>" method="POST">
         <div class="form-group">
             <label for="user_email">Email</label>
