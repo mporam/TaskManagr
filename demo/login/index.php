@@ -14,7 +14,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="login-page">
 <head>
     <link href="/css/less/pages/login.less" rel="stylesheet/less" media="screen">
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
