@@ -1,46 +1,76 @@
-form {
+@ebony-Clay:#2f3445;
+@green: #1cb56a;
+
+
+.login-page{
+ background-color: @ebony-Clay;
+}
+
+.login-page h1{
+    color:#fff;
+    text-align: center;
+    margin: 50px 0;
+}
+
+.login-page form {
     width: 450px;
-    margin: 100px auto 0 auto;
+    margin: 0 auto;
     padding: 25px;
-    border: 1px solid #333333;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+    text-align: center;
+    background-color: #363c54;
 
     .form-group {
         margin-bottom: 10px;
         overflow: auto;
+        color: #fff;
 
         label {
             display: block;
             float: left;
-            width: 25%;
-            font-size: 18rem;
+            width: 100%;
+            font-size: 16rem;
             padding: 4px 0;
+            line-height: 3;
+            text-align: center;
         }
 
-        input {
+        input, input[type="text"] {
             font-size: 18rem;
             float: left;
-            width: 75%;
+            width: 100%;
+            display: block;
+            border-radius: 27px;
+            padding: 15px 70px;
+            color: #fff;
+            background-color: #2E344D;
+            text-align: center;
+            outline: none;
+           
         }
 
         .checkbox {
             width: 100%;
+            display: block;
 
             label {
                 width: 100%;
                 cursor: pointer;
+                text-align: center;
+                display: block;
+                
 
-                input {
+                input{
                     margin-right: 10px;
                     margin-top: 4px;
-                    width: auto;
+                    width: 100%;
+                    text-align: center;
+                    display: block;
+                    border-radius: 27px;
+                    padding: 15px 70px;
+                    color: #fff;
+                    background-color: #2E344D;
+                    outline: none;
+
                 }
 
             }
@@ -49,10 +79,35 @@ form {
 
     .btn {
         font-size: 18rem;
+        text-align: center;
+        background-color: #363c54;
+        color: #fff;
+        font-size: 18rem;
+        text-align: center;
+        border-radius: 27px;
+        margin: 10px auto;
+        padding: 16px 20px;
+        display: block;
+        box-sizing: border-box;
+        text-transform: uppercase;
+        outline: none;
+        border: 2px solid #fff;
+        width: 65%;
+        &:hover{
+            background-color: #fff;
+            color: #363c54;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+            
+        }
     }
 
     p {
         margin-bottom: 0;
+        a{
+            color:@green;
+        }
     }
 
 }

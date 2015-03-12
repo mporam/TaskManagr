@@ -7,7 +7,7 @@
     <h2>Dashboard</h2>
 
     <div id="stats" class="module col-8">
-        <div class="module-container">
+        <div class="module-container stats">
             <h3>My stats</h3>
             <div class="inner-module">
             </div>

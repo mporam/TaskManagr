@@ -14,7 +14,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="login-page">
 <head>
     <link href="/css/less/pages/login.less" rel="stylesheet/less" media="screen">
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/head_default.php'); ?>
@@ -23,6 +23,7 @@
 </head>
 <body>
     <?php if (!empty($_GET['reset']) && $_GET['reset'] == 'success') echo "<p>You have successfully reset your password, please login below.</p>"; ?>
+    <h1>TM Title or logo</h1>
     <form role="form" action="login.php?loc=<?php echo $loc; ?>" method="POST">
         <div class="form-group">
             <label for="user_email">Email</label>
