@@ -1,0 +1,82 @@
+
+/* Mixins */
+
+.border-radius (@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;  
+    border-radius: @radius;
+}
+
+.shadow (@shadow) {
+  -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+.box-sizing { 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.priorities(@style) {
+    &.Low {@{style}: @low;}
+    &.Average {@{style}: @average;}
+    &.High {@{style}: @high;}
+    &.Emergency {@{style}: @emergency;}
+}
+
+/* Spacing */
+
+.padding (@padding) { padding: @padding; }
+
+.margin (@margin) { margin: @margin; }
+
+/* Alignment */
+
+.text-center { text-align: center; }
+
+/* Grid Variables */
+
+@pad: 20px;
+
+/* Background and Colour */
+
+
+@fiord: #3D4561;
+@oxford-Blue:#363c54;
+@ebony-Clay:#2f3445;
+@catskill-white:#f2f4f8;
+@white: #ffffff;
+@black: #000000;
+@blue: #2d546c;
+@green: #1cb56a;
+@grey: #979797;
+@mystic:#d7d7d7;
+@athens-gray: #FCFCFD;
+
+@primary-color: @white;
+@nav-bg: @ebony-Clay;
+@sidebar-bg: @ebony-Clay;
+@link-color: @ebony-Clay;
+@link-hover: @fiord;
+@btn-bg: @green;
+@page-title-border: @grey;
+@main-bg: @catskill-white;
+
+
+@red-bg: #ff5454;
+@amber-bg: #f0c516;
+@green-bg: @green;
+
+@low: @green;
+@average: @amber-bg;
+@high: @red-bg;
+@emergency: @black;
+
+@default-color: @blue;
+@header-color: @ebony-Clay;

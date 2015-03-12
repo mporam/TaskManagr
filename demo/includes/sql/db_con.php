@@ -2,7 +2,12 @@
 $env = 'local';
 if ($_SERVER['SERVER_NAME'] == 'demo.taskmanagr.co.uk') {
     $env = 'production';
-} else if ($_SERVER['SERVER_NAME'] == 'staging.taskmanagr.co.uk') {
+} else if (
+	$_SERVER['SERVER_NAME'] == 'staging.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'mike.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'hannah.taskmanagr.co.uk' ||
+	$_SERVER['SERVER_NAME'] == 'max.taskmanagr.co.uk'
+) {
     $env = 'staging';
 }
 
@@ -26,11 +31,13 @@ try {
 } catch (PDOException $e) {
     if ($_SERVER['SERVER_NAME'] == 'demo.taskmanagr.co.uk') {
         // live error message
-        echo '<p>Error connecting to Task Managr database, please check the settings in your config file</p>';
+        echo '<p>Error connecting to Task Managr database, please check the settings in your config file. See the error log for more detils.</p>';
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', date('d/m/Y H:i:s', time()) . " : " . $e->getMessage() . "\n", FILE_APPEND);
     } else {
         // dev error message
-        echo '<p>Database connection failed, please enable remote access</p>';
+        echo '<p>Database connection failed, please enable remote access.</p>';
         echo '<p>If that doesnt work, give this geeky error to Mike: ' . $e->getMessage() . '</p>';
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', date('d/m/Y H:i:s', time()) . " : " . $e->getMessage() . "\n", FILE_APPEND);
     }
 }
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);

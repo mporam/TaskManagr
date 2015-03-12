@@ -1,8 +1,6 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
     <script src="/js/search/core.js"></script>
     <title>Search</title>
-</head>
-<body> 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
 <h2>Search Results</h2>

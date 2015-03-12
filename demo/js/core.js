@@ -20,11 +20,6 @@ $(function() {
         }
     });
     
-    // close search box when click outside of searchbox
-    $(document).click(function() {
-        closeSearch();
-    });
-    
     // open sidebar and trigger event
     $('nav li[data-sidebar]').mouseenter(function() {
         var eName = $(this).data('sidebar'); // get event name
@@ -67,7 +62,7 @@ $(function() {
             data: {},
             success: function(data) {
                 data.forEach(function(item) {
-                    sidebarInner.append('<div>' + item.projects_name + '</div>');
+                    sidebarInner.append('<div class="item"><a href="/projects/project/?project=' + item.projects_code + '">' + item.projects_name + '</a></div>');
                 });
                 sidebarContent.projects = sidebarInner.html();
                 clearSidebarCache();
@@ -77,19 +72,19 @@ $(function() {
             }
         });
     });
-    
+
     // event handler for projects sidebar
-    sidebar.on('sidebar-tasks', function() {
+    sidebar.on('sidebar-users', function() {
         if (sidebarInner.html().length > 0) return false;
         sidebarInner.html('');
-        sidebarInner.append('<h3>Tasks</h3>');
+        sidebarInner.append('<h3>Users</h3>');
         $.ajax({
             type: "POST",
-            url: '/api/tasks/',
+            url: '/api/users/',
             data: {},
             success: function(data) {
                 data.forEach(function(item) {
-                    sidebarInner.append('<div>' + item.tasks_title + '</div>');
+                    sidebarInner.append('<div class="item"><a href="/users/user/?name=' + item.users_name + '">' + item.users_name + '</a></div>');
                 });
                 sidebarContent.tasks = sidebarInner.html();
                 clearSidebarCache();
@@ -104,7 +99,17 @@ $(function() {
 
 var openSearch = function() {
     $('.search-box').stop();
-    $('.search-box').switchClass("closed", "open", 800);
+    $('.search-box').removeClass('closed');
+    $('.search-box').animate({
+        width: '205px'
+    }, 800,
+    'swing',
+    function() {
+        $('.search-box').addClass('open');
+        $('.search-box').attr('style', '');
+    });
+
+    $(document).on('click', closeSearch);
 
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {
@@ -115,12 +120,21 @@ var openSearch = function() {
 
 var closeSearch = function() {
     $('.search-box').stop();
-    $('.search-box').switchClass("open", "closed", 500);
-    $('.search-btn').off('click search'); // remove click event to prevent search on closed form
+    $('.search-box').animate({
+        width: '28px'
+    }, 800,
+    'swing',
+    function() {
+		$('.search-box').removeClass('open');
+		$('.search-box').addClass('closed');
+        $('.search-box').attr('style', '');
+		$(document).off('click', closeSearch);
+        $('.search-btn').off('click search'); // remove click event to prevent search on closed form
+    });
 };
 
 var openSidebar = function() {
-    sidebar.switchClass( "closed", "open", 500);
+    sidebar.switchClass("closed", "open", 500);
     sidebar.attr('style', '');
     sidebarInner.html('');
     sidebar.trigger('opened');
@@ -130,7 +144,7 @@ var closeSidebar = function() {
     if (sidebar.hasClass('closed')) {
         sidebar.attr('style', '');
     }
-    sidebar.stop().switchClass( "open", "closed", 500);
+    sidebar.stop().switchClass("open", "closed", 400);
     sidebarInner.html('');
     sidebar.trigger('closed');
 };
@@ -142,3 +156,55 @@ var toggleSidebar = function() {
         openSidebar();
     }
 };
+
+/**
+ * Create a circliful graph
+ * @param parent object a jquery object of the parent to add the graph too
+ * @param options object
+ */
+
+var createGraph = function(parent, options) {
+    if (!('part' in options) || !('total' in options)) {
+        return false;
+    }
+
+    var defaults = {
+        dimension: 120,
+        width: 10,
+        info: '',
+        fontsize: '25',
+        fgcolor:  '#61a9dc',
+        bgcolor:  '#979797'
+    };
+    var graphclass;
+
+    data = $.extend({}, defaults, options);
+    data.percent = Math.round((data.part/data.total)*100);
+    data.text = data.percent + '%';
+
+    if (data.percent < 34) {
+        data.fgcolor = '#ff5454';
+        graphclass = 'High';
+
+    }
+    if (data.percent < 67 && data.percent > 33) {
+        data.fgcolor = '#f0c516';
+        graphclass = 'Average';
+    }
+    if (data.percent > 66) {
+        data.fgcolor = '#1cb56a';
+        graphclass = 'Low';
+    }
+
+    delete data.part;
+    delete data.total;
+    var graph = $('<div></div>');
+
+    $.each(data, function(key, value) {
+        graph.attr('data-' + key, value);
+    });
+
+    parent.append(graph);
+    graph.circliful();
+    graph.addClass(graphclass);
+}

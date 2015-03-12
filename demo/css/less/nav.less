@@ -1,0 +1,115 @@
+.nav {
+	background: @nav-bg;
+	height: 100%;
+	.text-center;
+    position: relative;
+
+    nav {
+        position: relative;
+        z-index: 101;
+        background-color: @nav-bg;
+        height: 100%;
+    }
+	
+	li {
+		margin: 0;
+        background-color: @oxford-Blue;
+
+        &:hover {
+            background: @fiord;
+            
+
+            &.active {
+                background: @main-bg;
+                color: @nav-bg;
+                
+            }
+        }
+
+        a {
+            padding: 22px 0 22px 0;
+            display: block;
+            color: @primary-color;
+            border-bottom: 1px solid @nav-bg;
+
+
+            span {
+                display: block;
+                margin: 0 auto 10px auto;
+                width: 22px;
+                height: 22px;
+                background: url('/images/site/icons/sprite.png') no-repeat 68px 15px;
+            }
+        }
+
+        &.home span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px 1px;
+        }
+        &.projects span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -67px;
+        }
+        &.workflow span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -147px;
+        }
+        &.settings span  {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -226px;
+        }
+        &.user span {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -299px;
+        }
+
+        &.active {
+            background-color: @main-bg;
+
+
+            a {
+                color: @default-color;
+            }
+
+            &.home span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -18px;
+            }
+            &.projects span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -87px;
+            }
+            &.workflow span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -170px;
+            }
+            &.settings span  {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -249px;
+            }
+            &.user span {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -322px;
+            }
+
+        }
+	}
+}
+
+/* ------------------- Sidebar */
+#sidebar {
+    overflow: auto;
+    width: 200%;
+    background: @sidebar-bg;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    
+    &.open {
+        left: 100%;
+    }
+    
+    &.closed {
+        left: -100%;
+    }
+    
+    .sidebar-inner {
+        padding: 20px;
+
+        a {
+            color: @catskill-white;
+        }
+    }
+}

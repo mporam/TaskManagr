@@ -12,7 +12,7 @@
     }
     
     $SQL .= "
-    LEFT JOIN tasks_type 
+    LEFT JOIN tasks_type
         ON tasks.tasks_type = tasks_type.tasks_type_id
     LEFT JOIN tasks_status
         ON tasks.tasks_status = tasks_status.tasks_status_id
@@ -130,6 +130,7 @@ $query -> execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);
+    error('Task request failed, check the SQL');
     die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
 }
 
@@ -206,4 +207,7 @@ foreach($tasks as $k=>$task) {
 }
 
 header('Content-Type: application/json');
+if ($env) {
+    header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
+}
 echo json_encode($tasks);

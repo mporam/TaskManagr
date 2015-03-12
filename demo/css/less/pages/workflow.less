@@ -1,0 +1,75 @@
+#workflow {
+    min-height: 100%;
+	position: relative;
+
+	#workflow-titles {
+		margin-bottom: 5px;
+        padding-bottom: 5px;
+	}
+
+    #workflow-tasks {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		padding-top: 85px;
+		
+        .column {
+			border-left: 1px solid @default-color;
+			min-height: 100%;
+			
+			&:first-child {
+				border-left: none;
+			}
+        }
+    }
+
+    .column {
+		padding: 0 10px;
+		
+        .task-box,
+        .task-placeholder {
+            min-height: 50px;
+            border: 1px solid @default-color;
+            margin-bottom: 5px;
+			padding: 10px;
+			height: 85px;
+		}
+		
+		.task-box {
+			border-right: 8px solid @average;
+			background-color: @white;
+			cursor: pointer;
+		
+			h4 {
+				margin: 0;
+				text-overflow: ellipsis;
+				width: 100%;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			
+			p {
+				margin: 5px 0;
+			}
+
+            .priorities(border-right-color);
+			
+			&.saving {
+				// styles here for when the task is saving
+			}
+			
+			&.saved {
+				// styles here for when the task saved successfully
+			}
+			
+			&.failed {
+				// styles for when the task save failed
+			}
+        }
+
+        .task-placeholder {
+            border-style: dashed;
+			background-color: @grey;
+        }
+    }
+}

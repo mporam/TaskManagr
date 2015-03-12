@@ -1,0 +1,111 @@
+/* Remove this when we have a logo */
+
+.logo { text-align: center; }
+
+header { 
+	padding: @pad 0;
+	overflow: auto;
+	color: @primary-color;
+	background: @nav-bg;
+    height: 12%;
+
+	.new-task { 
+		padding: 8px 0 0 65px;
+		background: url('/images/site/icons/sprite.png') no-repeat -446px -25px;
+		height: 40px;
+		display: inline-block;
+	}
+
+    a { color: @primary-color; }
+
+	.settings .right { margin-right: @pad; }
+
+	.settings .icons,
+	.settings ul,
+	.settings a,
+	.search,
+	.info { 
+		.left;
+	}
+
+    .user-image {
+        .border-radius(50%);
+        width: 40px;
+    }
+
+	.search-box,
+	.info { 
+		width: 30px;
+		height: 30px;
+		text-indent: -9999px;
+	}
+
+	.info {
+		background: url('/images/site/icons/sprite.png') no-repeat -227px -32px;
+		margin: 5px 0 0 10px;
+	}
+
+	.settings a img { display: block; }
+}
+		
+/* ------------------- Search Box */
+.search-box {
+    position: relative;
+    overflow: hidden;
+    .left;
+    margin: 5px 0 0 10px;
+	background-color: @default-color;
+	.border-radius (25px);
+
+    .search-btn {
+        .right;
+        background: url('/images/site/icons/sprite.png') no-repeat -224px 3px;
+		background-color: @btn-bg;
+        background-repeat: no-repeat;
+        border: 0;
+        text-indent: -900px;
+        color: @white;
+        overflow: hidden;
+        width: 30px;
+		height: 30px;
+		position: relative;
+		z-index: 2;
+		.border-radius (50%);
+    }
+
+    .search-input {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        border: 0;
+        color: @white;
+        background: @white;
+        padding: 5px 8px;
+		height: 20px;
+    }
+    
+    &.closed {
+        width: 30px;
+		background-color: transparent; 
+		
+        .search-input {
+            display: none;
+        }
+        .search-btn {
+            background-color: @nav-bg;
+        }
+    }
+    
+    &.open {
+        width: 205px;
+        background-color: @white;
+        .border-radius (25px);
+
+        .search-input {
+            display: block;
+        }
+        .search-btn {
+            background-color: @btn-bg;
+        }
+    }
+}

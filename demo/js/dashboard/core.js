@@ -1,48 +1,44 @@
 $(function() {
-    
-    // load stats data
-    $.ajax({
-        type: "POST",
-        url: "/api/tasks/",
-        data: {"count": "true", "projects_id": "1", "tasks_status" : "1,2,3,4,5,6"}, // using project 1, need to decide how to specify this
-        success: function(data) {
-            var temp = {};
-            temp.total = data;
-            temp.title = 'stat title'; // should get this based on the project
-            $.ajax({
-                type: "POST",
-                url: "/api/tasks/",
-                data: {"count": "true", "projects_id": "1", "tasks_status" : "5,6"},
-                success: function(data) {
-                    temp.part = data;
-                    $('#stats').trigger('load-graph', temp);
-                }
-            });
-        }
+
+    // load projects you are lead of
+    $.post('/api/projects/', {"projects_lead": session.users_id}, function(data) {
+        data.forEach(function(project) {
+            loadGraph(project);
+        });
     });
-    
-    // build graph based on data
-    $('#stats').on('load-graph', function(event, data) {
-        // should probably make this a global function? hmm
-        var graph = $('<div data-dimension="60" data-width="3"></div>');
-        var percent = Math.round((data.part/data.total)*100);
-        graph.attr('data-percent', percent);
-        graph.attr('data-text', percent + '%');
-        graph.attr('data-info', data.title);
-        graph.attr('data-fgcolor', '#61a9dc'); // should randomise this some how
-        graph.attr('data-bgcolor', '#eeeeee'); // relate this to the randomised fgcolor
-        $('#stats').append(graph);
-        graph.circliful();
-    });
+
+
+    var loadGraph = function(project) {
+        // load stats data
+        $.ajax({
+            type: "POST",
+            url: "/api/tasks/",
+            data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "1,2,3,4,5,6"}, // using project 1, need to decide how to specify this
+            success: function(data) {
+                var temp = {};
+                temp.total = data;
+                temp.info = project.projects_name;
+                $.ajax({
+                    type: "POST",
+                    url: "/api/tasks/",
+                    data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "5,6"},
+                    success: function(data) {
+                        temp.part = data;
+                        createGraph($('#stats .inner-module'), temp);
+                    }
+                });
+            }
+        });
+    }
     
     // Get users "in progress" tasks
     $.ajax({
         type: "POST",
         url: "/api/tasks/",
-        data: {"tasks_assignee": session.users_id, "tasks_status": "2"},
+        data: {"tasks_assignee": session.users_id, "tasks_status": "2", "order": "tasks_priority_id DESC"},
         success: function(data) {
             data.forEach(function(task) {
-                $('#inprogress table').append('<tr><td>' + task.tasks_title + '</td></tr>');
+                $('#inprogress table').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + ' ' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
             });
         },
         error: function(XHR) {
@@ -59,7 +55,7 @@ $(function() {
         data: {"tasks_assignee": session.users_id},
         success: function(data) {
             data.forEach(function(task) {
-                $('#mytasks table tbody').append('<tr><td>' + task.tasks_code + '</td><td>' + task.tasks_priority + '</td><td>' + task.tasks_title + '</td><td>' + task.tasks_deadline + '</td></tr>');
+                $('#mytasks table tbody').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_title + '</a></td><td>' + task.tasks_deadline + '</td></tr>');
             });
         },
         error: function(XHR) {
@@ -76,7 +72,7 @@ $(function() {
         data: {"limit":"3", "order":"tasks_updated"},
         success: function(data) {
             data.forEach(function(task) {
-                $('#recenttasks table tbody').append('<tr><td>' + task.tasks_code + ' ' + task.tasks_title + '</td></tr>');
+                $('#recenttasks table tbody').append('<tr><td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + ' ' + task.tasks_title + '</a></td><td><span class="priority-icon ' + task.tasks_priority + '"></span></td></tr>');
             });
         },
         error: function(XHR) {
@@ -107,7 +103,7 @@ $(function() {
         var val = $(this).val();
         if (val.length === 0) {
             $('#taskupdate [name="tasks_id"]').val('');
-            $('.task-list').html('');
+            $('#taskupdatelist').html('');
             $('#taskupdate select option').prop('selected', false);
             $('#taskupdate select option').first().prop('selected', true);
             return false;
@@ -120,24 +116,24 @@ $(function() {
             success: function(data) {
                 tasks = data;
                 // create list of tasks to select, once selected fill out form info
-                $('.task-list').html('');
+                $('#taskupdatelist').html('');
                 tasks.forEach(function(task) {
                     var item = $('<li>' + task.tasks_code + '</li>').click(function(e){
                         $('#taskupdate [name="tasks_code"]').val(task.tasks_code);
                         $('#taskupdate [name="tasks_id"]').val(task.tasks_id);
-                        $('.task-list').html('');
+                        $('#taskupdatelist').html('');
                         $('#taskupdate select option').prop('selected', false);
                         $('#taskupdate select option[value="' + task.tasks_status_id + '"]').prop('selected', true);
                     });
-                    $('.task-list').append(item);
+                    $('#taskupdatelist').append(item);
                 });
             },
             error: function(data) {
                 var result = $.parseJSON(data.responseText);
                 if (result.code === 404) {
-                    $('.task-list').html('<li>No tasks match your search term</li>');
+                    $('#taskupdatelist').html('<li>No tasks match your search term</li>');
                 } else {
-                    $('.task-list').html('<li>' + result.message + '</li>');
+                    $('#taskupdatelist').html('<li>' + result.message + '</li>');
                 }
                 $('#taskupdate [name="tasks_id"]').val('');
                 $('#taskupdate select option').prop('selected', false);
