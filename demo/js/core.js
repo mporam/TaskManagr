@@ -1,6 +1,8 @@
 $(function() {
     window.sidebar = $('#sidebar');
     window.sidebarInner = $('#sidebar .sidebar-inner');
+    window.sidebarContent = {};
+    window.sidebarRefresh = 1;
     
     // define click event to open seach box
     $('.search-box').on('click', function(e) {
@@ -25,8 +27,13 @@ $(function() {
     
     // open sidebar and trigger event
     $('nav li[data-sidebar]').mouseenter(function() {
-        openSidebar();
-        sidebar.trigger('sidebar-' + $(this).data('sidebar'));
+        var eName = $(this).data('sidebar'); // get event name
+        openSidebar(); // open the sidebar
+        if (typeof sidebarContent[eName] !== 'undefined' && sidebarContent[eName].length > 0) { // check if data is cached
+            sidebarInner.html(sidebarContent[eName]); // load cach into sidebar
+        } else {
+            sidebar.trigger('sidebar-' + $(this).data('sidebar')); // load data from server if not cached
+        }
     });
     
     // close sidebar when mouse out from sidebar
@@ -38,10 +45,21 @@ $(function() {
     $('nav li:not([data-sidebar])').mouseenter(function() {
         closeSidebar();
     });
-    
+
+    // clear sidebar cache
+    var clearSidebarCache = function() {
+        if (window.sidebarRefresh) {
+            window.sidebarRefresh = setTimeout(function() {
+                window.sidebarContent = {};
+                window.sidebarRefresh = 1;
+            }, 30000);
+        }
+    };
+
     // event handler for projects sidebar
     sidebar.on('sidebar-projects', function() {
         if (sidebarInner.html().length > 0) return false;
+        sidebarInner.html('');
         sidebarInner.append('<h3>Projects</h3>');
         $.ajax({
             type: "POST",
@@ -51,6 +69,8 @@ $(function() {
                 data.forEach(function(item) {
                     sidebarInner.append('<div>' + item.projects_name + '</div>');
                 });
+                sidebarContent.projects = sidebarInner.html();
+                clearSidebarCache();
             },
             error: function() {
                 sidebarInner.append('<p>Error getting data</p>');
@@ -61,6 +81,7 @@ $(function() {
     // event handler for projects sidebar
     sidebar.on('sidebar-tasks', function() {
         if (sidebarInner.html().length > 0) return false;
+        sidebarInner.html('');
         sidebarInner.append('<h3>Tasks</h3>');
         $.ajax({
             type: "POST",
@@ -70,6 +91,8 @@ $(function() {
                 data.forEach(function(item) {
                     sidebarInner.append('<div>' + item.tasks_title + '</div>');
                 });
+                sidebarContent.tasks = sidebarInner.html();
+                clearSidebarCache();
             },
             error: function() {
                 sidebarInner.append('<p>Error getting data</p>');
