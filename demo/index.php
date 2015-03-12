@@ -10,6 +10,7 @@
         <div class="module-container stats">
             <h3>My stats</h3>
             <div class="inner-module">
+                <img src="images/site/icons/loading.gif" class="loader">
             </div>
         </div>
     </div>
@@ -18,6 +19,7 @@
         <div class="module-container">
             <h3>In Progress</h3>
             <div class="inner-module">
+                <img src="images/site/icons/loading.gif" class="loader">
                 <table>
                 </table>
             </div>
@@ -40,6 +42,7 @@
                     <tbody>
                     </tbody>
                 </table>
+                <img src="images/site/icons/loading.gif" class="loader">
             </div>
         </div>
     </div>
@@ -48,6 +51,7 @@
         <div class="module-container">
             <h3>Recent Tasks</h3>
             <div class="inner-module">
+                <img src="images/site/icons/loading.gif" class="loader">
                 <table>
                     <tbody>
                     </tbody>

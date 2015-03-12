@@ -26,6 +26,8 @@ $(function() {
                         temp.part = data;
                         createGraph($('#stats .inner-module'), temp);
                     }
+                }).always(function() {
+                    $('#stats .loader').remove();
                 });
             }
         });
@@ -46,6 +48,8 @@ $(function() {
             $('#inprogress table').remove();
             $('#inprogress').append('<p>' + result.message + '</p>');
         }
+    }).always(function() {
+        $('#inprogress .loader').remove();
     });
     
     // get all current users tasks
@@ -63,6 +67,8 @@ $(function() {
             $('#mytasks table').remove();
             $('#mytasks').append('<p>' + result.message + '</p>');
         }
+    }).always(function() {
+        $('#mytasks .loader').remove();
     });
     
     // get recent tasks
@@ -80,6 +86,8 @@ $(function() {
             $('#recenttasks table').remove();
             $('##recenttasks').append('<p>' + result.message + '</p>');
         }
+    }).always(function() {
+        $('#recenttasks .loader').remove();
     });
     
     // Get task status options for quick task update
@@ -96,6 +104,8 @@ $(function() {
             var result = $.parseJSON(data.responseText);
             $('#taskupdate form').html('<p>Task update load failed. (' + result.code + ')</p>')
         }
+    }).always(function() {
+        $('#taskupdate .loader').remove();
     });
     
     // tasks lookup for quick tasks update
