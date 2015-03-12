@@ -69,5 +69,5 @@ if (!empty($_POST)) {
 
 } else {
     header("HTTP/1.0 400 Bad Request", 400);
-	die(json_encode(array(message => 'Incomplete Data', code => 400)));
+	die(json_encode(array('message' => 'Incomplete Data', 'code' => 400)));
 }
