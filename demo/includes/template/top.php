@@ -1,7 +1,8 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php');
+$module = new module();
 ?>
 <!DOCTYPE html>
 <html>

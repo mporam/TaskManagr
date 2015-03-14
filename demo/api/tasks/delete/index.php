@@ -38,7 +38,7 @@ if (!empty($_POST['tasks_id']) || !empty($_POST['tasks_count'])) {
 	);
 
     header('Content-Type: application/json');
-    if ($env) {
+    if ($GLOBALS['environment']) {
         header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
     }
 	echo json_encode($result);

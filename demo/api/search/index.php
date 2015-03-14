@@ -179,14 +179,14 @@ foreach($result as $k =>$project) {
 	'message' => 'Please specify search type'
     );
 header("HTTP/1.0 400 Bad Request", 400);
-if ($env) {
+if ($GLOBALS['environment']) {
     header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
 }
 die(json_encode($result));
 }
 
 header('Content-Type: application/json');
-if ($env) {
+if ($GLOBALS['environment']) {
     header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
 }
 echo json_encode($result);

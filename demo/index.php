@@ -6,59 +6,13 @@
     
     <h2>Dashboard</h2>
 
-    <div id="stats" class="module col-8">
-        <div class="module-container stats">
-            <h3>My stats</h3>
-            <div class="inner-module">
-                <img src="images/site/icons/loading.gif" class="loader">
-            </div>
-        </div>
-    </div>
-    
-    <div id="inprogress" class="module col-4">
-        <div class="module-container">
-            <h3>In Progress</h3>
-            <div class="inner-module">
-                <img src="images/site/icons/loading.gif" class="loader">
-                <table>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <div id="mytasks" class="module col-8">
-        <div class="module-container">
-            <h3>My Tasks</h3>
-            <div class="inner-module">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Task no:</th>
-                            <th>Priority:</th>
-                            <th>Title:</th>
-                            <th>Deadline:</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <img src="images/site/icons/loading.gif" class="loader">
-            </div>
-        </div>
-    </div>
-    
-    <div id="recenttasks" class="module col-4">
-        <div class="module-container">
-            <h3>Recent Tasks</h3>
-            <div class="inner-module">
-                <img src="images/site/icons/loading.gif" class="loader">
-                <table>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <?php $module->show('inprogress', 8); ?>
+
+    <?php $module->show('stats', 4); ?>
+
+    <?php $module->show('mytasks', 8); ?>
+
+    <?php $module->show('recenttasks', 4); ?>
     
     <div id="taskupdate" class="module col-6">
         <div class="module-container">

@@ -40,7 +40,7 @@ if (!empty($_POST)) {
 	);
 
     header('Content-Type: application/json');
-    if ($env) {
+    if ($GLOBALS['environment']) {
         header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
     }
 	echo json_encode($result);
