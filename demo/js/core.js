@@ -1,6 +1,11 @@
 $(function() {
 
-    $()
+    $('.module h3').click(function(e) {
+        $(this).parents('.module').toggleClass('open closed');
+        $(this).next().slideToggle();
+        $(this).parents('.module').trigger('toggle');
+
+    });
 
 
 

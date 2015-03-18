@@ -22,7 +22,7 @@ class module {
         $GLOBALS['js']->addScript('modules/' . $name . '.module.js');
 
         $el = '';
-        $el .= '<div id="' . $name . '" class="module col-' . $size . ' ' . $options['class'] . '">';
+        $el .= '<div id="' . $name . '" class="module open col-' . $size . ' ' . $options['class'] . '">';
             $el .= '<div class="module-container ' . $name . '">';
                 $el .= $module->display();
             $el .= '</div>';
