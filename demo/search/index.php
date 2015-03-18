@@ -1,5 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-    <script src="/js/search/core.js"></script>
+<?php $GLOBALS['js']->addScript('search/core.js'); ?>
     <title>Search</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 

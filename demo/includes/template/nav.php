@@ -35,9 +35,9 @@
             <?php } ?>
     	</ul>
     </nav>
-    <div id="sidebar" class="closed">
+    <aside id="sidebar" class="closed">
         <div class="sidebar-inner"></div>
-    </div>
+    </aside>
 </div>
 
 <main class="col-11 grid">

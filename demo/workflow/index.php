@@ -1,5 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-    <script src="/js/workflow/core.js"></script>
+<?php $GLOBALS['js']->addScript("workflow/core.js"); ?>
     <title>Admin</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 

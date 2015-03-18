@@ -2,7 +2,7 @@
 <script>
     <?php if (!empty($_GET['code'])) echo "data.projects_code = '" . $_GET['code'] . "'"; ?>
 </script>
-<script src="/js/projects/core.js"></script>
+<?php $GLOBALS['js']->addScript('projects/core.js'); ?>
 <title>Projects</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     

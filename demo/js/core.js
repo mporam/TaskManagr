@@ -1,4 +1,9 @@
 $(function() {
+
+    $()
+
+
+
     window.sidebar = $('#sidebar');
     window.sidebarInner = $('#sidebar .sidebar-inner');
     window.sidebarContent = {};

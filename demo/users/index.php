@@ -1,5 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-    <script src="/js/users/core.js"></script>
+<?php $GLOBALS['js']->addScript("users/core.js"); ?>
     <title>Users</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
     <div id="users">
