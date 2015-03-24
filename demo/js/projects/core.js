@@ -2,14 +2,13 @@ var projects;
 
 $(function() {
 
-    $('#projects').html("<table><thead><tr><th>Code</th><th>Name</th><th>Project Lead</th><th>Project Manager</th><th>Client</th></tr></thead><tbody></tbody></table>");
     $.ajax({
         type: "POST",
         url: '/api/projects/',
         data: {},
         success: function(data) {
             projects = data;
-            $('body').trigger('complete');
+            var i = 0;
             projects.forEach(function(project) {
                 $.ajax({
                     type: "POST",
@@ -23,16 +22,19 @@ $(function() {
                         row += '<td><a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '</a></td>';
                         row += '<td><a href="/users/user/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '<img src="' + project.projects_client.users_image + '&s=50"></a></td>';
                         row += '</tr>';
-                        $('#projects table tbody').append(row );
+                        $('#projects table tbody').append(row);
+                        i++;
+                        if (i == projects.length) {
+                            $('body').trigger('complete');
+                        }
                     }
                 });
             });
         }
     });
 
-    
     $('body').on('complete', function() {
-        $('#projects .load, #projects table tbody > *').remove();
+        $('#projects .loader').remove();
     });
         
 });
