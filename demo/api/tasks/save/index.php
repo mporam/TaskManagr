@@ -62,10 +62,13 @@ if (!empty($_POST)) {
 		die(json_encode($result));
 	}
 	
-	if (empty($_POST['tasks_id'])) {
-		$lastid = $con->lastInsertId();
+	if (empty($count)) {
+        $insertID = $con->lastInsertId();
+        $query = $con->prepare("SELECT `tasks_count` FROM tasks WHERE `tasks_id` = $insertID");
+        $query->execute();
+		$lastid = $query->fetch();
 	} else {
-		$lastid = $_POST['tasks_id'];
+		$lastid = $count;
 	}
 
     $query = $con->prepare("SELECT projects_code FROM projects WHERE projects_id = $project");
