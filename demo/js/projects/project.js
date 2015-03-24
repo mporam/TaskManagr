@@ -1,15 +1,16 @@
 $(function() {
-var project, tasks
+    var html = $('#project'),
+        project, tasks;;
     $.ajax({
         type: "POST",
         url: '/api/projects/',
         data: {"projects_code":get.project},
         success: function(data) {
             project = data[0];
-            $('#project').append('<h2>' + project.projects_name + '</h2>');
-            $('#project').append('<ul><li>Code: ' + project.projects_code + '</li><li>Client: ' + project.projects_client.users_name + '</li><li>Project Manager: ' + project.projects_manager.users_name + '</li><li>Project Lead: ' + project.projects_lead.users_name + '</li></ul>');
-            $('#project').append('<div><h5>Description</h5><p>' + project.projects_desc + '</p></div>');
-            
+            html.append('<h2>' + project.projects_name + '</h2>');
+            html.append('<ul><li>Code: ' + project.projects_code + '</li><li>Client: ' + project.projects_client.users_name + '</li><li>Project Manager: ' + project.projects_manager.users_name + '</li><li>Project Lead: ' + project.projects_lead.users_name + '</li></ul>');
+            html.append('<div><h5>Description</h5><p>' + project.projects_desc + '</p></div>');
+            $('.loader', html).remove();
             var table = $('<table></table>');
             
             /* ---------- this is for pagination if we want it. DO NOT TOUCH!
@@ -30,7 +31,12 @@ var project, tasks
                     tasks.forEach(function(task) {
                         table.append('<tr><td>' + task.tasks_count + '</td><td><a href="/tasks/task?task=' + project.projects_code + '-' + task.tasks_count + '">' + task.tasks_title + '</a></td><td>' + task.tasks_status + '</td><td>' + task.tasks_priority + '</td></tr>');
                     });
-                    $('#tasks').append('<h3>Tasks</h3>').append(table);
+                    $('#tasks').append(table);
+                    $('#tasks .loader').remove();
+                },
+                error: function() {
+                    $('#tasks').append('No Tasks Found');
+                    $('#tasks .loader').remove();
                 }
             });
         }
