@@ -1,5 +1,4 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/includes/sql/db_con.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/includes/config.php');
 
 if (!empty($_GET['reset'])) {
