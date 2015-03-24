@@ -13,6 +13,11 @@
         $SQL .= " `projects_id` = $projects_id AND";
     }
 
+    if (!empty($_POST['projects_code'])) {
+        $projects_code = $_POST['projects_code'];
+        $SQL .= " `projects_code` = '$projects_code' AND";
+    }
+
     if (!empty($_POST['projects_lead'])) {
         $projects_lead = $_POST['projects_lead'];
         $SQL .= " `projects_lead` = $projects_lead AND";
