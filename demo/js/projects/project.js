@@ -1,6 +1,6 @@
 $(function() {
     var html = $('#project'),
-        project, tasks;;
+        project, tasks;
     $.ajax({
         type: "POST",
         url: '/api/projects/',
