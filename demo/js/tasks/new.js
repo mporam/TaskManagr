@@ -107,7 +107,7 @@ var tasks, projects, users;
                 window.location = '/tasks/task/?task=' + result.project + '-' + result.id;
             },
             error: function(data) {
-                $('form').before('<div class="alert fail">' + data.message + ': ' + data.code + '</div>');
+                $('form').before('<div class="alert fail">' + data.message + ': ' + data.code + '</div>'); // @TODO: dont think this works!
             }
         });
     });

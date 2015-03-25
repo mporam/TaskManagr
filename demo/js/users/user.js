@@ -1,6 +1,5 @@
 $(function() {
 var user;
-
     $.ajax({
         type: "POST",
         url: "/api/users/",
@@ -18,6 +17,4 @@ var user;
             $('#user').html('<h2>' + data.code + ' - ' + data.message + '</h2>');
         }
     });
-    
-    
 });

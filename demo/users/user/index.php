@@ -1,5 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-<script src="/js/users/user.js"></script>
+<?php $GLOBALS['js']->addScript('users/user.js'); ?>
 
 <?php
     if (empty($_GET['name'])) {
@@ -11,7 +11,7 @@
 <h3>User</h3>
 
 <div id="user">
-Loading...
+    <img src="/images/site/icons/loading.gif" class="loader">
 </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

@@ -1,5 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-    <script src="/js/users/new.js"></script>
+<?php $GLOBALS['js']->addScript('users/new.js'); ?>
     <title>Users</title>
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 <h3>Create New User</h3>
@@ -15,6 +15,7 @@
 	<div>
 		<label for="users_type">User Type</label>
         <select name="users_type" id="users_type">
+            <option value="">--</option>
         </select>
         <a href="#">What is this?</a>
 	</div>

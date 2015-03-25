@@ -10,7 +10,6 @@ $(function() {
             html.append('<h2>' + project.projects_name + '</h2>');
             html.append('<ul><li>Code: ' + project.projects_code + '</li><li>Client: ' + project.projects_client.users_name + '</li><li>Project Manager: ' + project.projects_manager.users_name + '</li><li>Project Lead: ' + project.projects_lead.users_name + '</li></ul>');
             html.append('<div><h5>Description</h5><p>' + project.projects_desc + '</p></div>');
-            $('.loader', html).remove();
             var table = $('<table></table>');
             
             /* ---------- this is for pagination if we want it. DO NOT TOUCH!
@@ -34,12 +33,20 @@ $(function() {
                     $('#tasks').append(table);
                     $('#tasks .loader').remove();
                 },
-                error: function() {
-                    $('#tasks').append('No Tasks Found');
+                error: function(data) {
+                    var error = $.parseJSON(data.responseText);
+                    $('#tasks').append(error.message);
                     $('#tasks .loader').remove();
                 }
             });
+        },
+        error: function(data) {
+            var error = $.parseJSON(data.responseText);
+            $('#project').append('<p>' + error.message + '</p>');
+            $('#tasks').remove();
         }
+    }).always(function() {
+        $('.loader', html).remove();
     });
     
 });

@@ -24,6 +24,7 @@ $(function() {
                             table.append('<tr><td>' + task.tasks_count + '</td><td><a href="/tasks/task?task=' + project.projects_code + '-' + task.tasks_count + '">' + task.tasks_title + '</a></td><td>' + task.tasks_status + '</td><td>' + task.tasks_priority + '</td></tr>');
                         });
                         list.append(title).append(table);
+                        $('#tasks .loader').remove();
                     }
                 });
 
