@@ -184,12 +184,18 @@ var createGraph = function(parent, options) {
         info: '',
         fontsize: '25',
         fgcolor:  '#61a9dc',
-        bgcolor:  '#979797'
+        bgcolor:  '#979797',
+        percent: 0
     };
     var graphclass;
 
     data = $.extend({}, defaults, options);
-    data.percent = Math.round((data.part/data.total)*100);
+    if (data.part > 0) {
+        data.percent = Math.round((data.part/data.total)*100);
+    }
+    if (isNaN(data.percent)) {
+        data.percent = 0;
+    }
     data.text = data.percent + '%';
 
     if (data.percent < 34) {
