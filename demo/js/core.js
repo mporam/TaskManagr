@@ -4,15 +4,11 @@ $(function() {
         $(this).parents('.module').toggleClass('open closed');
         $(this).next().slideToggle();
         $(this).parents('.module').trigger('toggle');
-
     });
-
-
 
     window.sidebar = $('#sidebar');
     window.sidebarInner = $('#sidebar .sidebar-inner');
     window.sidebarContent = {};
-    window.sidebarRefresh = 1;
     
     // define click event to open seach box
     $('.search-box').on('click', function(e) {
@@ -33,9 +29,10 @@ $(function() {
     // open sidebar and trigger event
     $('nav li[data-sidebar]').mouseenter(function() {
         var eName = $(this).data('sidebar'); // get event name
+        sidebarInner.html('');
         openSidebar(); // open the sidebar
         if (typeof sidebarContent[eName] !== 'undefined' && sidebarContent[eName].length > 0) { // check if data is cached
-            sidebarInner.html(sidebarContent[eName]); // load cach into sidebar
+            sidebarInner.html(sidebarContent[eName]); // load cache into sidebar
         } else {
             sidebar.trigger('sidebar-' + $(this).data('sidebar')); // load data from server if not cached
         }
@@ -51,20 +48,8 @@ $(function() {
         closeSidebar();
     });
 
-    // clear sidebar cache
-    var clearSidebarCache = function() {
-        if (window.sidebarRefresh) {
-            window.sidebarRefresh = setTimeout(function() {
-                window.sidebarContent = {};
-                window.sidebarRefresh = 1;
-            }, 30000);
-        }
-    };
-
     // event handler for projects sidebar
     sidebar.on('sidebar-projects', function() {
-        if (sidebarInner.html().length > 0) return false;
-        sidebarInner.html('');
         sidebarInner.append('<h3>Projects</h3>');
         $.ajax({
             type: "POST",
@@ -75,7 +60,6 @@ $(function() {
                     sidebarInner.append('<div class="item"><a href="/projects/project/?project=' + item.projects_code + '">' + item.projects_name + '</a></div>');
                 });
                 sidebarContent.projects = sidebarInner.html();
-                clearSidebarCache();
             },
             error: function() {
                 sidebarInner.append('<p>Error getting data</p>');
@@ -85,8 +69,6 @@ $(function() {
 
     // event handler for projects sidebar
     sidebar.on('sidebar-users', function() {
-        if (sidebarInner.html().length > 0) return false;
-        sidebarInner.html('');
         sidebarInner.append('<h3>Users</h3>');
         $.ajax({
             type: "POST",
@@ -96,8 +78,7 @@ $(function() {
                 data.forEach(function(item) {
                     sidebarInner.append('<div class="item"><a href="/users/user/?name=' + item.users_name + '">' + item.users_name + '</a></div>');
                 });
-                sidebarContent.tasks = sidebarInner.html();
-                clearSidebarCache();
+                sidebarContent.users = sidebarInner.html();
             },
             error: function() {
                 sidebarInner.append('<p>Error getting data</p>');
@@ -144,9 +125,9 @@ var closeSearch = function() {
 };
 
 var openSidebar = function() {
+    sidebar.stop();
     sidebar.switchClass("closed", "open", 500);
     sidebar.attr('style', '');
-    sidebarInner.html('');
     sidebar.trigger('opened');
 };
 
@@ -154,7 +135,7 @@ var closeSidebar = function() {
     if (sidebar.hasClass('closed')) {
         sidebar.attr('style', '');
     }
-    sidebar.stop().switchClass("open", "closed", 400);
+    sidebar.switchClass("open", "closed", 300);
     sidebarInner.html('');
     sidebar.trigger('closed');
 };
@@ -223,4 +204,10 @@ var createGraph = function(parent, options) {
     parent.append(graph);
     graph.circliful();
     graph.addClass(graphclass);
-}
+};
+
+// clears sidebar cache every 30 seconds to keep data up to date
+window.sidebarRefresh = setTimeout(function() {
+    window.sidebarContent = {};
+    window.sidebarRefresh = 1;
+}, 30000);
