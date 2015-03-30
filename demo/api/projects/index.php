@@ -74,13 +74,17 @@ foreach($projects as $k =>$project) {
     $projects[$k]['projects_lead'] = (empty($lead) ? "Unassigned" : $lead);
 
     $project_client = $project['projects_client'];
-    $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
-    $query -> execute();
-    $client = $query->fetch(PDO::FETCH_ASSOC);
-    if (empty($client['users_image'])) {
-        $client['users_image'] = get_gravatar($client['users_email']);
+    if ($project_client == 0) {
+        $projects[$k]['projects_client'] = array('users_name' => 'In-house'); //  probably need to define the default in the database instead but this will do for now
+    } else {
+        $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
+        $query->execute();
+        $client = $query->fetch(PDO::FETCH_ASSOC);
+        if (empty($client['users_image'])) {
+            $client['users_image'] = get_gravatar($client['users_email']);
+        }
+        $projects[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
     }
-    $projects[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
 	
 	$project_manager = $project['projects_manager'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_manager");
