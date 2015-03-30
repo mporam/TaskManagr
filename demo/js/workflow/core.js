@@ -1,14 +1,16 @@
 $(function() {
     var tasks;
 
+    // get all task statuses
     $.ajax({
         type: "POST",
         url: "/api/generic/",
         data: {"table_name": "tasks_status", "order": "tasks_status_id"},
         success: function(data) {
+            var size = 100/data.length;
             data.forEach(function(status) {
-                $('#workflow-titles').append('<div class="col-2 column" data-status-id="' + status.tasks_status_id + '"><div><strong>' + status.tasks_status + '</strong></div></div>');
-                 $('#workflow-tasks').append('<div class="col-2 column ' + status.tasks_status.replace(/\s/g, "-") + '" data-status-id="' + status.tasks_status_id + '"></div>');
+                $('#workflow-titles').append('<div class="col-0 column" style="width: ' + size + '%" data-status-id="' + status.tasks_status_id + '"><div><strong>' + status.tasks_status + '</strong></div></div>');
+                $('#workflow-tasks').append('<div class="col-0 column ' + status.tasks_status.replace(/\s/g, "-") + '" style="width: ' + size + '%"  data-status-id="' + status.tasks_status_id + '"></div>');
             });
             $('#workflow').trigger('thead-load');
         }
@@ -33,7 +35,11 @@ $(function() {
                 success: function(data) {
                     tasks = data;
                     tasks.forEach(function(task) {
-                        $('#workflow-tasks').find('.column[data-status-id="' + task.tasks_status_id + '"]').append('<div class="task-box" data-task-id="' + task.tasks_id + '">' + task.projects_code + '-' + task.tasks_count + ': ' + task.tasks_title + '</div>');
+                        $('#workflow-tasks')
+                            .find('.column[data-status-id="' + task.tasks_status_id + '"]')
+                            .append('<div class="task-box" data-task-id="' + task.tasks_id + '">' +
+                            '<a href="/tasks/task?task=' + task.projects_code + '-' + task.tasks_count + '">' + task.projects_code + '-' + task.tasks_count + ': ' + task.tasks_title + '</a>' +
+                            '</div>');
                     });
 
                     $("#workflow-tasks .column").sortable({

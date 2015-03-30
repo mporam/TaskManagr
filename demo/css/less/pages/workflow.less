@@ -11,7 +11,7 @@
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		padding-top: 85px;
+		margin-top: 85px;
 		
         .column {
 			border-left: 1px solid @default-color;
@@ -39,7 +39,11 @@
 			border-right: 8px solid @average;
 			background-color: @white;
 			cursor: pointer;
-		
+
+            &:hover {
+                background: @green-bg;
+            }
+
 			h4 {
 				margin: 0;
 				text-overflow: ellipsis;
