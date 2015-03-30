@@ -3,6 +3,18 @@
     padding: 0 10px;
     margin-bottom: 20px;
 
+  &.open h3::after {
+    content: '-';
+    float: right;
+    font-weight: bold;
+  }
+
+  &.closed h3::after {
+    content: '+';
+    float: right;
+    font-weight: bold;
+  }
+
     h3 {
         cursor: pointer;
     }
@@ -29,17 +41,7 @@
     }
 }
 
-.open h3::after {
-    content: '-';
-    float: right;
-    font-weight: bold;
-}
 
-.closed h3::after {
-    content: '+';
-    float: right;
-    font-weight: bold;
-}
 
 /* ------------------- Task Update Module */
 
