@@ -1,8 +1,8 @@
+var tasks, projects, users, relatedRequest;
 $(function() {
 
-$('textarea').ckeditor();
+    $('textarea').ckeditor();
 
-var tasks, projects, users;
     $.ajax({
         type: "POST",
         url: '/api/projects/',
@@ -54,37 +54,22 @@ var tasks, projects, users;
         }
     });
 
+    // trigger related search on keyup
     $('#tasks_related').keyup(function() {
         var val = $(this).val();
-        if (val.length === 0) {
-            $('#related').html('');
-            return false;
-        }
-        $.ajax({
-            type: "POST",
-            url: '/api/search/',
-            data: {"search_type": "tasks",  "search_term": val},
-            success: function(data, textStatus, jqXHR) {
-                tasks = data;
-                $('#related').html('');
-                tasks.forEach(function(task) {
-                    $('#related').append('<li>' + task.tasks_title + '</li>');
-                });
-                if (tasks.length === 0) $('#related').html('<li>No tasks match your search term</li>');
-            },
-            error: function(data) {
-                var result = $.parseJSON(data.responseText);
-                if (result.code == 404) {
-                    $('#related').html('<li>No tasks match your search term</li>');
-                } else {
-                    $('#related').html('<li>' + result.message + '</li>');
-                }
-            }
-        });
+        getRelatedTasks(val);
+    });
+
+    // perform related tasks search again when project changes
+    $('#tasks_projects').change(function() {
+        $('#tasks_related_hidden').val('');
+        var val = $('#tasks_related').val();
+        getRelatedTasks(val);
     });
 
     $('form').submit(function(e) {
         e.preventDefault();
+        // needs validation
         var data = {
             tasks_project: $('#tasks_projects').val(),
             tasks_title: $('#tasks_name').val(),
@@ -94,7 +79,7 @@ var tasks, projects, users;
             tasks_desc: $('#tasks_desc').val(),
             tasks_priority: $('#tasks_priority').val(),
             tasks_deadline: $('#tasks_deadline').val(),
-            tasks_related: $('#tasks_related').val(),
+            tasks_related: $('#tasks_related_hidden').val(),
             tasks_status: 1
         };
         $('.alert').remove();
@@ -113,3 +98,61 @@ var tasks, projects, users;
     });
 
 });
+
+var getRelatedTasks = function(val) {
+    $('#tasks_related + .inline-msg').remove();
+    $('#tasks_related').removeClass('success');
+    if (relatedRequest) {
+        relatedRequest.abort();
+    }
+    $('#related').html('<img src="/images/site/icons/loading.gif" class="loader">');
+    if (val.length === 0) {
+        $('#related').html('');
+        return false;
+    }
+    relatedRequest = $.ajax({
+        type: "POST",
+        url: '/api/search/',
+        data: {
+            "search_type": "tasks",
+            "search_term": val,
+            "limit": 5,
+            "search_field2": "tasks_desc",
+            "search_term2": val,
+            "search_project": $('#tasks_projects').val()
+        },
+        success: function(data, textStatus, jqXHR) {
+            tasks = data;
+            $('#related').html('');
+            tasks.forEach(function(task) {
+                $('#related').append('<li data-id="' + task.tasks_id + '">' + task.projects_code + '-' + task.tasks_count + ' ' + task.tasks_title + '</li>');
+            });
+            if (tasks.length === 0) {
+                $('#related').html('<li class="err-msg">No tasks match your search term</li>');
+            } else {
+                relatedClickHandler();
+            }
+        },
+        error: function(data) {
+            if (data.responseText) {
+                var result = $.parseJSON(data.responseText);
+                if (result.code == 404) {
+                    $('#related').html('<li class="err-msg">No tasks match your search term</li>');
+                } else {
+                    $('#related').html('<li class="err-msg">' + result.message + '</li>');
+                }
+            }
+        }
+    });
+};
+
+var relatedClickHandler = function() {
+    $('#related li').off();
+
+    $('#related li').click(function() {
+        $('#tasks_related').val($(this).text());
+        $('#tasks_related_hidden').val($(this).data('id'));
+        $('#tasks_related + .inline-msg').remove();
+        $('#tasks_related').addClass('success').after('<span class="inline-msg success-msg">Selected</span>');
+    });
+};

@@ -39,26 +39,34 @@ a {
     .priorities(background-color);
 }
 
+.err-msg {
+    color: @err-text;
+}
+
+.success-msg {
+    color: @success-text;
+}
+
 /* -----------------  Alerts */
 .alert {
     display: block;
     width: 100%;
     padding: 10px 15px;
     .border-radius(10px);
-    border: 1px solid #bce8f1;
-    background-color: #d9edf7;
-    color: #31708f;
+    border: 1px solid @neutral-border;
+    background-color: @neutral-background;
+    color: @neutral-text;
 
     &.success {
-        background-color: #dff0d8;
-        color: #3c763d;
-        border-color: #d6e9c6;
+        background-color: @success-background;
+        color: @success-text;
+        border-color: @success-border;
     }
 
     &.fail {
-        background-color: #f2dede;
-        color: #a94442;
-        border-color: #ebccd1;
+        background-color: @err-background;
+        color: @err-text;
+        border-color: @err-border;
     }
 }
 
@@ -66,7 +74,6 @@ a {
 /* -----------------  Dynamic lists - AJAX populated */
 .dyn-list {
     margin-top: 5px;
-    overflow: auto;
 
     li {
         cursor: pointer;
