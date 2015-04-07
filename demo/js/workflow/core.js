@@ -37,7 +37,7 @@ $(function() {
                     tasks.forEach(function(task) {
                         $('#workflow-tasks')
                             .find('.column[data-status-id="' + task.tasks_status_id + '"]')
-                            .append('<div class="task-box" data-task-id="' + task.tasks_id + '">' +
+                            .append('<div class="task-box ' + task.tasks_priority + '" data-task-id="' + task.tasks_id + '">' +
                             '<a href="/tasks/task?task=' + task.projects_code + '-' + task.tasks_count + '">' + task.projects_code + '-' + task.tasks_count + ': ' + task.tasks_title + '</a>' +
                             '</div>');
                     });
