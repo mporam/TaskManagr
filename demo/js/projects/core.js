@@ -5,7 +5,7 @@ $(function() {
     $.ajax({
         type: "POST",
         url: '/api/projects/',
-        data: {},
+        data: {order: "projects_created ASC"},
         success: function(data) {
             projects = data;
             var i = 0;
@@ -20,7 +20,7 @@ $(function() {
                         row += '<td><a href="/projects/project/?project=' + project.projects_code + '">' + project.projects_name + ' (' + taskCount + ')</a></td>';
                         row += '<td><a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '</a></td>';
                         row += '<td><a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '</a></td>';
-                        row += '<td><a href="/users/user/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '<img src="' + project.projects_client.users_image + '&s=50"></a></td>';
+                        row += '<td><a href="/users/user/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '<img src="' + project.projects_client.users_image + '"></a></td>';
                         row += '</tr>';
                         $('#projects table tbody').append(row);
                         i++;
