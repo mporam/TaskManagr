@@ -37,4 +37,4 @@ $(function() {
         $('#projects .loader').remove();
     });
         
-});
+}); 
