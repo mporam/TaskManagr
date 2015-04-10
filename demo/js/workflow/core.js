@@ -10,7 +10,7 @@ $(function() {
             var size = 100/data.length;
             data.forEach(function(status) {
                 $('#workflow-titles').append('<div class="col-0 column" style="width: ' + size + '%" data-status-id="' + status.tasks_status_id + '"><div><strong>' + status.tasks_status + '</strong></div></div>');
-                $('#workflow-tasks').append('<div class="col-0 column ' + status.tasks_status.replace(/\s/g, "-") + '" style="width: ' + size + '%"  data-status-id="' + status.tasks_status_id + '"></div>');
+                $('#workflow-tasks').append('<div class="column ' + status.tasks_status.replace(/\s/g, "-") + '" style="width: ' + size + '%"  data-status-id="' + status.tasks_status_id + '"></div>');
             });
             $('#workflow').trigger('thead-load');
         }
