@@ -149,12 +149,46 @@ var toggleSidebar = function() {
 };
 
 /**
+ * Create a completion graph for an individual project
+ * @param project object a javascript object of the project to create a graph for
+ * @param $el object a jquery object of the parent to add the graph too
+ */
+var loadProjectGraph = function(project, $el, options) {
+    if (typeof options == 'undefined') {
+        var options = {};
+    }
+    // load stats data
+    $.ajax({
+        type: "POST",
+        url: "/api/tasks/",
+        data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "1,2,3,4,5,6"}, // @todo: need to do something about the static task_statuses
+        success: function(data) {
+            options.total = data;
+            if (project.hasOwnProperty('projects_name')) {
+                options.info = project.projects_name;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/tasks/",
+                data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "5,6"},
+                success: function(data) {
+                    options.part = data;
+                    createGraph($el, options);
+                }
+            }).always(function() {
+                $('.loader', $el).remove();
+            });
+        }
+    });
+}
+
+/**
  * Create a circliful graph
- * @param parent object a jquery object of the parent to add the graph too
+ * @param $el object a jquery object of the parent to add the graph too
  * @param options object
  */
 
-var createGraph = function(parent, options) {
+var createGraph = function($el, options) {
     if (!('part' in options) || !('total' in options)) {
         return false;
     }
@@ -182,7 +216,6 @@ var createGraph = function(parent, options) {
     if (data.percent < 34) {
         data.fgcolor = '#ff5454';
         graphclass = 'High';
-
     }
     if (data.percent < 67 && data.percent > 33) {
         data.fgcolor = '#f0c516';
@@ -201,9 +234,10 @@ var createGraph = function(parent, options) {
         graph.attr('data-' + key, value);
     });
 
-    parent.append(graph);
+    $el.append(graph);
     graph.circliful();
     graph.addClass(graphclass);
+    $el.trigger('graph-load');
 };
 
 // clears sidebar cache every 30 seconds to keep data up to date

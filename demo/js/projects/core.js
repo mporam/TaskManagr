@@ -9,20 +9,45 @@ $(function() {
         success: function(data) {
             projects = data;
             var i = 0;
+            $('#projects .loader').remove();
             projects.forEach(function(project) {
+                var proj = '<div class="display-box col-3" data-proj-id="' + project.projects_id + '"><div class="display-box-inner">';
+                proj += '<h4><a href="/users/user/?name=' + project.projects_client.users_name + '"><img alt="' + project.projects_client.users_name + '" src="' + project.projects_client.users_image + '"></a>';
+                proj += '<a class="proj-title" href="/projects/project/?project=' + project.projects_code + '">' + project.projects_name + '</a></h4>';
+                proj += '<div class="cover-box"><img src="/images/site/icons/loading.gif" class="loader"></div>';
+                proj += '</div></div>';
+
+                $('#projects .grid').append(proj);
+
+                var graphData = project;
+                delete graphData.projects_name;
+                loadProjectGraph(project, $('[data-proj-id=' + project.projects_id + '] .cover-box'));
+
+                $('[data-proj-id=' + project.projects_id + '] .cover-box').on('graph-load', function() {
+                    var $graph = $('.circliful', this);
+
+                    if ($graph.hasClass('High')) {
+                        $(this).addClass('High');
+                    } else if ($graph.hasClass('Average')) {
+                        $(this).addClass('Average');
+                    } else if ($graph.hasClass('Low')) {
+                        $(this).addClass('Low');
+                    }
+                });
+
                 $.ajax({
                     type: "POST",
                     url: '/api/tasks/',
                     data: {count: "true", projects_id: project.projects_id},
                     success: function(taskCount) {
-                        var row = '<tr>';
-                        row += '<td><a href="/projects/project/?project=' + project.projects_code + '">' + project.projects_code + '</a></td>';
-                        row += '<td><a href="/projects/project/?project=' + project.projects_code + '">' + project.projects_name + ' (' + taskCount + ')</a></td>';
-                        row += '<td><a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '</a></td>';
-                        row += '<td><a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '</a></td>';
-                        row += '<td><a href="/users/user/?name=' + project.projects_client.users_name + '">' + project.projects_client.users_name + '<img src="' + project.projects_client.users_image + '"></a></td>';
-                        row += '</tr>';
-                        $('#projects table tbody').append(row);
+                        var info = '<div class="info-box">Code: <a class="right" href="/projects/project/?project=' + project.projects_code + '">' + project.projects_code + '</a>';
+                        info += '<p>Project Lead:<a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '<img src="' + project.projects_lead.users_image + '"></a></p>';
+                        info += '<p>Project Manager:<a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '<img src="' + project.projects_manager.users_image + '"></a></p>';
+                        info += '<p>' + taskCount + '</p>';
+                        info += '</div>';
+
+                        $('[data-proj-id=' + project.projects_id + '] .display-box-inner').append(info);
+
                         i++;
                         if (i == projects.length) {
                             $('body').trigger('complete');

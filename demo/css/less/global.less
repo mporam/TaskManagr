@@ -113,3 +113,108 @@ a {
     }
 }
 
+/* -----------------  display-box */
+
+.display-box {
+    max-width: 240px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    font-size: 12rem;
+    height: 200px; // probably shud remove this
+
+    &:hover .info-box {
+        z-index: 3;
+    }
+
+    .display-box-inner {
+        position: relative;
+        height: 100%;
+
+        > div {
+            background-color: @mystic;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 36px; // this is a shit way of doing it
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    h4 {
+        background: @oxford-Blue;
+        height: 36px;
+        color: @white;
+       // line-height: 36px;
+        white-space: nowrap;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding-right: 10px;
+        margin: 0;
+        font-weight: normal;
+        font-size: inherit;
+
+        &:hover {
+            // do something cool to display the full text if it overflows without affecting non overflowing titles
+        }
+
+        .proj-title {
+            color: inherit;
+            display: block;
+            padding: 10px 0;
+        }
+
+        img {
+            .left;
+            height: 100%;
+            margin-right: 10px;
+        }
+    }
+
+    .cover-box {
+        z-index: 2;
+
+        .circliful {
+            float: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+//        &.High {
+//            background-color: @high;
+//        }
+//
+//        &.Average {
+//            background-color: @average;
+//        }
+//
+//        &.Low {
+//            background-color: @low;
+//        }
+    }
+
+    .info-box {
+        padding: 8px;
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 0;
+
+            a {
+                display: block;
+                text-decoration: underline;
+                position: relative;
+            }
+
+            img {
+                height: 25px;
+                .border-radius(50%);
+                border: 1px solid @white;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
