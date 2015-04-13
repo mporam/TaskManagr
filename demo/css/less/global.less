@@ -85,6 +85,15 @@ a {
 }
 
 /* -----------------  Circlifil */
+
+.circliful-invert {
+    .priorities(background-color);
+
+    .circle-text {
+        color: @white;
+    }
+}
+
 .circliful {
     position: relative;
     margin-top: 15px;
@@ -145,7 +154,6 @@ a {
         background: @oxford-Blue;
         height: 36px;
         color: @white;
-       // line-height: 36px;
         white-space: nowrap;
         width: 100%;
         text-overflow: ellipsis;
@@ -175,23 +183,19 @@ a {
     .cover-box {
         z-index: 2;
 
+        .circliful-invert {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
         .circliful {
             float: none;
             margin-left: auto;
             margin-right: auto;
         }
-
-//        &.High {
-//            background-color: @high;
-//        }
-//
-//        &.Average {
-//            background-color: @average;
-//        }
-//
-//        &.Low {
-//            background-color: @low;
-//        }
     }
 
     .info-box {

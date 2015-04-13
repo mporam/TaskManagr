@@ -204,8 +204,15 @@ var createGraph = function($el, options) {
     };
     var graphclass;
 
-    data = $.extend({}, defaults, options);
-    if (data.part > 0) {
+    var data = $.extend({}, defaults, options);
+
+    if (typeof data.style != 'undefined' && data.style == 'invert') {
+        delete data.style
+        var container = $('<div></div>');
+        container.addClass('circliful-invert');
+    }
+
+    if (data.part > 0 && data.percent === 0) {
         data.percent = Math.round((data.part/data.total)*100);
     }
     if (isNaN(data.percent)) {
@@ -226,17 +233,35 @@ var createGraph = function($el, options) {
         graphclass = 'Low';
     }
 
+    if (data.percent == 0) { // not sure if we want this?
+        data.fgcolor = '#000000';
+        graphclass = 'Emergency';
+    }
+
     delete data.part;
     delete data.total;
     var graph = $('<div></div>');
+    graph.addClass(graphclass);
+
+    if (typeof container != 'undefined') {
+        data.fgcolor = '#ffffff';
+        data.bgcolor = 'rgba(255, 255, 255, 0.5)';
+        data.width   = '4';
+        container.addClass(graphclass);
+    }
 
     $.each(data, function(key, value) {
         graph.attr('data-' + key, value);
     });
 
-    $el.append(graph);
+    if (typeof container != 'undefined') {
+        container.append(graph);
+        $el.append(container);
+    } else {
+        $el.append(graph);
+    }
+
     graph.circliful();
-    graph.addClass(graphclass);
     $el.trigger('graph-load');
 };
 

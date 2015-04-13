@@ -20,20 +20,8 @@ $(function() {
                 $('#projects .grid').append(proj);
 
                 var graphData = project;
-                delete graphData.projects_name;
-                loadProjectGraph(project, $('[data-proj-id=' + project.projects_id + '] .cover-box'));
-
-                $('[data-proj-id=' + project.projects_id + '] .cover-box').on('graph-load', function() {
-                    var $graph = $('.circliful', this);
-
-                    if ($graph.hasClass('High')) {
-                        $(this).addClass('High');
-                    } else if ($graph.hasClass('Average')) {
-                        $(this).addClass('Average');
-                    } else if ($graph.hasClass('Low')) {
-                        $(this).addClass('Low');
-                    }
-                });
+                delete graphData.projects_name; // remove the name so we dont get a graph title
+                loadProjectGraph(graphData, $('[data-proj-id=' + project.projects_id + '] .cover-box'), {style:'invert', fontsize: 35});
 
                 $.ajax({
                     type: "POST",
