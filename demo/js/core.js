@@ -233,11 +233,6 @@ var createGraph = function($el, options) {
         graphclass = 'Low';
     }
 
-    if (data.percent == 0) { // not sure if we want this?
-        data.fgcolor = '#000000';
-        graphclass = 'Emergency';
-    }
-
     delete data.part;
     delete data.total;
     var graph = $('<div></div>');
@@ -246,7 +241,7 @@ var createGraph = function($el, options) {
     if (typeof container != 'undefined') {
         data.fgcolor = '#ffffff';
         data.bgcolor = 'rgba(255, 255, 255, 0.5)';
-        data.width   = '4';
+        data.width   = '6';
         container.addClass(graphclass);
     }
 
