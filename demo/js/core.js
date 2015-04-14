@@ -218,7 +218,7 @@ var createGraph = function($el, options) {
     if (isNaN(data.percent)) {
         data.percent = 0;
     }
-    data.text = data.percent + '%';
+    data.text = data.percent + '<small>%</small>';
 
     if (data.percent < 34) {
         data.fgcolor = '#ff5454';
