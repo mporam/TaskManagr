@@ -164,28 +164,6 @@ var loadProjectGraph = function(project, $el, options) {
     }
     $('.loader', $el).remove();
     createGraph($el, options);
-
-    //// load stats data
-    //$.ajax({
-    //    type: "POST",
-    //    url: "/api/tasks/",
-    //    data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "1,2,3,4,5,6"}, // @todo: need to do something about the static task_statuses
-    //    success: function(data) {
-    //
-    //
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/api/tasks/",
-    //            data: {"count": "true", "projects_id": project.projects_id, "tasks_status" : "5,6"},
-    //            success: function(data) {
-    //                options.part = data;
-    //
-    //            }
-    //        }).always(function() {
-    //
-    //        });
-    //    }
-    //});
 }
 
 /**
