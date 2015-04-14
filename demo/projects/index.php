@@ -8,7 +8,7 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
     <div id="projects">
-        <h3>Projects</h3>
+        <h2>Projects</h2>
 
         <div class="grid"></div>
 

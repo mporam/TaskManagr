@@ -30,6 +30,11 @@
     &.Emergency {@{style}: @emergency;}
 }
 
+.transition(@transition) {
+    -webkit-transition: @transition; // safari
+    transition: @transition;
+}
+
 /* Spacing */
 .padding (@padding) { padding: @padding; }
 
@@ -60,7 +65,7 @@
 @link-color: @ebony-Clay;
 @link-hover: @fiord;
 @btn-bg: @green;
-@page-title-border: @grey;
+@page-title-border: @header-color;
 @main-bg: @catskill-white;
 
 

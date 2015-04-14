@@ -120,6 +120,10 @@ a {
         top: -10px;
         line-height: normal!important;
     }
+
+    small {
+        font-size: 70%;
+    }
 }
 
 /* -----------------  display-box */
@@ -129,10 +133,12 @@ a {
     padding: 0 10px;
     margin-bottom: 20px;
     font-size: 12rem;
-    height: 200px; // probably shud remove this
+    height: 200px; // probably should remove this ??
 
     &:hover .info-box {
+        visibility: visible;
         z-index: 3;
+        opacity: 1;
     }
 
     .display-box-inner {
@@ -142,11 +148,10 @@ a {
         > div {
             background-color: @mystic;
             position: absolute;
-            top: 0;
+            top: 36px; // to account for the heading
+            bottom: 0;
             left: 0;
-            margin-top: 36px; // this is a shit way of doing it
-            width: 100%;
-            height: 100%;
+            right: 0;
         }
     }
 
@@ -200,6 +205,10 @@ a {
 
     .info-box {
         padding: 8px;
+        visibility:hidden;
+        z-index: 1;
+        opacity:0;
+        .transition(opacity 0.2s linear);
 
         p {
             margin-top: 5px;
