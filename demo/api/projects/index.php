@@ -5,7 +5,11 @@
 	session_start();
 	$access = $_SESSION['users_type'];
 
-    $SQL = "SELECT * FROM projects WHERE";
+    $SQL = "SELECT projects.*,
+              (SELECT count(`tasks_id`) FROM tasks WHERE tasks.tasks_projects = projects.projects_id) AS tasks_total,
+              (SELECT count(`tasks_id`) FROM tasks WHERE tasks.tasks_projects = projects.projects_id AND tasks.tasks_status IN (5,6)) AS tasks_completed
+            FROM projects WHERE";
+    // should change the IN to another subselect
 
     // Get specific project
     if (!empty($_POST['projects_id'])) {

@@ -15,6 +15,11 @@ $(function() {
                 proj += '<h4><a href="/users/user/?name=' + project.projects_client.users_name + '"><img alt="' + project.projects_client.users_name + '" src="' + project.projects_client.users_image + '"></a>';
                 proj += '<a class="proj-title" href="/projects/project/?project=' + project.projects_code + '">' + project.projects_name + '</a></h4>';
                 proj += '<div class="cover-box"><img src="/images/site/icons/loading.gif" class="loader"></div>';
+                proj += '<div class="info-box">Code: <a class="right" href="/projects/project/?project=' + project.projects_code + '">' + project.projects_code + '</a>';
+                proj += '<p>Project Lead:<a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '<img src="' + project.projects_lead.users_image + '"></a></p>';
+                proj += '<p>Project Manager:<a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '<img src="' + project.projects_manager.users_image + '"></a></p>';
+                proj += '<p>' + project.tasks_total + '</p>';
+                proj += '</div>';
                 proj += '</div></div>';
 
                 $('#projects .grid').append(proj);
@@ -23,25 +28,10 @@ $(function() {
                 delete graphData.projects_name; // remove the name so we dont get a graph title
                 loadProjectGraph(graphData, $('[data-proj-id=' + project.projects_id + '] .cover-box'), {style:'invert', fontsize: 35});
 
-                $.ajax({
-                    type: "POST",
-                    url: '/api/tasks/',
-                    data: {count: "true", projects_id: project.projects_id},
-                    success: function(taskCount) {
-                        var info = '<div class="info-box">Code: <a class="right" href="/projects/project/?project=' + project.projects_code + '">' + project.projects_code + '</a>';
-                        info += '<p>Project Lead:<a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '<img src="' + project.projects_lead.users_image + '"></a></p>';
-                        info += '<p>Project Manager:<a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '<img src="' + project.projects_manager.users_image + '"></a></p>';
-                        info += '<p>' + taskCount + '</p>';
-                        info += '</div>';
-
-                        $('[data-proj-id=' + project.projects_id + '] .display-box-inner').append(info);
-
-                        i++;
-                        if (i == projects.length) {
-                            $('body').trigger('complete');
-                        }
-                    }
-                });
+                i++;
+                if (i == projects.length) {
+                    $('body').trigger('complete');
+                }
             });
         }
     });
