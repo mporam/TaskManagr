@@ -30,4 +30,40 @@ class module {
         echo $el;
     }
 
+    public function filterBy() {
+        $GLOBALS['js']->addScript('modules/filterBy.js');
+        $el = '';
+        $el .= '<div class="filterBy dropdown">';
+        $el .= '<div class="title">Filter By</div>';
+        $el .= '<ul class="open">';
+        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test3</li>';
+        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
+        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test2</li>';
+        $el .= '<li>test3</li>';
+        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
+        $el .= '<li>test3</li>';
+        $el .= '</ul>';
+        $el .= '</div>';
+
+        echo $el;
+    }
+
+    public function orderBy() {
+        $GLOBALS['js']->addScript('modules/orderBy.js');
+        $el = '';
+        $el .= '<div class="orderBy dropdown">';
+        $el .= '<div class="title">Order By</div>';
+        $el .= '<ul>';
+        $el .= '</ul>';
+        $el .= '</div>';
+
+        echo $el;
+    }
 } 

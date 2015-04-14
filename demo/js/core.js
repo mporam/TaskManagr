@@ -1,5 +1,12 @@
 $(function() {
 
+    $('.dropdown .title').click(function(e) {
+        e.preventDefault();
+        $(this).next('ul').toggleClass('open');
+        //$(this).next('ul').switchClass('', 'open');
+        //$(this).next('ul').switchClass('open'); //  you have to do it twice to make it toggle
+    });
+
     $('.module h3').click(function(e) {
         $(this).parents('.module').toggleClass('open closed');
         $(this).next().slideToggle();

@@ -10,6 +10,7 @@
     <div id="projects">
         <h2>Projects</h2>
 
+        <?php $module->filterBy(); ?>
         <div class="grid"></div>
 
         <img src="/images/site/icons/loading.gif" class="loader">

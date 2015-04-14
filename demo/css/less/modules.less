@@ -69,3 +69,51 @@
     }
 
 }
+
+/* ------------------- Filter By Module */
+
+.filterBy {
+    .left;
+    background: @oxford-Blue;
+    color: @white;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    .border-radius(1px);
+    overflow: visible;
+    position: relative;
+
+    .title {
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &:after {
+            content: '˅';
+            display: block;
+            .right;
+            margin-left: 10px;
+        }
+    }
+
+    ul {
+        display: none;
+        background: @oxford-Blue;
+        position: absolute;
+        top: 25px; // probably should find a better way?
+        min-width: 100%;
+        max-height: 100px;
+        overflow-y: scroll;
+
+        &.open {
+            display: block;
+            z-index: 5;
+        }
+
+        li {
+            padding: 5px 10px;
+            cursor: pointer;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+    }
+}
