@@ -22,15 +22,19 @@
                 </div>
                 <div class="search-results">
                     <span>&times;</span>
-                    <div data-type="tasks">
+                    <section data-type="tasks">
                         <h4>Task Results&hellip;</h4>
                         <img src="/images/site/icons/loading.gif" class="loader">
-                    </div>
-                    <div data-type="projects">
+                    </section>
+                    <section data-type="projects">
                         <h4>Project Results&hellip;</h4>
                         <img src="/images/site/icons/loading.gif" class="loader">
-                    </div>
-                    <a href="#">Show All Results</a>
+                    </section>
+                    <section data-type="users">
+                        <h4>User Results&hellip;</h4>
+                        <img src="/images/site/icons/loading.gif" class="loader">
+                    </section>
+                    <a href="#" class="italic">Show All Results&hellip;</a>
                 </div>
             </div>
 

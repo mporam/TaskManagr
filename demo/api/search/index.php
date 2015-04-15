@@ -163,51 +163,84 @@ SELECT * FROM tasks
 // echo $SQL;
 // exit;
 
-$query = $con->prepare($SQL);
-$query -> execute();
-
-if ($query->errorCode() !== "00000") {
-    header("HTTP/1.0 400 Bad Request", 400);
-    die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
-}
-
-$result = $query->fetchAll(PDO::FETCH_ASSOC);
-
-if (empty($result)) {
-    header("HTTP/1.0 404 Not Found", 404);
-    die(json_encode(array('message' => 'Not Found', 'code' => 404)));
-}
-
-foreach($result as $k =>$project) {
-    $project_lead = $project['projects_lead'];
-    $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_lead");
+    $query = $con->prepare($SQL);
     $query -> execute();
-    $lead = $query->fetch(PDO::FETCH_ASSOC);
-    $result[$k]['projects_lead'] = (empty($lead) ? "Unassigned" : $lead);
 
-    $project_client = $project['projects_client'];
-    $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
+    if ($query->errorCode() !== "00000") {
+        header("HTTP/1.0 400 Bad Request", 400);
+        die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
+    }
+
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($result)) {
+        header("HTTP/1.0 404 Not Found", 404);
+        die(json_encode(array('message' => 'Not Found', 'code' => 404)));
+    }
+
+    foreach($result as $k =>$project) {
+        $project_lead = $project['projects_lead'];
+        $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_lead");
+        $query -> execute();
+        $lead = $query->fetch(PDO::FETCH_ASSOC);
+        $result[$k]['projects_lead'] = (empty($lead) ? "Unassigned" : $lead);
+
+        $project_client = $project['projects_client'];
+        $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
+        $query -> execute();
+        $client = $query->fetch(PDO::FETCH_ASSOC);
+        $result[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
+
+        $project_manager = $project['projects_manager'];
+        $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_manager");
+        $query -> execute();
+        $manager = $query->fetch(PDO::FETCH_ASSOC);
+        $result[$k]['projects_manager'] = (empty($manager) ? "Unassigned" : $lead);
+    }
+
+} else if ($_POST['search_type'] == 'users') {
+
+    $SQL = "SELECT * FROM users WHERE";
+    $SQL .= " `users_name` LIKE '%$term%' OR `users_email` LIKE '%$term%'";
+
+    require($_SERVER['DOCUMENT_ROOT'] . '/api/default.php');
+
+// for debugging
+// echo $SQL;
+// exit;
+
+    $query = $con->prepare($SQL);
     $query -> execute();
-    $client = $query->fetch(PDO::FETCH_ASSOC);
-    $result[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
-	
-	$project_manager = $project['projects_manager'];
-    $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_manager");
-    $query -> execute();
-    $manager = $query->fetch(PDO::FETCH_ASSOC);
-    $result[$k]['projects_manager'] = (empty($manager) ? "Unassigned" : $lead);
-}
+
+    if ($query->errorCode() !== "00000") {
+        header("HTTP/1.0 400 Bad Request", 400);
+        die(json_encode(array('message' => 'Bad Request', 'code' => 400)));
+    }
+
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($result)) {
+        header("HTTP/1.0 404 Not Found", 404);
+        die(json_encode(array('message' => 'No Users Found', 'code' => 404)));
+    }
+
+    foreach($result as $k => $user) {
+        if (empty($user['users_image'])) {
+            $result[$k]['users_image'] = get_gravatar($user['users_email']);
+        }
+    }
+
 
 } else {
     $result = array(
 	'code' => 400,
 	'message' => 'Please specify search type'
     );
-header("HTTP/1.0 400 Bad Request", 400);
-if ($GLOBALS['environment']) {
-    header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
-}
-die(json_encode($result));
+    header("HTTP/1.0 400 Bad Request", 400);
+    if ($GLOBALS['environment']) {
+        header('Query: ' . preg_replace("/\r|\n|\s/"," ",$SQL), false);
+    }
+    die(json_encode($result));
 }
 
 header('Content-Type: application/json');

@@ -84,12 +84,17 @@ $(function() {
         }
     });
 
+    $('.search-results > span').click(function() {
+        closeSearch();
+    });
+
     $('.search-btn').on('click search', function() {
         var searchTerm = $('.search-input').val();
         if (searchTerm.length > 0) {
             var $results = $('.search-results');
             var $taskResults = $('[data-type="tasks"]', $results);
             var $projectResults = $('[data-type="projects"]', $results);
+            var $userResults = $('[data-type="users"]', $results);
             $('> a', $results).attr('href', '/search/?term=' + searchTerm);
             $results.animate({
                 height: $('main').outerHeight()
@@ -97,14 +102,14 @@ $(function() {
                 $(this).addClass('open');
             });
 
-
+            // search tasks
             $.ajax({
                 type: "POST",
                 url: '/api/search/',
                 data: {search_type:"tasks", search_term: searchTerm, limit: 3},
                 success: function(tasks) {
                     tasks.forEach(function(task) {
-                        $taskResults.append('<p>' + task.tasks_title + '</p>');
+                        $taskResults.append('<div><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_code + ' ' + task.tasks_title + '</a></div>');
                     });
                 },
                 error: function() {
@@ -114,13 +119,14 @@ $(function() {
                 $('.loader', $taskResults).remove();
             });
 
+            // search projects
             $.ajax({
                 type: "POST",
                 url: '/api/search/',
                 data: {search_type:"projects", search_term: searchTerm, limit: 3},
                 success: function(projects) {
                     projects.forEach(function(project) {
-                        $projectResults.append('<p>' + project.projects_name + '</p>');
+                        $projectResults.append('<div><a href="/projects/project/?project=' + project.projects_code + '">' + project.projects_name + '</a></div>');
                     });
                 },
                 error: function() {
@@ -129,8 +135,27 @@ $(function() {
             }).always(function() {
                 $('.loader', $projectResults).remove();
             });
+
+            // search users
+            $.ajax({
+                type: "POST",
+                url: '/api/search/',
+                data: {search_type:"users", search_term: searchTerm, limit: 3},
+                success: function(users) {
+                    users.forEach(function(user) {
+                        $userResults.append('<div><a href="/users/user/?name=' + user.users_name + '">' + user.users_name + '</a></div>');
+                    });
+                },
+                error: function() {
+                    $userResults.append('<p class="err-msg">No Results Found</p>');
+                }
+            }).always(function() {
+                $('.loader', $userResults).remove();
+            });
         }
-        // window.location.href = '/search/?term=' + searchTerm; // old way of doing it!
+
+        $('.search-input').on('keydown', closeSearch);
+
     });
 
 });
@@ -146,36 +171,20 @@ var createTabs = function() {
     });
 };
 
-var openSearch = function() {
-    $('.search-box').stop();
-    $('.search-box').removeClass('closed');
-    $('.search-box').animate({
-        width: '205px'
-    }, 800,
-    'swing',
-    function() {
-        $('.search-box').addClass('open');
-        $('.search-box').attr('style', '');
-    });
-
-    $(document).click(function() { // put all close functions here
-        closeSearch();
-    });
-
-};
-
 var closeSearch = function() {
-    $('.search-box').stop();
-    $('.search-box').animate({
-        width: '28px'
-    }, 800,
-    'swing',
-    function() {
-		$('.search-box').removeClass('open');
-		$('.search-box').addClass('closed');
-        $('.search-box').attr('style', '');
-		$(document).off('click', closeSearch);
-        $('.search-btn').off('click search'); // remove click event to prevent search on closed form
+
+    $('.search-input').off('keydown', closeSearch);
+    var $results = $('.search-results');
+    var $taskResults = $('[data-type="tasks"]', $results);
+    var $projectResults = $('[data-type="projects"]', $results);
+    var $userResults = $('[data-type="users"]', $results);
+    $results.animate({
+        height: '0'
+    }, 400, function() {
+        $(this).removeClass('open');
+        $('p, div', $taskResults).remove();
+        $('p, div', $projectResults).remove();
+        $('p, div', $userResults).remove();
     });
 };
 
