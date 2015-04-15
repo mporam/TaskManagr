@@ -11,9 +11,10 @@
         <h2>Projects</h2>
 
         <?php $module->filterBy(); ?>
-        <div class="grid"></div>
-
-        <img src="/images/site/icons/loading.gif" class="loader">
+        <?php $module->orderBy(); ?>
+        <div class="grid">
+            <img src="/images/site/icons/loading.gif" class="loader">
+        </div>
     </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

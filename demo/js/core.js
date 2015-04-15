@@ -2,9 +2,9 @@ $(function() {
 
     $('.dropdown .title').click(function(e) {
         e.preventDefault();
-        $(this).next('ul').toggleClass('open');
-        //$(this).next('ul').switchClass('', 'open');
-        //$(this).next('ul').switchClass('open'); //  you have to do it twice to make it toggle
+        var $this = $(this).next('ul');
+        $this.toggleClass('open');
+        $('.dropdown > ul').not($this).removeClass('open');
     });
 
     $('.module h3').click(function(e) {
@@ -107,7 +107,9 @@ var openSearch = function() {
         $('.search-box').attr('style', '');
     });
 
-    $(document).on('click', closeSearch);
+    $(document).click(function() { // put all close functions here
+        closeSearch();
+    });
 
     // assign click event to trigger search
     $('.search-btn').on('click search', function() {

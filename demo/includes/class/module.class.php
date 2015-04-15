@@ -35,21 +35,7 @@ class module {
         $el = '';
         $el .= '<div class="filterBy dropdown">';
         $el .= '<div class="title">Filter By</div>';
-        $el .= '<ul class="open">';
-        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test3</li>';
-        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
-        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test2</li>';
-        $el .= '<li>test3</li>';
-        $el .= '<li>test1z jfhdbgvs dhjfgkjsdbfgjkbserdj</li>';
-        $el .= '<li>test3</li>';
-        $el .= '</ul>';
+        $el .= '<ul></ul>';
         $el .= '</div>';
 
         echo $el;
@@ -60,8 +46,7 @@ class module {
         $el = '';
         $el .= '<div class="orderBy dropdown">';
         $el .= '<div class="title">Order By</div>';
-        $el .= '<ul>';
-        $el .= '</ul>';
+        $el .= '<ul></ul>';
         $el .= '</div>';
 
         echo $el;
