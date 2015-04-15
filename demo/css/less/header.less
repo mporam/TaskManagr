@@ -2,23 +2,31 @@
 
 .logo { text-align: center; }
 
-header { 
-	padding: @pad 0;
-	overflow: auto;
+header {
+	overflow: visible;
 	color: @primary-color;
 	background: @nav-bg;
     height: 12%;
 
+    [class*='col-'] {
+        height: 100%;
+        position: relative;
+    }
+
 	.new-task { 
-		padding: 8px 0 0 65px;
-		background: url('/images/site/icons/sprite.png') no-repeat -446px -25px;
-		height: 40px;
+		padding: 28px 45px @pad 65px;
+		background: @oxford-Blue url('/images/site/icons/sprite.png') no-repeat -450px -7px;
+		height: 100%;
 		display: inline-block;
+        line-height: 22rem;
+
+        &:hover {
+            color: inherit;
+            background-color: @fiord;
+        }
 	}
 
     a { color: @primary-color; }
-
-	.settings .right { margin-right: @pad; }
 
 	.settings .icons,
 	.settings ul,
@@ -28,19 +36,24 @@ header {
 		.left;
 	}
 
+    .icons {
+        height: 42px;
+        width: 20%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -21px;
+    }
+
     .user-image {
         .border-radius(50%);
         width: 40px;
     }
 
-	.search-box,
-	.info { 
-		width: 30px;
-		height: 30px;
-		text-indent: -9999px;
-	}
-
 	.info {
+        width: 30px;
+        height: 30px;
+        text-indent: -9999px;
 		background: url('/images/site/icons/sprite.png') no-repeat -227px -32px;
 		margin: 5px 0 0 10px;
 	}
@@ -50,17 +63,25 @@ header {
 		
 /* ------------------- Search Box */
 .search-box {
+    .right;
+	background-color: @oxford-Blue;
+    height: 100%;
+    width: 80%;
     position: relative;
-    overflow: hidden;
-    .left;
-    margin: 5px 0 0 10px;
-	background-color: @default-color;
-	.border-radius (25px);
+
+    .search {
+        height: 32px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -16px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+    }
 
     .search-btn {
-        .right;
         background: url('/images/site/icons/sprite.png') no-repeat -224px 3px;
-		background-color: @btn-bg;
         background-repeat: no-repeat;
         border: 0;
         text-indent: -900px;
@@ -71,41 +92,50 @@ header {
 		position: relative;
 		z-index: 2;
 		.border-radius (50%);
+        .left;
     }
 
     .search-input {
-        position: absolute;
-        left: 10px;
-        top: 0;
         border: 0;
+        border-bottom: 1px solid @white;
         color: @white;
-        background: @white;
+        background: @oxford-Blue;
         padding: 5px 8px;
 		height: 20px;
-    }
-    
-    &.closed {
-        width: 30px;
-		background-color: transparent; 
-		
-        .search-input {
-            display: none;
-        }
-        .search-btn {
-            background-color: @nav-bg;
-        }
-    }
-    
-    &.open {
-        width: 205px;
-        background-color: @white;
-        .border-radius (25px);
+        width: auto;
+        display: block; // @todo: make this input fill the space, cant make it work!
 
-        .search-input {
-            display: block;
+        // tried doing this with a mixin but it was not happy!
+        &::-webkit-input-placeholder {font-style: italic;}
+        &::-moz-placeholder {font-style: italic;} /* firefox 19+ */
+        &:-ms-input-placeholder {font-style: italic;} /* ie */
+    }
+
+    .search-results {
+        height: 0;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        background: inherit;
+        z-index: 5;
+        overflow: hidden;
+
+        &.open {
+
         }
-        .search-btn {
-            background-color: @btn-bg;
+
+        span {
+            float: right;
+            width: 20px;
+            height: 20px;
+            background: @blue;
+            color: @catskill-white;
+        }
+
+        .loader {
+            display: block;
+            margin: 10px auto;
         }
     }
+
 }

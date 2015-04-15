@@ -17,22 +17,6 @@ $(function() {
     window.sidebarInner = $('#sidebar .sidebar-inner');
     window.sidebarContent = {};
     
-    // define click event to open seach box
-    $('.search-box').on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ($(this).hasClass('closed')) {
-            openSearch();
-        }
-    });
-    
-    // trigger search on enter key press
-    $('.search-input').keydown(function(e){    
-        if(e.which===13){
-           $('.search-btn').trigger('search');
-        }
-    });
-    
     // open sidebar and trigger event
     $('nav li[data-sidebar]').mouseenter(function() {
         var eName = $(this).data('sidebar'); // get event name
@@ -92,7 +76,63 @@ $(function() {
             }
         });
     });
-    
+
+    // trigger search on enter key press
+    $('.search-input').keydown(function(e){
+        if(e.which===13){
+            $('.search-btn').trigger('search');
+        }
+    });
+
+    $('.search-btn').on('click search', function() {
+        var searchTerm = $('.search-input').val();
+        if (searchTerm.length > 0) {
+            var $results = $('.search-results');
+            var $taskResults = $('[data-type="tasks"]', $results);
+            var $projectResults = $('[data-type="projects"]', $results);
+            $('> a', $results).attr('href', '/search/?term=' + searchTerm);
+            $results.animate({
+                height: $('main').outerHeight()
+            }, 400, function() {
+                $(this).addClass('open');
+            });
+
+
+            $.ajax({
+                type: "POST",
+                url: '/api/search/',
+                data: {search_type:"tasks", search_term: searchTerm, limit: 3},
+                success: function(tasks) {
+                    tasks.forEach(function(task) {
+                        $taskResults.append('<p>' + task.tasks_title + '</p>');
+                    });
+                },
+                error: function() {
+                    $taskResults.append('<p class="err-msg">No Results Found</p>');
+                }
+            }).always(function() {
+                $('.loader', $taskResults).remove();
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '/api/search/',
+                data: {search_type:"projects", search_term: searchTerm, limit: 3},
+                success: function(projects) {
+                    projects.forEach(function(project) {
+                        $projectResults.append('<p>' + project.projects_name + '</p>');
+                    });
+                },
+                error: function() {
+                    $projectResults.append('<p class="err-msg">No Results Found</p>');
+                }
+            }).always(function() {
+                $('.loader', $projectResults).remove();
+            });
+        }
+        // window.location.href = '/search/?term=' + searchTerm; // old way of doing it!
+    });
+
 });
 
 var createTabs = function() {
@@ -122,11 +162,6 @@ var openSearch = function() {
         closeSearch();
     });
 
-    // assign click event to trigger search
-    $('.search-btn').on('click search', function() {
-        var searchTerm = $('.search-input').val();
-        window.location.href = '/search/?term=' + searchTerm;
-    });
 };
 
 var closeSearch = function() {
