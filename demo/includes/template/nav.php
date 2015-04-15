@@ -25,7 +25,7 @@
                     Settings
                 </a>
     		</li>
-            <?php if ($_SESSION['users_type'] == '1') { ?>
+            <?php if (!empty($_SESSION['users_type']) && $_SESSION['users_type'] == '1') { ?>
     		<li class="user<?php echo ($GLOBALS['url_parts'][0] == 'users')? ' active' : ''?>" data-sidebar="users">
                 <a href="/users/">
                     <span></span>
@@ -33,6 +33,12 @@
                 </a>
     		</li>
             <?php } ?>
+            <li class="logout">
+                <a href="/login/logout.php">
+                    <span></span>
+                    Log Out
+                </a>
+            </li>
     	</ul>
     </nav>
     <aside id="sidebar" class="closed">

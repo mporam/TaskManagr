@@ -10,7 +10,12 @@
         background-color: @nav-bg;
         height: 100%;
     }
-	
+
+    ul {
+        height: 100%;
+        position: relative;
+    }
+
 	li {
 		margin: 0;
         background-color: @oxford-Blue;
@@ -57,6 +62,9 @@
         &.user span {
             background: url('/images/site/icons/sprite.png') no-repeat 1px -299px;
         }
+        &.logout span {
+            background: url('/images/site/icons/sprite.png') no-repeat 1px -299px;
+        }
 
         &.active {
             background-color: @main-bg;
@@ -79,6 +87,9 @@
                 background: url('/images/site/icons/sprite.png') no-repeat 1px -249px;
             }
             &.user span {
+                background: url('/images/site/icons/sprite.png') no-repeat 1px -322px;
+            }
+            &.logout span {
                 background: url('/images/site/icons/sprite.png') no-repeat 1px -322px;
             }
 
