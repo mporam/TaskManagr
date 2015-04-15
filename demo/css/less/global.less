@@ -231,3 +231,37 @@ a {
         }
     }
 }
+
+/* -----------------  tabs */
+
+.tabs {
+    border-bottom: 1px solid @page-title-border;
+    overflow: auto;
+    margin-bottom: 20px;
+
+    a {
+        padding: 10px 15px;
+        font-size: 15rem;
+        .left;
+
+        &.active {
+            border-bottom: 4px solid @green;
+        }
+//
+//        &:first-child {
+//            padding-left: 0;
+//        }
+    }
+}
+
+// tab content
+
+.tab-content {
+    > div {
+        display: none;
+
+        &.open {
+            display: block;
+        }
+    }
+}

@@ -95,6 +95,17 @@ $(function() {
     
 });
 
+var createTabs = function() {
+    $('.tabs a').click(function() {
+        var $tab = $(this);
+        $('.tabs a').removeClass('active');
+        $tab.addClass('active');
+        var $content = $('[data-id="' + $tab.attr('href').replace('#', '') + '"]');
+        $('.tab-content > div').removeClass('open');
+        $content.addClass('open');
+    });
+};
+
 var openSearch = function() {
     $('.search-box').stop();
     $('.search-box').removeClass('closed');
