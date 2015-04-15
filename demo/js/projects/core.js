@@ -33,6 +33,7 @@ $(function() {
                     proj += '<p>Project Lead:<a href="/users/user/?name=' + project.projects_lead.users_name + '">' + project.projects_lead.users_name + '<img src="' + project.projects_lead.users_image + '"></a></p>';
                     proj += '<p>Project Manager:<a href="/users/user/?name=' + project.projects_manager.users_name + '">' + project.projects_manager.users_name + '<img src="' + project.projects_manager.users_image + '"></a></p>';
                     proj += '<p>' + project.tasks_completed + ' tasks completed of ' + project.tasks_total + ' total.</p>';
+                    proj += '<p><a href="/projects/project/?project=' + project.projects_code + '">View Project ></a></p>';
                     proj += '</div>';
                     proj += '</div></div>';
 
