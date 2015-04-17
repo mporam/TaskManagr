@@ -10,8 +10,13 @@
     <div id="projects">
         <h2>Projects</h2>
 
-        <?php $module->filterBy(); ?>
-        <?php $module->orderBy(); ?>
+        <a href="/projects/new/" class="btn clear">New Project</a>
+
+        <div class="right">
+            <?php $module->filterBy(); ?>
+            <?php $module->orderBy(); ?>
+        </div>
+
         <div class="grid">
             <img src="/images/site/icons/loading.gif" class="loader">
         </div>
