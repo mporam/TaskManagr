@@ -19,10 +19,10 @@
                     Workflow
                 </a>
     		</li>
-    		<li class="settings<?php echo ($GLOBALS['url_parts'][0] == 'settings')? ' active' : ''?>">
-                <a href="/settings/">
+    		<li class="search<?php echo ($GLOBALS['url_parts'][0] == 'search')? ' active' : ''?>">
+                <a href="/search/">
                     <span></span>
-                    Settings
+                    Search
                 </a>
     		</li>
             <?php if (!empty($_SESSION['users_type']) && $_SESSION['users_type'] == '1') { ?>
