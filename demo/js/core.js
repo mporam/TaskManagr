@@ -1,5 +1,7 @@
 $(function() {
 
+    window.loadingGif = '<img src="/images/site/icons/loading.gif" class="loader">';
+
     $('.dropdown .title').click(function(e) {
         e.preventDefault();
         var $this = $(this).next('ul');

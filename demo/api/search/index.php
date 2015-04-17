@@ -100,7 +100,7 @@ SELECT * FROM tasks
 
     if (empty($result)) {
         header("HTTP/1.0 404 Not Found", 404);
-        die(json_encode(array('message' => 'Not Found', 'code' => 404)));
+        die(json_encode(array('message' => 'No Tasks Found', 'code' => 404)));
     }
 
     foreach($result as $k=>$task) {
@@ -175,7 +175,7 @@ SELECT * FROM tasks
 
     if (empty($result)) {
         header("HTTP/1.0 404 Not Found", 404);
-        die(json_encode(array('message' => 'Not Found', 'code' => 404)));
+        die(json_encode(array('message' => 'No Projects Found', 'code' => 404)));
     }
 
     foreach($result as $k =>$project) {

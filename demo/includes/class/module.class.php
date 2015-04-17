@@ -35,7 +35,7 @@ class module {
         $el = '';
         $el .= '<div class="filterBy dropdown">';
         $el .= '<div class="title">Filter By</div>';
-        $el .= '<ul></ul>';
+        $el .= '<ul><li class="err-msg">No Filters defined</li></ul>';
         $el .= '</div>';
 
         echo $el;
@@ -46,7 +46,7 @@ class module {
         $el = '';
         $el .= '<div class="orderBy dropdown">';
         $el .= '<div class="title">Order By</div>';
-        $el .= '<ul></ul>';
+        $el .= '<ul><li class="err-msg">No order by defined</li></ul>';
         $el .= '</div>';
 
         echo $el;

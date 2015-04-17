@@ -21,8 +21,9 @@ $(function() {
 });
 
 var createFilterBy = function(options) {
+    $('.filterBy > ul').html('');
     if (typeof options != "object") {
-        $('.filterBy ul').append('<li class="err-msg">Error getting Filters</li>');
+        $('.filterBy ul').html('<li class="err-msg">Error getting Filters</li>');
         return false;
     }
 

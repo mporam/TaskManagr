@@ -9,8 +9,9 @@ $(function() {
 });
 
 var createOrderBy = function(options) {
+    $('.orderBy ul').html('');
     if (typeof options != "object") {
-        $('.orderBy ul').append('<li class="err-msg">Error getting Filters</li>');
+        $('.orderBy ul').html('<li class="err-msg">Error getting Filters</li>');
         return false;
     }
 
