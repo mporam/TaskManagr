@@ -8,14 +8,8 @@ $GLOBALS['js']->addScript('projects/project.js');
 ?>
 <title>Admin</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
-<h2>Project</h2>
 
 <div id="project">
-    <img src="/images/site/icons/loading.gif" class="loader">
-</div>
-
-<div id="tasks">
-    <h3>Tasks</h3>
     <img src="/images/site/icons/loading.gif" class="loader">
 </div>
 

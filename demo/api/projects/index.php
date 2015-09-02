@@ -5,7 +5,11 @@
 	session_start();
 	$access = $_SESSION['users_type'];
 
-    $SQL = "SELECT * FROM projects WHERE";
+    $SQL = "SELECT projects.*,
+              (SELECT count(`tasks_id`) FROM tasks WHERE tasks.tasks_projects = projects.projects_id) AS tasks_total,
+              (SELECT count(`tasks_id`) FROM tasks WHERE tasks.tasks_projects = projects.projects_id AND tasks.tasks_status IN (5,6)) AS tasks_completed
+            FROM projects WHERE";
+    // should change the IN to another subselect
 
     // Get specific project
     if (!empty($_POST['projects_id'])) {
@@ -75,12 +79,12 @@ foreach($projects as $k =>$project) {
 
     $project_client = $project['projects_client'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_client");
-    $query -> execute();
+    $query->execute();
     $client = $query->fetch(PDO::FETCH_ASSOC);
     if (empty($client['users_image'])) {
         $client['users_image'] = get_gravatar($client['users_email']);
     }
-    $projects[$k]['projects_client'] = (empty($client) ? "Unassigned" : $lead);
+    $projects[$k]['projects_client'] = (empty($client) ? "Unassigned" : $client);
 	
 	$project_manager = $project['projects_manager'];
     $query = $con->prepare("SELECT * FROM users WHERE `users_id` = $project_manager");
@@ -89,7 +93,7 @@ foreach($projects as $k =>$project) {
     if (empty($manager['users_image'])) {
         $manager['users_image'] = get_gravatar($manager['users_email']);
     }
-    $projects[$k]['projects_manager'] = (empty($manager) ? "Unassigned" : $lead);
+    $projects[$k]['projects_manager'] = (empty($manager) ? "Unassigned" : $manager);
 }
 
 header('Content-Type: application/json');

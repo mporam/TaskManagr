@@ -3,6 +3,18 @@
     padding: 0 10px;
     margin-bottom: 20px;
 
+  &.open h3::after {
+    content: '-';
+    float: right;
+    font-weight: bold;
+  }
+
+  &.closed h3::after {
+    content: '+';
+    float: right;
+    font-weight: bold;
+  }
+
     h3 {
         cursor: pointer;
     }
@@ -29,17 +41,7 @@
     }
 }
 
-.open h3::after {
-    content: '-';
-    float: right;
-    font-weight: bold;
-}
 
-.closed h3::after {
-    content: '+';
-    float: right;
-    font-weight: bold;
-}
 
 /* ------------------- Task Update Module */
 
@@ -66,4 +68,61 @@
         height: 50px;
     }
 
+}
+
+/* ------------------- Filter By Module */
+
+.filterBy,
+.orderBy{
+    .left;
+    background: @oxford-Blue;
+    color: @white;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    .border-radius(1px);
+    overflow: visible;
+    position: relative;
+
+    .title {
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &:after {
+            content: '˅';
+            display: block;
+            .right;
+            margin-left: 10px;
+        }
+    }
+
+    > ul {
+        display: none;
+        background: @oxford-Blue;
+        position: absolute;
+        top: 25px; // probably should find a better way?
+        min-width: 100%;
+        max-height: 185px;
+        overflow-y: scroll;
+
+        &.open {
+            display: block;
+            z-index: 5;
+        }
+
+        li {
+            padding: 5px 10px;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-transform: capitalize;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        input {
+            margin-right: 5px;
+        }
+    }
 }
