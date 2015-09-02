@@ -19,13 +19,13 @@
                     Workflow
                 </a>
     		</li>
-    		<li class="settings<?php echo ($GLOBALS['url_parts'][0] == 'settings')? ' active' : ''?>">
-                <a href="/settings/">
+    		<li class="search<?php echo ($GLOBALS['url_parts'][0] == 'search')? ' active' : ''?>">
+                <a href="/search/">
                     <span></span>
-                    Settings
+                    Search
                 </a>
     		</li>
-            <?php if ($_SESSION['users_type'] == '1') { ?>
+            <?php if (!empty($_SESSION['users_type']) && $_SESSION['users_type'] == '1') { ?>
     		<li class="user<?php echo ($GLOBALS['url_parts'][0] == 'users')? ' active' : ''?>" data-sidebar="users">
                 <a href="/users/">
                     <span></span>
@@ -33,6 +33,12 @@
                 </a>
     		</li>
             <?php } ?>
+            <li class="logout">
+                <a href="/login/logout.php">
+                    <span></span>
+                    Log Out
+                </a>
+            </li>
     	</ul>
     </nav>
     <aside id="sidebar" class="closed">

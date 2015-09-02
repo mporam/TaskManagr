@@ -11,7 +11,13 @@ $(function() {
         success: function(data) {
             task = data[0]; // uses [0] as we only want one task
             $('#task').append('<h2>' + task.tasks_title + '</h2>');
-            $('#task').append('<ul><li>Status: ' + task.tasks_status + '</li><li>Priority: ' + task.tasks_priority + '</li><li>Deadline: ' + task.tasks_deadline + '</li><li>Type: ' + task.tasks_type + '</li><li>Assigned to: ' + task.tasks_assignee.users_name + '</li><li>Reported by: ' + task.tasks_reporter.users_name + '</li></ul>');
+            $('#task').append('<ul><li>Status: ' + task.tasks_status + '</li>');
+            $('#task').append('<li>Priority: ' + task.tasks_priority + '</li>');
+            $('#task').append('<li>Deadline: ' + task.tasks_deadline + '</li>');
+            $('#task').append('<li>Type: ' + task.tasks_type + '</li>');
+            $('#task').append('<li>Assigned to: ' + task.tasks_assignee.users_name + '</li>');
+            $('#task').append('<li>Reported by: ' + task.tasks_reporter.users_name + '</li>');
+            $('#task').append('<li>Relates to: <a href="/tasks/task/?task=' + task.projects_code + '-' + task.tasks_related.tasks_count + '">' + task.projects_code + '-' + task.tasks_related.tasks_count + ' ' + task.tasks_related.tasks_title + '</a></li></ul>');
             $('#task').append('<div><h5>Description</h5><p>' + task.tasks_desc + '</p></div>');
 
             getComments(task);

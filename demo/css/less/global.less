@@ -30,6 +30,8 @@ a {
 
 .right { float: right; }
 
+.italic { font-style: italic; }
+
 .priority-icon {
     display: block;
     margin: 0 auto;
@@ -39,26 +41,34 @@ a {
     .priorities(background-color);
 }
 
+.err-msg {
+    color: @err-text;
+}
+
+.success-msg {
+    color: @success-text;
+}
+
 /* -----------------  Alerts */
 .alert {
     display: block;
     width: 100%;
     padding: 10px 15px;
     .border-radius(10px);
-    border: 1px solid #bce8f1;
-    background-color: #d9edf7;
-    color: #31708f;
+    border: 1px solid @neutral-border;
+    background-color: @neutral-background;
+    color: @neutral-text;
 
     &.success {
-        background-color: #dff0d8;
-        color: #3c763d;
-        border-color: #d6e9c6;
+        background-color: @success-background;
+        color: @success-text;
+        border-color: @success-border;
     }
 
     &.fail {
-        background-color: #f2dede;
-        color: #a94442;
-        border-color: #ebccd1;
+        background-color: @err-background;
+        color: @err-text;
+        border-color: @err-border;
     }
 }
 
@@ -66,7 +76,6 @@ a {
 /* -----------------  Dynamic lists - AJAX populated */
 .dyn-list {
     margin-top: 5px;
-    overflow: auto;
 
     li {
         cursor: pointer;
@@ -78,6 +87,15 @@ a {
 }
 
 /* -----------------  Circlifil */
+
+.circliful-invert {
+    .priorities(background-color);
+
+    .circle-text {
+        color: @white;
+    }
+}
+
 .circliful {
     position: relative;
     margin-top: 15px;
@@ -104,5 +122,148 @@ a {
         top: -10px;
         line-height: normal!important;
     }
+
+    small {
+        font-size: 70%;
+    }
 }
 
+/* -----------------  display-box */
+
+.display-box {
+    max-width: 240px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    font-size: 12rem;
+    height: 200px; // probably should remove this ??
+
+    &:hover .info-box {
+        visibility: visible;
+        z-index: 3;
+        opacity: 1;
+    }
+
+    .display-box-inner {
+        position: relative;
+        height: 100%;
+
+        > div {
+            background-color: @mystic;
+            position: absolute;
+            top: 36px; // to account for the heading
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    h4 {
+        background: @oxford-Blue;
+        height: 36px;
+        color: @white;
+        white-space: nowrap;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding-right: 10px;
+        margin: 0;
+        font-weight: normal;
+        font-size: inherit;
+
+        &:hover {
+            // do something cool to display the full text if it overflows without affecting non overflowing titles
+        }
+
+        .proj-title {
+            color: inherit;
+            display: block;
+            padding: 10px 0;
+        }
+
+        img {
+            .left;
+            height: 100%;
+            margin-right: 10px;
+        }
+    }
+
+    .cover-box {
+        z-index: 2;
+
+        .circliful-invert {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .circliful {
+            float: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .info-box {
+        padding: 8px;
+        visibility:hidden;
+        z-index: 1;
+        opacity:0;
+        .transition(opacity 0.2s linear);
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 0;
+
+            a {
+                display: block;
+                text-decoration: underline;
+                position: relative;
+            }
+
+            img {
+                height: 25px;
+                .border-radius(50%);
+                border: 1px solid @white;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+/* -----------------  tabs */
+
+.tabs {
+    border-bottom: 1px solid @page-title-border;
+    overflow: auto;
+    margin-bottom: 20px;
+
+    a {
+        padding: 10px 15px;
+        font-size: 15rem;
+        .left;
+
+        &.active {
+            border-bottom: 4px solid @green;
+        }
+//
+//        &:first-child {
+//            padding-left: 0;
+//        }
+    }
+}
+
+// tab content
+
+.tab-content {
+    > div {
+        display: none;
+
+        &.open {
+            display: block;
+        }
+    }
+}
