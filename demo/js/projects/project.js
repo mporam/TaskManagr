@@ -1,16 +1,35 @@
 $(function() {
     var html = $('#project'),
-        project, tasks;;
+        project, tasks;
     $.ajax({
         type: "POST",
         url: '/api/projects/',
         data: {"projects_code":get.project},
         success: function(data) {
             project = data[0];
-            html.append('<h2>' + project.projects_name + '</h2>');
-            html.append('<ul><li>Code: ' + project.projects_code + '</li><li>Client: ' + project.projects_client.users_name + '</li><li>Project Manager: ' + project.projects_manager.users_name + '</li><li>Project Lead: ' + project.projects_lead.users_name + '</li></ul>');
-            html.append('<div><h5>Description</h5><p>' + project.projects_desc + '</p></div>');
-            var table = $('<table></table>');
+            var page = '<h2>' + project.projects_name + '</h2>';
+            page += '<div class="tabs">';
+                page += '<a href="#overview" class="active">Overview</a>';
+                page += '<a href="#tasks">Tasks</a>';
+            page += '</div>';
+
+            page += '<div class="tab-content">';
+                page += '<div data-id="overview" class="open">';
+                    page += '<p>Code:' + project.projects_code + '</p>';
+                    page += '<p>Created:' + project.projects_created + '</p>';
+                    page += '<p>Manager:' + project.projects_manager.users_name + '</p>';
+                    page += '<p>Lead:' + project.projects_lead.users_name + '</p>';
+                    page += '<p>Client:' + project.projects_client.users_name + '</p>';
+                    var outstanding = parseInt(project.tasks_total) - parseInt(project.tasks_completed);
+                    page += '<p>Outstanding Tasks: ' + outstanding + ' of ' + project.tasks_total + '</p>';
+                    page += '<p><h5>Description</h5>' + project.projects_desc + '</p>';
+                page += '</div>';
+
+                page += '<div data-id="tasks"><img src="/images/site/icons/loading.gif" class="loader"></div>';
+            page += '</div>';
+
+            html.append(page);
+            var tasksTab = $('[data-id="tasks"]');
             
             /* ---------- this is for pagination if we want it. DO NOT TOUCH!
             var limit = {};
@@ -27,11 +46,27 @@ $(function() {
                 data: {"projects_id":project.projects_id}, //, "limit": limit.start + ', ' + limit.end},
                 success: function(data) {
                     tasks = data;
+                    var table = '<table>';
+                    table += '<tr>';
+                    table += '<th>Task Code</th>';
+                    table += '<th>Name</th>';
+                    table += '<th>Priority</th>';
+                    table += '<th>Assignee</th>';
+                    table += '<th>Status</th>';
+                    table += '<th>Deadline</th>';
+                    table += '</tr>';
                     tasks.forEach(function(task) {
-                        table.append('<tr><td>' + task.tasks_count + '</td><td><a href="/tasks/task?task=' + project.projects_code + '-' + task.tasks_count + '">' + task.tasks_title + '</a></td><td>' + task.tasks_status + '</td><td>' + task.tasks_priority + '</td></tr>');
+                        table += '<tr>';
+                        table += '<td>' + task.projects_code + '-' + task.tasks_count + '</td>';
+                        table += '<td><a href="/tasks/task?task=' + task.projects_code + '-' + task.tasks_count + '">' + task.tasks_title + '</a></td>';
+                        table += '<td>' + task.tasks_priority + '</td>';
+                        table += '<td><a href="/users/user?name=' + task.tasks_assignee.users_name + '">' + task.tasks_assignee.users_name + '</a></td>';
+                        table += '<td>' + task.tasks_status + '</td>';
+                        table += '<td>' + task.tasks_deadline + '</td>';
+                        table += '</tr>';
                     });
-                    $('#tasks').append(table);
-                    $('#tasks .loader').remove();
+                    table += '</table>';
+                    tasksTab.html(table);
                 },
                 error: function(data) {
                     var error = $.parseJSON(data.responseText);
@@ -39,6 +74,8 @@ $(function() {
                     $('#tasks .loader').remove();
                 }
             });
+
+            $('body').trigger('complete');
         },
         error: function(data) {
             var error = $.parseJSON(data.responseText);
@@ -46,7 +83,11 @@ $(function() {
             $('#tasks').remove();
         }
     }).always(function() {
-        $('.loader', html).remove();
+        $('> .loader', html).remove();
     });
-    
+
+    $('body').on('complete', function() {
+        createTabs();
+    });
+
 });

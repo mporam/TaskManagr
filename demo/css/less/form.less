@@ -4,6 +4,7 @@ form {
     .form-group {
         margin-bottom: 10px;
         overflow: auto;
+        position: relative;
 
         label {
             display: block;
@@ -26,6 +27,16 @@ form {
             width: 75%;
             padding: 5px 10px;
             float: left;
+
+            &.success {
+                border: 1px solid @success-border;
+                color: @success-text;
+            }
+
+            &.error {
+                color: @err-text;
+                border: 1px solid @err-border;
+            }
         }
 
         &.textarea {
@@ -46,6 +57,14 @@ form {
         &:first-child {
             margin-left: 0;
         }
+    }
+
+    .inline-msg {
+        position: absolute;
+        top: 1px;
+        right: 5px;
+        padding: 5px;
+        background: @white;
     }
 }
 

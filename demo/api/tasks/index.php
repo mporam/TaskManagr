@@ -168,7 +168,7 @@ foreach($tasks as $k=>$task) {
     $tasks[$k]['tasks_reporter'] = (empty($reporter) ? 'Unassigned' : $reporter);
 
     $tasks_related = $task['tasks_related'];
-    $query = $con->prepare("SELECT `tasks_id`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
+    $query = $con->prepare("SELECT `tasks_count`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
     $query -> execute();
     $tasks[$k]['tasks_related'] = $query->fetch(PDO::FETCH_ASSOC);
 

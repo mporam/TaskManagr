@@ -1,6 +1,5 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
-<script src="/js/tasks/task.js"></script>
-
+<?php $GLOBALS['js']->addScript('tasks/task.js'); ?>
 <?php
     if (empty($_GET['task'])) {
         header('Location: /tasks/');
@@ -13,9 +12,11 @@
 <h3>Task</h3>
 
 <div id="task">
-Loading...
+    <img src="/images/site/icons/loading.gif" class="loader">
 </div>
 <div id="comments">
+    <h3>Comments</h3>
+    <img src="/images/site/icons/loading.gif" class="loader">
 </div>
 
 <h4>Say something&hellip;</h4>

@@ -1,0 +1,35 @@
+.btn {
+    background: @btn-bg;
+    color: @white;
+    padding: 7px 35px;
+    text-transform: uppercase;
+    position: relative;
+    .border-radius(3px);
+    border: 2px solid @btn-bg;
+
+    &:before {
+        content: '>';
+        display: block;
+        position: absolute;
+        left: 10px;
+        padding: 9px 0;
+        font-weight: bold;
+    }
+
+    &.clear {
+        background: none;
+        border: 2px solid @ebony-Clay;
+        color: @ebony-Clay;
+
+        &:hover {
+            background: @ebony-Clay;
+            border: 2px solid @ebony-Clay;
+            color: @white;
+        }
+    }
+
+    &.blue {
+        background: @ebony-Clay;
+        border: 2px solid @ebony-Clay;
+    }
+}
