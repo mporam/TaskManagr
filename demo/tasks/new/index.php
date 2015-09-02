@@ -52,7 +52,8 @@
             <div class="form-group">
                 <label for="tasks_related">Related to</label>
                 <input type="text" name="tasks_related" id="tasks_related" />
-                <ul id="related">
+                <input type="hidden" name="tasks_related_hidden" id="tasks_related_hidden" />
+                <ul id="related" class="dyn-list">
                 </ul>
             </div>
             <p>* - required fields</p>
