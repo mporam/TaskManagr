@@ -44,7 +44,7 @@ $(function() {
     // event handler for projects sidebar
     sidebar.on('sidebar-projects', function() {
         sidebarInner.append('<h3>Projects</h3>');
-        $.ajax({
+        window.sidebarLookup = $.ajax({
             type: "POST",
             url: '/api/projects/',
             data: {},
@@ -63,7 +63,7 @@ $(function() {
     // event handler for projects sidebar
     sidebar.on('sidebar-users', function() {
         sidebarInner.append('<h3>Users</h3>');
-        $.ajax({
+        window.sidebarLookup = $.ajax({
             type: "POST",
             url: '/api/users/',
             data: {},
@@ -163,14 +163,23 @@ $(function() {
 });
 
 var createTabs = function() {
+    openTab(location.hash.replace('#', ''));
+
     $('.tabs a').click(function() {
-        var $tab = $(this);
-        $('.tabs a').removeClass('active');
-        $tab.addClass('active');
-        var $content = $('[data-id="' + $tab.attr('href').replace('#', '') + '"]');
-        $('.tab-content > div').removeClass('open');
-        $content.addClass('open');
+        var content = $(this).attr('href').replace('#', '');
+        openTab(content);
     });
+
+
+};
+
+var openTab = function(tab) {
+    if ($('[data-id="' + tab + '"]').length > 0 && $('[href="#' + tab + '"]').length > 0) {
+        $('.tabs a').removeClass('active');
+        $('[href="#' + tab + '"]').addClass('active')
+        $('.tab-content > div').removeClass('open');
+        $('[data-id="' + tab + '"]').addClass('open');
+    }
 };
 
 var closeSearch = function() {
@@ -198,6 +207,7 @@ var openSidebar = function() {
 };
 
 var closeSidebar = function() {
+    window.sidebarLookup.abort(); //cancel ajax request
     if (sidebar.hasClass('closed')) {
         sidebar.attr('style', '');
     }
