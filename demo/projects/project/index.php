@@ -10,7 +10,22 @@ $GLOBALS['js']->addScript('projects/project.js');
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>
 
 <div id="project">
-    <img src="/images/site/icons/loading.gif" class="loader">
+    <div class="tabs">
+    </div>
+    <div class="tab-content">
+        <div data-id="overview" class="open">
+            <img src="/images/site/icons/loading.gif" class="loader">
+        </div>
+
+        <div data-id="tasks">
+            <div class="grid"><?php // @todo: this needs to change but will do for now ?>
+                <div class="right">
+                    <?php $module->filterBy(); ?>
+                    <?php $module->orderBy(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/bottom.php'); ?>

@@ -1,4 +1,5 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
+<?php
+require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/top.php'); ?>
 <?php $GLOBALS['js']->addScript('dashboard/core.js'); ?>
     <title>Admin</title>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/includes/template/header.php'); ?>

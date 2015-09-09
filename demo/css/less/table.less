@@ -4,6 +4,37 @@ table {
     th,
     td {
         text-align: left;
+        padding: 5px;
+    }
+
+    &.dataTable {
+
+        th,
+        td {
+            text-align: center;
+            border-bottom: 1px solid @white;
+        }
+
+        th {
+            background: @header-color;
+            color: @white;
+            font-weight: normal;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        td {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+    }
+
+    .priority {
+        height: 100%;
+        width: 12px;
+
+        .priorities(background-color);
     }
 
 }

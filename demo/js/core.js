@@ -207,7 +207,9 @@ var openSidebar = function() {
 };
 
 var closeSidebar = function() {
-    window.sidebarLookup.abort(); //cancel ajax request
+    if (window.sidebarLookup) {
+        window.sidebarLookup.abort(); //cancel ajax request if running
+    }
     if (sidebar.hasClass('closed')) {
         sidebar.attr('style', '');
     }
@@ -325,3 +327,11 @@ window.sidebarRefresh = setTimeout(function() {
     window.sidebarContent = {};
     window.sidebarRefresh = 1;
 }, 30000);
+
+
+var options = {
+    orderBy:{
+    },
+    filterBy:{
+    }
+};

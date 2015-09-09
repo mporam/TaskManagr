@@ -1,17 +1,11 @@
-var options = {
-        orderBy:{
-        },
-        filterBy:{
-            'projects_lead': new Array(),
-            'projects_client': new Array(),
-            'projects_manager': new Array(),
-            'projects_created': new Array(),
-            'projects_deleted': new Array(),
-            'projects_completed': ['yes','no']
-        }
-    },
-    projects,
-    request;
+window.options.filterBy = {
+    'projects_lead': new Array(),
+    'projects_client': new Array(),
+    'projects_manager': new Array(),
+    'projects_created': new Array(),
+    'projects_deleted': new Array(),
+    'projects_completed': ['yes','no']
+};
 
 $(function() {
 
@@ -43,16 +37,6 @@ $(function() {
                     delete graphData.projects_name; // remove the name so we dont get a graph title
                     loadProjectGraph(graphData, $('[data-proj-id=' + project.projects_id + '] .cover-box'), {style:'invert', fontsize: 35});
 
-                    $.each(project, function(key, value) {
-                        if (typeof options.filterBy[key] !== "undefined" && options.filterBy[key].indexOf(value) == -1) {
-                            options.filterBy[key].push(value);
-                        }
-                    });
-
-                    i++;
-                    if (i == projects.length) {
-                        $('body').trigger('complete');
-                    }
                 });
             },
             error: function() {
@@ -68,7 +52,7 @@ $(function() {
     $('body').on('complete', function() {
         request = undefined;
         //createOrderBy(options.orderBy);
-        createFilterBy(options.filterBy);
+        createFilterBy(projects);
     });
 
 

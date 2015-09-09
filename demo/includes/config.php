@@ -1,4 +1,6 @@
 <?php
+
+set_time_limit(0);
 // this file includes all default settings
 $GLOBALS['root'] = $_SERVER['DOCUMENT_ROOT'];
 

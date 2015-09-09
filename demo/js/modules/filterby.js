@@ -20,19 +20,27 @@ $(function() {
 
 });
 
-var createFilterBy = function(options) {
+var createFilterBy = function(data) {
+    $.each(data, function(key, object) { // loop array of objs
+        $.each(object, function(key, value) { // loop obj properties
+            if (typeof window.options.filterBy[key] !== "undefined" && window.options.filterBy[key].indexOf(value) == -1) {
+                window.options.filterBy[key].push(value);
+            }
+        });
+    });
+
     $('.filterBy > ul').html('');
-    if (typeof options != "object") {
+    if (window.options.filterBy.length < 1) {
         $('.filterBy ul').html('<li class="err-msg">Error getting Filters</li>');
         return false;
     }
 
-    $.each(options, function(label, options) {
-        if (options.length > 1) { // ignore any filters with only one option
+    $.each(window.options.filterBy, function(label, values) {
+        if (values.length > 1) { // ignore any filters with only one option
             var dups = new Array(); // array for detecting duplicate users
             var li = '<li>' +  label.replace('_', ' ');
             li += '<ul>';
-            $.each(options, function (index, val) {
+            $.each(values, function (index, val) {
                 if (typeof val == "string") {
                     li += '<li><label><input type="checkbox" checked name="' + label + '" value="' + val + '">' + val.replace('_', ' ') + '</label></li>';
                 } else if (typeof val == "number") {

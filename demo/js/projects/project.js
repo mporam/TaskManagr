@@ -1,21 +1,25 @@
+window.options.filterBy = {
+    'tasks_status': new Array(),
+    'tasks_assignee': new Array(),
+    'tasks_priority': new Array()
+};
+
 $(function() {
-    var html = $('#project'),
+    var tabs = $('#project .tabs'),
         project, tasks;
+
     $.ajax({
         type: "POST",
         url: '/api/projects/',
         data: {"projects_code":get.project},
         success: function(data) {
             project = data[0];
-            var page = '<h2>' + project.projects_name + '</h2>';
-            page += '<div class="tabs">';
-                page += '<a href="#overview" class="active">Overview</a>';
-                page += '<a href="#tasks">Tasks</a>';
-            page += '</div>';
+            var title = '<h2>' + project.projects_name + '</h2>';
+            $('#project').prepend(title);
 
-            page += '<div class="tab-content">';
-                page += '<div data-id="overview" class="open">';
-                    page += '<p>Code:' + project.projects_code + '</p>';
+            tabs.append('<a href="#overview">Overview</a>');
+
+            var page = '<p>Code:' + project.projects_code + '</p>';
                     page += '<p>Created:' + project.projects_created + '</p>';
                     page += '<p>Manager:' + project.projects_manager.users_name + '</p>';
                     page += '<p>Lead:' + project.projects_lead.users_name + '</p>';
@@ -25,69 +29,72 @@ $(function() {
                     page += '<p><h5>Description</h5>' + project.projects_desc + '</p>';
                 page += '</div>';
 
-                page += '<div data-id="tasks"><img src="/images/site/icons/loading.gif" class="loader"></div>';
-            page += '</div>';
+            $('#project .tab-content [data-id="overview"]').html(page);
 
-            html.append(page);
-            var tasksTab = $('[data-id="tasks"]');
-            
             /* ---------- this is for pagination if we want it. DO NOT TOUCH!
-            var limit = {};
-            limit.end = "20";
-            if (window.location.hash.substr(2).length > 0) {
-                limit.end = window.location.hash.substr(2) * 20;
-            }
-            limit.start = limit.end - 5;
-            */
-            
+             var limit = {};
+             limit.end = "20";
+             if (window.location.hash.substr(2).length > 0) {
+             limit.end = window.location.hash.substr(2) * 20;
+             }
+             limit.start = limit.end - 5;
+             */
+
+            tabs.append(window.loadingGif);
             $.ajax({
                 type: "POST",
                 url: '/api/tasks/',
-                data: {"projects_id":project.projects_id}, //, "limit": limit.start + ', ' + limit.end},
+                data: {
+                    "projects_id": project.projects_id,
+                    "order": "tasks_status.tasks_status_id, tasks_priority.tasks_priority_id DESC, tasks.tasks_deadline"
+                }, //, "limit": limit.start + ', ' + limit.end},
                 success: function(data) {
                     tasks = data;
-                    var table = '<table>';
+
+                    var table = '<table class="dataTable">';
                     table += '<tr>';
-                    table += '<th>Task Code</th>';
-                    table += '<th>Name</th>';
-                    table += '<th>Priority</th>';
-                    table += '<th>Assignee</th>';
+                    table += '<th></th>';
                     table += '<th>Status</th>';
+                    table += '<th>Task</th>';
+                    table += '<th>Code</th>';
+                    table += '<th>Assignee</th>';
                     table += '<th>Deadline</th>';
                     table += '</tr>';
                     tasks.forEach(function(task) {
                         table += '<tr>';
-                        table += '<td>' + task.projects_code + '-' + task.tasks_count + '</td>';
-                        table += '<td><a href="/tasks/task?task=' + task.projects_code + '-' + task.tasks_count + '">' + task.tasks_title + '</a></td>';
-                        table += '<td>' + task.tasks_priority + '</td>';
-                        table += '<td><a href="/users/user?name=' + task.tasks_assignee.users_name + '">' + task.tasks_assignee.users_name + '</a></td>';
+                        table += '<td class="priority ' + task.tasks_priority + '"></td>';
                         table += '<td>' + task.tasks_status + '</td>';
+                        table += '<td><a href="/tasks/task?task=' + task.tasks_code + '">' + task.tasks_title + '</a></td>';
+                        table += '<td>' + task.tasks_code + '</td>';
+                        table += '<td><a href="/users/user?name=' + task.tasks_assignee.users_name + '">' + task.tasks_assignee.users_name + '</a></td>';
                         table += '<td>' + task.tasks_deadline + '</td>';
                         table += '</tr>';
                     });
                     table += '</table>';
-                    tasksTab.html(table);
+                    $('#project .tab-content [data-id="tasks"]').append(table);
                 },
                 error: function(data) {
                     var error = $.parseJSON(data.responseText);
-                    $('#tasks').append(error.message);
-                    $('#tasks .loader').remove();
+                    html.append('<div data-id="tasks"><p>' + error.message + '</p></div>');
                 }
+            }).always(function() {
+                $('.loader', tabs).remove();
+                tabs.append('<a href="#tasks">Tasks</a>');
+
+                $('body').trigger('complete');
             });
 
-            $('body').trigger('complete');
+
         },
         error: function(data) {
             var error = $.parseJSON(data.responseText);
-            $('#project').append('<p>' + error.message + '</p>');
-            $('#tasks').remove();
+            $('#project .tab-content [data-id="overview"]').append('<p>' + error.message + '</p>');
+            $('#project .tab-content [data-id="tasks"]').remove();
         }
-    }).always(function() {
-        $('> .loader', html).remove();
     });
 
     $('body').on('complete', function() {
         createTabs();
+        createFilterBy(tasks);
     });
-
 });
