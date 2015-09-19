@@ -3,6 +3,7 @@
 if (!empty($_POST['filterOut'])) {
     $filterOut = $_POST['filterOut'];
     foreach($filterOut as $col => $val) {
+        $col = explode('_', $col)[0] . '.' . $col; // @todo: this feels like a hack - but a super clever one
         $SQL .= " AND " . $col . " NOT IN ('" . implode("','",$val) . "')";
     }
 }
