@@ -126,7 +126,7 @@
 // exit;
 
 $query = $con->prepare($SQL);
-$query -> execute();
+$query->execute();
 
 if ($query->errorCode() !== "00000") {
     header("HTTP/1.0 400 Bad Request", 400);

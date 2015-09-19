@@ -4,6 +4,8 @@
 
 html {
 	height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 body.grid {
@@ -47,6 +49,13 @@ a {
 
 .success-msg {
     color: @success-text;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both;
+    float: none;
 }
 
 /* -----------------  Alerts */

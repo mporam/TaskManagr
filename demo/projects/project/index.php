@@ -18,7 +18,7 @@ $GLOBALS['js']->addScript('projects/project.js');
         </div>
 
         <div data-id="tasks">
-            <div class="grid"><?php // @todo: this needs to change but will do for now ?>
+            <div class="clearfix">
                 <div class="right">
                     <?php $module->filterBy(); ?>
                     <?php $module->orderBy(); ?>

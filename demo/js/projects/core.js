@@ -50,7 +50,6 @@ $(function() {
     display({order: "projects_created ASC"});
 
     $('body').on('complete', function() {
-        request = undefined;
         //createOrderBy(options.orderBy);
         createFilterBy(projects);
     });
@@ -65,6 +64,6 @@ $(function() {
         data.filterOut = filters;
         data.order = "projects_created ASC";
         display(data);
-    })
+    });
 
 });
