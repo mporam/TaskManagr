@@ -172,12 +172,14 @@ var createTabs = function() {
         var content = $(this).attr('href').replace('#', '');
         openTab(content);
     });
-
-
 };
 
 var openTab = function(tab) {
-    if ($('[data-id="' + tab + '"]').length > 0 && $('[href="#' + tab + '"]').length > 0) {
+    if (tab.length  == 0) {
+        tab = $('.tabs a').first().attr('href').replace('#', '');
+        location.hash = tab;
+    }
+    if ($('[href="#' + tab + '"]').length > 0 && $('[data-id="' + tab + '"]').length > 0) {
         $('.tabs a').removeClass('active');
         $('[href="#' + tab + '"]').addClass('active')
         $('.tab-content > div').removeClass('open');
