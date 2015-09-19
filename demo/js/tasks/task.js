@@ -2,7 +2,8 @@ get.projects_code = get.task.split("-")[0];
 get.tasks_count = get.task.split("-")[1];
 
 $(function() {
-    var task, comments;
+    var content = $('#task'),
+        task, comments;
 
     $.ajax({
         type: "POST",
@@ -10,21 +11,26 @@ $(function() {
         data: {"tasks_count" : get.tasks_count, "projects_code" : get.projects_code},
         success: function(data) {
             task = data[0]; // uses [0] as we only want one task
-            $('#task').append('<h2>' + task.tasks_title + '</h2>');
-            $('#task').append('<ul><li>Status: ' + task.tasks_status + '</li>');
-            $('#task').append('<li>Priority: ' + task.tasks_priority + '</li>');
-            $('#task').append('<li>Deadline: ' + task.tasks_deadline + '</li>');
-            $('#task').append('<li>Type: ' + task.tasks_type + '</li>');
-            $('#task').append('<li>Assigned to: ' + task.tasks_assignee.users_name + '</li>');
-            $('#task').append('<li>Reported by: ' + task.tasks_reporter.users_name + '</li>');
-            $('#task').append('<li>Relates to: <a href="/tasks/task/?task=' + task.projects_code + '-' + task.tasks_related.tasks_count + '">' + task.projects_code + '-' + task.tasks_related.tasks_count + ' ' + task.tasks_related.tasks_title + '</a></li></ul>');
-            $('#task').append('<div><h5>Description</h5><p>' + task.tasks_desc + '</p></div>');
+            if (session.users_type < 4) {
+                content.append('<a href="/tasks/new/?task=' + task.tasks_code + '" class="btn right">Edit Task</a>');
+            }
+            content.append('<h2>' + task.tasks_title + '</h2>');
+            content.append('<ul><li>Status: ' + task.tasks_status + '</li>');
+            content.append('<li>Priority: ' + task.tasks_priority + '</li>');
+            content.append('<li>Deadline: ' + task.tasks_deadline + '</li>');
+            content.append('<li>Type: ' + task.tasks_type + '</li>');
+            content.append('<li>Assigned to: ' + task.tasks_assignee.users_name + '</li>');
+            content.append('<li>Reported by: ' + task.tasks_reporter.users_name + '</li>');
+            if (task.tasks_related) {
+                content.append('<li>Relates to: <a href="/tasks/task/?task=' + task.projects_code + '-' + task.tasks_related.tasks_count + '">' + task.projects_code + '-' + task.tasks_related.tasks_count + ' ' + task.tasks_related.tasks_title + '</a></li></ul>');
+            }
+            content.append('<div><h5>Description</h5><p>' + task.tasks_desc + '</p></div>');
 
             getComments(task);
         },
         error: function(data) {
             data = $.parseJSON(data.responseText);
-            $('#task').html('<h2>' + data.code + ' - ' + data.message + '</h2>');
+            content.html('<h2>' + data.code + ' - ' + data.message + '</h2>');
         }
     }).always(function() {
         $('#task .loader').remove();
@@ -71,4 +77,4 @@ var getComments = function(task) {
     }).always(function() {
         $('#comments .loader').remove();
     });
-}
+};
