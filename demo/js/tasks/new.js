@@ -1,57 +1,80 @@
 var tasks, projects, users, relatedRequest;
 $(function() {
 
-    $('textarea').ckeditor();
+    $.when(
 
-    $.ajax({
-        type: "POST",
-        url: '/api/projects/',
-        data: '',
-        success: function(data, textStatus, jqXHR) {
-            projects = data;
-            projects.forEach(function(project) {
-                $('#tasks_projects').append('<option value="' + project.projects_id + '">' + project.projects_name + '</option>');
-            });
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: '/api/projects/',
+            data: '',
+            success: function(data, textStatus, jqXHR) {
+                projects = data;
+                projects.forEach(function(project) {
+                    $('#tasks_projects').append('<option value="' + project.projects_id + '">' + project.projects_name + '</option>');
+                });
+            }
+        }),
 
-    $.ajax({
-        type: "POST",
-        url: '/api/users/',
-        data: {"users_type": "1"},
-        success: function(data, textStatus, jqXHR) {
-            users = data;
-            users.forEach(function(user) {
-                $('#tasks_assignee').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
-                $('#tasks_reporter').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
-            });
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: '/api/users/',
+            data: {"users_type": "1"},
+            success: function(data, textStatus, jqXHR) {
+                users = data;
+                users.forEach(function(user) {
+                    $('#tasks_assignee').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
+                    $('#tasks_reporter').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
+                });
+            }
+        }),
 
-    $.ajax({
-        type: "POST",
-        url: '/api/generic/',
-        data: {"table_name": "tasks_type"},
-        success: function(data, textStatus, jqXHR) {
-            data.forEach(function(type) {
-                $('#tasks_type').append('<option value="' + type.tasks_type_id + '">' + type.tasks_type + '</option>');
-            });
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: '/api/generic/',
+            data: {"table_name": "tasks_type"},
+            success: function(data, textStatus, jqXHR) {
+                data.forEach(function(type) {
+                    $('#tasks_type').append('<option value="' + type.tasks_type_id + '">' + type.tasks_type + '</option>');
+                });
+            }
+        }),
 
-    $.ajax({
-        type: "POST",
-        url: '/api/generic/',
-        data: {"table_name": "tasks_priority", "order": "tasks_priority_id"},
-        success: function(data, textStatus, jqXHR) {
-            data.forEach(function(priority) {
-                if (priority.tasks_priority_id == '2') {
-                    $('#tasks_priority').append('<option value="' + priority.tasks_priority_id + '" selected>' + priority.tasks_priority+ '</option>');
-                } else {
-                    $('#tasks_priority').append('<option value="' + priority.tasks_priority_id + '">' + priority.tasks_priority+ '</option>');
+        $.ajax({
+            type: "POST",
+            url: '/api/generic/',
+            data: {"table_name": "tasks_priority", "order": "tasks_priority_id"},
+            success: function(data, textStatus, jqXHR) {
+                data.forEach(function(priority) {
+                    if (priority.tasks_priority_id == '2') {
+                        $('#tasks_priority').append('<option value="' + priority.tasks_priority_id + '" selected>' + priority.tasks_priority+ '</option>');
+                    } else {
+                        $('#tasks_priority').append('<option value="' + priority.tasks_priority_id + '">' + priority.tasks_priority+ '</option>');
+                    }
+                });
+            }
+        })
+    ).then(function() {
+        if (typeof get.task != 'undefined' && get.task.length > 0) {
+            get.projects_code = get.task.split("-")[0];
+            get.tasks_count = get.task.split("-")[1];
+
+            $('h3').text('Edit Task: ' + get.task);
+
+            $.ajax({
+                type: "POST",
+                url: '/api/tasks/',
+                data: {"tasks_count": get.tasks_count, "projects_code": get.projects_code},
+                success: function (data) {
+                    $.each(data[0], function (field, value) {
+                        if ($('#' + field).length > 0 && value) {
+                            $('#' + field).val(value);
+                        }
+                    });
                 }
             });
-        }
+        };
+
+        $('textarea').ckeditor();
     });
 
     // trigger related search on keyup
@@ -72,7 +95,7 @@ $(function() {
         // needs validation
         var data = {
             tasks_project: $('#tasks_projects').val(),
-            tasks_title: $('#tasks_name').val(),
+            tasks_title: $('#tasks_title').val(),
             tasks_type: $('#tasks_type').val(),
             tasks_assignee: $('#tasks_assignee').val(),
             tasks_reporter: $('#tasks_reporter').val(),
