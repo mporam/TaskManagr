@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="tasks_name">Task Name*</label>
-                <input type="text" name="tasks_name" id="tasks_name" required />
+                <input type="text" name="tasks_title" id="tasks_title" required />
             </div>
             <div class="form-group">
                 <label for="tasks_type">Type*</label>

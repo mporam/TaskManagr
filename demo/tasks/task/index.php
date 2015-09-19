@@ -14,6 +14,7 @@
 <div id="task">
     <img src="/images/site/icons/loading.gif" class="loader">
 </div>
+
 <div id="comments">
     <h3>Comments</h3>
     <img src="/images/site/icons/loading.gif" class="loader">
