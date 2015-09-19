@@ -19,19 +19,19 @@
             </div>
             <div class="form-group">
                 <label for="tasks_type">Type*</label>
-                <select name="tasks_type" id="tasks_type" required>
+                <select name="tasks_type_id" id="tasks_type" required>
                     <option></option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="tasks_assignee">Assignee*</label>
-                <select name=tasks_assignee" id="tasks_assignee" required>
+                <select name="tasks_assignee" id="tasks_assignee" required>
                     <option value="<?php echo $_SESSION['users_id']; ?>">Current User - <?php echo $_SESSION['users_name']; ?></option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="tasks_reporter">Reporter*</label>
-                <select name=tasks_reporter" id="tasks_reporter" required>
+                <select name="tasks_reporter" id="tasks_reporter" required>
                     <option value="<?php echo $_SESSION['users_id']; ?>">Current User - <?php echo $_SESSION['users_name']; ?></option>
                 </select>
             </div>
@@ -58,7 +58,7 @@
             </div>
             <p>* - required fields</p>
             <div class="form-group">
-                <input type="submit" value="Create" />
+                <input type="submit" value="Save" class="btn" />
             </div>
         </form>
     </div>

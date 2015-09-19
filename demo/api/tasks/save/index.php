@@ -15,7 +15,7 @@ if (!empty($_POST)) {
         $desc =     trim($_POST['tasks_desc']);
         $status =   $_POST['tasks_status'];
         $priority = $_POST['tasks_priority'];
-        $deadline = $_POST['tasks_deadline'];
+        $deadline = (date::validateDate($_POST['tasks_deadline']) ? $_POST['tasks_deadline'] : NULL);
         $reporter = (empty($_POST['tasks_reporter']) ? $_SESSION['user_id'] : $_POST['tasks_reporter']);
         $assignee = (empty($_POST['tasks_assignee']) ? NULL : $_POST['tasks_assignee']);
         $related  = (empty($_POST['tasks_related']) ? 0 : $_POST['tasks_related']);
@@ -63,25 +63,24 @@ if (!empty($_POST)) {
         header("HTTP/1.0 500 Internal Server Error", 500);
 		die(json_encode($result));
 	}
-	
+
 	if (empty($count)) {
-        $insertID = $con->lastInsertId();
+        $insertID = (!empty($_POST['tasks_id']) ? $_POST['tasks_id'] : $con->lastInsertId());
         $query = $con->prepare("SELECT `tasks_count` FROM tasks WHERE `tasks_id` = $insertID");
         $query->execute();
-		$lastid = $query->fetch();
-	} else {
-		$lastid = $count;
+		$count = $query->fetchColumn();
 	}
 
-    $query = $con->prepare("SELECT projects_code FROM projects WHERE projects_id = $project");
+    $query = $con->prepare("SELECT projects_code FROM projects LEFT JOIN tasks ON tasks.tasks_projects = projects.projects_id WHERE tasks.tasks_count = $count");
     $query->execute();
     $projectcode = $query->fetchColumn();
+
+    $taskcode = $projectcode . '-' . $count;
 
 	$result = array(
 		'code' => 200,
 		'message' => 'Task Saved',
-		'id' => $lastid,
-        'project' => $projectcode
+		'task_code' => $taskcode
 	);
 
     header('Content-Type: application/json');

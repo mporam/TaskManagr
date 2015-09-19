@@ -22,8 +22,10 @@ $(function() {
             success: function(data, textStatus, jqXHR) {
                 users = data;
                 users.forEach(function(user) {
-                    $('#tasks_assignee').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
-                    $('#tasks_reporter').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
+                    if (user.users_id != session.users_id) {
+                        $('#tasks_assignee').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
+                        $('#tasks_reporter').append('<option value="' + user.users_id + '">' + user.users_name + '</option>');
+                    }
                 });
             }
         }),
@@ -65,16 +67,31 @@ $(function() {
                 url: '/api/tasks/',
                 data: {"tasks_count": get.tasks_count, "projects_code": get.projects_code},
                 success: function (data) {
+                    $('#new-task').append('<input type="hidden" id="tasks_id" name="tasks_id" value="">');
+
                     $.each(data[0], function (field, value) {
-                        if ($('#' + field).length > 0 && value) {
-                            $('#' + field).val(value);
+                        if ($('[name="' + field + '"]').length > 0 && value) {
+                            if (typeof value == 'object' && value.users_id) {
+                                value = value.users_id;
+                            }
+
+                            if (field == 'tasks_related' && value) {
+                                // @todo: there must be a better way than this?!
+                                $('[name="tasks_related_hidden"]').val(value.tasks_id);
+                                value = data[0].projects_code + '-' + value.tasks_count + ' ' + value.tasks_title;
+                            }
+
+                            $('[name="' + field + '"]').val(value);
                         }
                     });
                 }
+            }).done(function() {
+                // must be here so data loads before converting to the editor
+                $('textarea').ckeditor();
             });
+        } else {
+            $('textarea').ckeditor();
         };
-
-        $('textarea').ckeditor();
     });
 
     // trigger related search on keyup
@@ -103,7 +120,8 @@ $(function() {
             tasks_priority: $('#tasks_priority').val(),
             tasks_deadline: $('#tasks_deadline').val(),
             tasks_related: $('#tasks_related_hidden').val(),
-            tasks_status: 1
+            tasks_status: 1,
+            tasks_id: $('#tasks_id').val()
         };
         $('.alert').remove();
 
@@ -112,7 +130,7 @@ $(function() {
             url: '/api/tasks/save/',
             data: data,
             success: function(result, textStatus, jqXHR) {
-                window.location = '/tasks/task/?task=' + result.project + '-' + result.id;
+                window.location = '/tasks/task/?task=' + result.task_code;
             },
             error: function(data) {
                 $('form').before('<div class="alert fail">' + data.message + ': ' + data.code + '</div>'); // @TODO: dont think this works!
