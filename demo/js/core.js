@@ -1,6 +1,9 @@
 $(function() {
+    window.loadingGif = $('<img src="/images/site/icons/loading.gif" class="loader">');
 
-    window.loadingGif = '<img src="/images/site/icons/loading.gif" class="loader">';
+    $('body').on('complete', function() {
+        request = undefined; // clear any ajax requests once page loaded
+    });
 
     $('.dropdown .title').click(function(e) {
         e.preventDefault();
