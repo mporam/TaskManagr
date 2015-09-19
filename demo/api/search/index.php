@@ -141,9 +141,9 @@ SELECT * FROM tasks
 
         $result[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];
 
-        $result[$k]['tasks_deadline'] = showDate($task['tasks_deadline']);
-        $result[$k]['tasks_created'] = showDate($task['tasks_created']);
-        $result[$k]['tasks_updated'] = showDate($task['tasks_updated']);
+        $result[$k]['tasks_deadline'] = date::showDate($task['tasks_deadline']);
+        $result[$k]['tasks_created'] = date::showDate($task['tasks_created']);
+        $result[$k]['tasks_updated'] = date::showDate($task['tasks_updated']);
     }
 
 } else if ($_POST['search_type'] == 'projects') {

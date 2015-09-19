@@ -54,7 +54,7 @@ foreach($comments as $k =>$comment) {
     $user = $query->fetch(PDO::FETCH_ASSOC);
     $comments[$k]['comment_user'] = (empty($user) ? 'Unassigned' : $user);
     
-    $comments[$k]['comments_added'] = showDate($comment['comments_added'], 'd/m/Y', true);
+    $comments[$k]['comments_added'] = date::showDate($comment['comments_added'], 'd/m/Y', true);
 }
 
 header('Content-Type: application/json');

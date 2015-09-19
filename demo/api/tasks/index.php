@@ -168,7 +168,7 @@ foreach($tasks as $k=>$task) {
     $tasks[$k]['tasks_reporter'] = (empty($reporter) ? 'Unassigned' : $reporter);
 
     $tasks_related = $task['tasks_related'];
-    $query = $con->prepare("SELECT `tasks_count`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
+    $query = $con->prepare("SELECT `tasks_id`, `tasks_count`, `tasks_title` FROM tasks WHERE `tasks_id` = $tasks_related");
     $query -> execute();
     $tasks[$k]['tasks_related'] = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -201,9 +201,9 @@ foreach($tasks as $k=>$task) {
     
     $tasks[$k]['tasks_code'] = $task['projects_code'] . '-' . $task['tasks_count'];
     
-    $tasks[$k]['tasks_deadline'] = showDate($task['tasks_deadline']);
-    $tasks[$k]['tasks_created'] = showDate($task['tasks_created']);
-    $tasks[$k]['tasks_updated'] = showDate($task['tasks_updated']);
+    $tasks[$k]['tasks_deadline'] = date::showDate($task['tasks_deadline']);
+    $tasks[$k]['tasks_created'] = date::showDate($task['tasks_created']);
+    $tasks[$k]['tasks_updated'] = date::showDate($task['tasks_updated']);
 }
 
 header('Content-Type: application/json');

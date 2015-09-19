@@ -14,29 +14,6 @@ $GLOBALS['url_parts'] = array_pad($url_parts, 3, '');
 // set the environment, 1 is dev, 0 is live
 $GLOBALS['environment'] = 1;
 
-function showDate($date, $format = 'd/m/Y', $showTime = false) {
-    if ($date == '0000-00-00') {
-        return 'Not set';
-    }
-    $today = date($format);
-    $stringDate = strtotime($date);
-    $newDate = date($format, $stringDate);
-    
-    if ($showTime) {
-        if ($today == $newDate) {
-            return 'Today at ' . date('G:i', $stringDate);
-        } else {
-            return $newDate . ' ' . date('G:i', $stringDate);
-        }
-    } else {
-        if ($today == $newDate) {
-            return 'Today';
-        } else {
-            return $newDate;
-        }
-    }
-}
-
 function get_gravatar($email, $default = '') {
     $url = 'http://www.gravatar.com/avatar/';
     $url .= md5(strtolower(trim($email)));
@@ -58,6 +35,8 @@ function error($error = null) {
     file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/api/logs/error.log', $message . "
     \n\r", FILE_APPEND);
 }
+
+
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/autoloader.php');
 
